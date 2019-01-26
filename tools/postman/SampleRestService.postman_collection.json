@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "24c1ad28-63c0-48f0-9800-81a85285a874",
+		"name": "SampleRestService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create-Cutomer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n\t{\r\n\t\t\"name\" : \"ユーザーＣ\",\r\n\t\t\"address\" : \"埼玉県\",\r\n\t\t\"tel\" : \"012-345-6789\"\r\n\t}\r\n]"
+				},
+				"url": {
+					"raw": "http://localhost:9080/sample-rest-service-webapi/api/v1/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"sample-rest-service-webapi",
+						"api",
+						"v1",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create-Cutomers",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n\t{\r\n\t    \"name\" : \"ユーザーＣ\",\r\n    \t\"address\" : \"埼玉県\",\r\n    \t\"tel\" : \"012-345-6789\"\r\n\t},\r\n\t{\r\n\t    \"name\" : \"ユーザーＤ\",\r\n    \t\"address\" : \"神奈川県\",\r\n    \t\"tel\" : \"012-345-6789\"\r\n\t}\r\n]"
+				},
+				"url": {
+					"raw": "http://localhost:9080/sample-rest-service-webapi/api/v1/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"sample-rest-service-webapi",
+						"api",
+						"v1",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read-Customer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9080/sample-rest-service-webapi/api/v1/customers/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"sample-rest-service-webapi",
+						"api",
+						"v1",
+						"customers",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read-Cutomers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9080/sample-rest-service-webapi/api/v1/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"sample-rest-service-webapi",
+						"api",
+						"v1",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update-Cutomer",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n\t{\r\n\t\t\"id\" : 147,\r\n\t\t\"name\" : \"ユーザーＣ\",\r\n\t\t\"address\" : \"埼玉県\",\r\n\t\t\"tel\" : \"012-345-6789\"\r\n\t}\r\n]"
+				},
+				"url": {
+					"raw": "http://localhost:9080/sample-rest-service-webapi/api/v1/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"sample-rest-service-webapi",
+						"api",
+						"v1",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete-Customer",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9080/sample-rest-service-webapi/api/v1/customers/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"sample-rest-service-webapi",
+						"api",
+						"v1",
+						"customers",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
