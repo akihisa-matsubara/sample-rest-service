@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "24c1ad28-63c0-48f0-9800-81a85285a874",
+		"_postman_id": "25813105-f412-41d2-8537-97b5708ac5a1",
 		"name": "SampleRestService",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -19,7 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\r\n\t{\r\n\t\t\"name\" : \"ユーザーＣ\",\r\n\t\t\"address\" : \"埼玉県\",\r\n\t\t\"tel\" : \"012-345-6789\"\r\n\t}\r\n]"
+					"raw": "[\n    {\n        \"nameKanji\": \"さんぷる　登録\",\n        \"nameKana\": \"サンプル　トウロク\",\n        \"gender\": \"1\",\n        \"birthday\": \"1980-02-06\",\n        \"addressZip\": \"1000001\",\n        \"address\": \"東京都千代田区千代田１－１－１\"\n    }\n]"
 				},
 				"url": {
 					"raw": "http://localhost:9080/sample-rest-service-webapi/api/v1/customers",
@@ -52,7 +52,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\r\n\t{\r\n\t    \"name\" : \"ユーザーＣ\",\r\n    \t\"address\" : \"埼玉県\",\r\n    \t\"tel\" : \"012-345-6789\"\r\n\t},\r\n\t{\r\n\t    \"name\" : \"ユーザーＤ\",\r\n    \t\"address\" : \"神奈川県\",\r\n    \t\"tel\" : \"012-345-6789\"\r\n\t}\r\n]"
+					"raw": "[\n    {\n        \"nameKanji\": \"さんぷる　登録連続１\",\n        \"nameKana\": \"サンプル　トウロクレンゾクイチ\",\n        \"gender\": \"1\",\n        \"birthday\": \"1980-02-01\",\n        \"addressZip\": \"1000001\",\n        \"address\": \"東京都千代田区千代田１－２－１\"\n    },\n    {\n        \"nameKanji\": \"さんぷる　登録連続２\",\n        \"nameKana\": \"サンプル　トウロクレンゾクニ\",\n        \"gender\": \"1\",\n        \"birthday\": \"1980-02-02\",\n        \"addressZip\": \"1000001\",\n        \"address\": \"東京都千代田区千代田１－２－３\"\n    }\n]"
 				},
 				"url": {
 					"raw": "http://localhost:9080/sample-rest-service-webapi/api/v1/customers",
@@ -81,7 +81,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:9080/sample-rest-service-webapi/api/v1/customers/1",
+					"raw": "http://localhost:9080/sample-rest-service-webapi/api/v1/customers/C0000030",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -92,7 +92,7 @@
 						"api",
 						"v1",
 						"customers",
-						"1"
+						"C0000030"
 					]
 				}
 			},
@@ -138,7 +138,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\r\n\t{\r\n\t\t\"id\" : 147,\r\n\t\t\"name\" : \"ユーザーＣ\",\r\n\t\t\"address\" : \"埼玉県\",\r\n\t\t\"tel\" : \"012-345-6789\"\r\n\t}\r\n]"
+					"raw": "[\n    {\n        \"customerNo\": \"C0000030\",\n        \"nameKanji\": \"さんぷる　更新\",\n        \"nameKana\": \"サンプル　コウシン\",\n        \"gender\": \"2\",\n        \"birthday\": \"1990-12-31\",\n        \"addressZip\": \"1000002\",\n        \"address\": \"東京都千代田区千代田２－２－２\"\n    },\n    {\n        \"customerNo\": \"C0000034\",\n        \"nameKanji\": \"さんぷる　更新４\",\n        \"nameKana\": \"サンプル　コウシンヨン\",\n        \"gender\": \"2\",\n        \"birthday\": \"1990-12-01\",\n        \"addressZip\": \"1000002\",\n        \"address\": \"東京都千代田区千代田２－２－２\"\n    }\n]"
 				},
 				"url": {
 					"raw": "http://localhost:9080/sample-rest-service-webapi/api/v1/customers",
@@ -167,7 +167,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:9080/sample-rest-service-webapi/api/v1/customers/3",
+					"raw": "http://localhost:9080/sample-rest-service-webapi/api/v1/customers/C0000066",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -178,7 +178,7 @@
 						"api",
 						"v1",
 						"customers",
-						"3"
+						"C0000066"
 					]
 				}
 			},
