@@ -1,12 +1,10 @@
 package jp.co.jaxrs.sample;
 
+import jp.co.jaxrs.sample.provider.resource.CustomerResource;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
-
-import jp.co.jaxrs.sample.provider.resource.CustomerResource;
 
 @ApplicationPath("/api/v1")
 public class EntryPoint extends Application {
@@ -21,7 +19,7 @@ public class EntryPoint extends Application {
 
 	@Override
 	public Set<Object> getSingletons() {
-		Set<Object> resources = new HashSet<Object>();
+		Set<Object> resources = new HashSet<>();
 		resources.add(new CustomerResource());
 		return resources;
 	}
