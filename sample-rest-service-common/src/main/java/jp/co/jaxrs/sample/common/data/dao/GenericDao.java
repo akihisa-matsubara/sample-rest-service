@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
  *
  * @param <T> Entity
  */
-public class GenericDao<T> {
+public abstract class GenericDao<T> {
 
   /** mydb EntityManager. */
   @PersistenceContext(unitName = "mydb")

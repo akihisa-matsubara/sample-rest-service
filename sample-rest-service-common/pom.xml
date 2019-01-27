@@ -5,8 +5,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sample-rest-service-webapi</artifactId>
-    <packaging>war</packaging>
+    <artifactId>sample-rest-service-common</artifactId>
+    <packaging>jar</packaging>
 
     <parent>
         <groupId>jp.co.restservice.sample</groupId>
@@ -14,23 +14,12 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <dependencies>
-        <dependency>
-            <groupId>jp.co.restservice.sample</groupId>
-            <artifactId>sample-rest-service-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
-
     <build>
-        <finalName>sample-rest-service-webapi</finalName>
+        <finalName>sample-rest-service-common</finalName>
         <plugins>
             <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.2.2</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.1</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -43,5 +32,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
