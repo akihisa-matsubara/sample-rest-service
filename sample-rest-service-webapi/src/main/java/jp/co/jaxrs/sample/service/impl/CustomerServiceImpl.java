@@ -1,93 +1,116 @@
 package jp.co.jaxrs.sample.service.impl;
 
+import jp.co.jaxrs.sample.common.data.dao.CustomerDao;
+import jp.co.jaxrs.sample.common.data.dao.SequenceGenerateDao;
+import jp.co.jaxrs.sample.common.data.entity.CustomerEntity;
+import jp.co.jaxrs.sample.provider.requestdto.CustomerDto;
+import jp.co.jaxrs.sample.service.CustomerService;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-
 import org.apache.commons.lang3.StringUtils;
 
-import jp.co.jaxrs.sample.common.data.dao.SequenceGenerateDao;
-import jp.co.jaxrs.sample.common.data.dao.TCustomerDao;
-import jp.co.jaxrs.sample.common.data.entity.TCustomerEntity;
-import jp.co.jaxrs.sample.provider.requestdto.CustomerDto;
-import jp.co.jaxrs.sample.service.CustomerService;
-
+/**
+ * 顧客サービス実装.
+ */
 @ApplicationScoped
 public class CustomerServiceImpl implements CustomerService {
-	@Inject
-	private TCustomerDao dao;
 
-	@Inject
-	private SequenceGenerateDao sequenceDao;
+  /** 顧客Dao. */
+  @Inject
+  private CustomerDao dao;
 
-	@Override
-	@Transactional(rollbackOn = Exception.class)
-	public List<TCustomerEntity> getCustomers() {
-		return dao.findAll();
-	}
+  /** シーケンス生成Dao. */
+  @Inject
+  private SequenceGenerateDao sequenceDao;
 
-	@Override
-	@Transactional(rollbackOn = Exception.class)
-	public TCustomerEntity getCustomer(String customerNo) {
-		return dao.findById(customerNo);
-	}
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @Transactional(rollbackOn = Exception.class)
+  public List<CustomerEntity> getCustomers() {
+    return dao.findAll();
+  }
 
-	@Override
-	@Transactional(rollbackOn = Exception.class)
-	public void createCustomer(CustomerDto form) {
-		TCustomerEntity customer = new TCustomerEntity();
-		customer.setCustomerNo(generateCustomerNo());
-		customer.setNameKanji(form.getNameKanji());
-		customer.setNameKana(form.getNameKana());
-		customer.setGender(form.getGender());
-		customer.setBirthday(form.getBirthday());
-		customer.setAddressZip(form.getAddressZip());
-		customer.setAddress(form.getAddress());
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @Transactional(rollbackOn = Exception.class)
+  public CustomerEntity getCustomer(String customerNo) {
+    return dao.findById(customerNo);
+  }
 
-		// common culomn
-		customer.setCreationUserId("customers");
-		customer.setCreationDate(LocalDateTime.now(Clock.systemDefaultZone()));
-		customer.setUpdatedUserId("customers");
-		customer.setUpdatedDate(LocalDateTime.now(Clock.systemDefaultZone()));
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @Transactional(rollbackOn = Exception.class)
+  public void createCustomer(CustomerDto form) {
+    CustomerEntity customer = new CustomerEntity();
+    customer.setCustomerNo(generateCustomerNo());
+    customer.setNameKanji(form.getNameKanji());
+    customer.setNameKana(form.getNameKana());
+    customer.setGender(form.getGender());
+    customer.setBirthday(form.getBirthday());
+    customer.setAddressZip(form.getAddressZip());
+    customer.setAddress(form.getAddress());
 
-		dao.create(customer);
-	}
+    // common culomn
+    customer.setCreationUserId("customers");
+    customer.setCreationDate(LocalDateTime.now(Clock.systemDefaultZone()));
+    customer.setUpdatedUserId("customers");
+    customer.setUpdatedDate(LocalDateTime.now(Clock.systemDefaultZone()));
 
-	@Override
-	@Transactional(rollbackOn = Exception.class)
-	public int updateCustomer(CustomerDto form) {
-		TCustomerEntity customer = getCustomer(form.getCustomerNo());
-		if (customer == null) {
-			return 0;
-		}
+    dao.create(customer);
+  }
 
-		customer.setNameKanji(form.getNameKanji());
-		customer.setNameKana(form.getNameKana());
-		customer.setGender(form.getGender());
-		customer.setBirthday(form.getBirthday());
-		customer.setAddressZip(form.getAddressZip());
-		customer.setAddress(form.getAddress());
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @Transactional(rollbackOn = Exception.class)
+  public int updateCustomer(CustomerDto form) {
+    CustomerEntity customer = getCustomer(form.getCustomerNo());
+    if (customer == null) {
+      return 0;
+    }
 
-		// common culomn
-		customer.setUpdatedUserId("customers");
-		customer.setUpdatedDate(LocalDateTime.now(Clock.systemDefaultZone()));
-		dao.update(customer);
+    customer.setNameKanji(form.getNameKanji());
+    customer.setNameKana(form.getNameKana());
+    customer.setGender(form.getGender());
+    customer.setBirthday(form.getBirthday());
+    customer.setAddressZip(form.getAddressZip());
+    customer.setAddress(form.getAddress());
 
-		return 1;
-	}
+    // common culomn
+    customer.setUpdatedUserId("customers");
+    customer.setUpdatedDate(LocalDateTime.now(Clock.systemDefaultZone()));
+    dao.update(customer);
 
-	@Override
-	@Transactional(rollbackOn = Exception.class)
-	public void deleteCustomer(String customerNo) {
-		dao.deleteById(customerNo);
-	}
+    return 1;
+  }
 
-	private String generateCustomerNo() {
-		int sequenceNo = sequenceDao.getCustomerNo();
-		return "C" + StringUtils.leftPad(String.valueOf(sequenceNo), 7, "0");
-	}
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @Transactional(rollbackOn = Exception.class)
+  public void deleteCustomer(String customerNo) {
+    dao.deleteById(customerNo);
+  }
+
+  /**
+   * 顧客番号生成.
+   *
+   * @return 顧客番号
+   */
+  private String generateCustomerNo() {
+    int sequenceNo = sequenceDao.generateCustomerNo();
+    return "C" + StringUtils.leftPad(String.valueOf(sequenceNo), 7, "0");
+  }
 }

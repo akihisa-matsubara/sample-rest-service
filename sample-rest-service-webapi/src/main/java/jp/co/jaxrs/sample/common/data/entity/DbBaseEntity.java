@@ -1,37 +1,41 @@
 package jp.co.jaxrs.sample.common.data.entity;
 
-import java.io.Serializable;
+import jp.co.jaxrs.sample.common.data.converter.LocalDateTimeToTimestampConverter;
 import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
-
-import jp.co.jaxrs.sample.common.data.converter.LocalDateTimeToTimestampConverter;
 import lombok.Data;
 
+/**
+ * DB基底Entity.
+ */
 @Data
 @MappedSuperclass
-public abstract class DbBaseEntity implements Serializable {
+public abstract class DbBaseEntity {
 
-	private static final long serialVersionUID = 1L;
+  /** バージョン. */
+  @Version
+  @Column(name = "VERSION")
+  private int version;
 
-	@Version
-	@Column(name = "VERSION")
-	private int version;
+  /** 作成ユーザーID. */
+  @Column(name = "CREATION_USER_ID", updatable = false)
+  private String creationUserId;
 
-	@Column(name = "CREATION_USER_ID", updatable = false)
-	private String creationUserId;
+  /** 作成日時. */
+  @Column(name = "CREATION_DATE", updatable = false)
+  @Convert(converter = LocalDateTimeToTimestampConverter.class)
+  private LocalDateTime creationDate;
 
-	@Column(name = "CREATION_DATE", updatable = false)
-	@Convert(converter = LocalDateTimeToTimestampConverter.class)
-	private LocalDateTime creationDate;
+  /** 更新ユーザーID. */
+  @Column(name = "UPDATED_USER_ID")
+  private String updatedUserId;
 
-	@Column(name = "UPDATED_USER_ID")
-	private String updatedUserId;
+  /** 更新日時. */
+  @Column(name = "UPDATED_DATE")
+  @Convert(converter = LocalDateTimeToTimestampConverter.class)
+  private LocalDateTime updatedDate;
 
-	@Column(name = "UPDATED_DATE")
-	@Convert(converter = LocalDateTimeToTimestampConverter.class)
-	private LocalDateTime updatedDate;
 }

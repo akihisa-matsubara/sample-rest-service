@@ -6,21 +6,27 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
+/**
+ * サンプルアプリケーション.
+ */
 @ApplicationPath("/api/v1")
 public class EntryPoint extends Application {
-	// XXX getClasses or getSingletons return not Null
+  // XXX getClasses or getSingletons return not Null
 
-	// 都度インスタンスをNewしたい場合
-	//    public Set<Class<?>> getClasses() {
-	//        Set<Class<?>> classes = new HashSet<Class<?>>();
-	//        classes.add(SampleController.class);
-	//        return classes;
-	//    }
+  // 都度インスタンスをNewしたい場合
+  // public Set<Class<?>> getClasses() {
+  // Set<Class<?>> classes = new HashSet<Class<?>>();
+  // classes.add(SampleController.class);
+  // return classes;
+  // }
 
-	@Override
-	public Set<Object> getSingletons() {
-		Set<Object> resources = new HashSet<>();
-		resources.add(new CustomerResource());
-		return resources;
-	}
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Set<Object> getSingletons() {
+    Set<Object> resources = new HashSet<>();
+    resources.add(new CustomerResource());
+    return resources;
+  }
 }

@@ -1,24 +1,35 @@
 package jp.co.jaxrs.sample.provider.requestdto;
 
 import java.util.Date;
-
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 顧客Dto.
+ */
 @Getter
 @Setter
 public class CustomerDto {
-	private String customerNo;
 
-	private String nameKanji;
+  /** 顧客番号. */
+  private String customerNo;
 
-	private String nameKana;
+  /** 氏名漢字. */
+  private String nameKanji;
 
-	private String gender;
+  /** 氏名カナ. */
+  private String nameKana;
 
-	private Date birthday;
+  /** 性別. */
+  private String gender;
 
-	private String addressZip;
+  /** 生年月日. */
+  private Date birthday;
 
-	private String address;
+  /** 郵便番号. */
+  private String addressZip;
+
+  /** 住所. */
+  private String address;
+
 }
