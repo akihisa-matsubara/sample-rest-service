@@ -188,7 +188,7 @@ def createJDBCProvider():
         varValue = [["symbolicName", "DB2_JCC_DRIVER_PATH"], ["description", ""], ["value", db2lib.replace('\\', '/')]]
         AdminConfig.create('VariableSubstitutionEntry', varName, varValue)
         AdminConfig.save()
-        
+
     else:
         print "JDBCプロバイダ" + jdbcProviderName + "は作成済です"
     #endIf
@@ -402,7 +402,7 @@ createAuthDataEntry("auth-db2", "db2user", "db2user")
 createJDBCProvider()
 
 # データソース作成(datasourceName, jndiName, authDataName, dbName, schemaName, dbServer, dbport)
-createDataSource("db2", "db2", "auth-db2", "DMTDB", "DMTAPL1", "localhost", "50000")
+createDataSource("mydb", "mydb", "auth-db2", "mydb", "MYSCHEMA", "localhost", "50000")
 
 createDefaultJTADataSourceJNDIName()
 updateHeapSize()
