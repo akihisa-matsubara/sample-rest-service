@@ -6,7 +6,7 @@
 		<servlet-class>com.ibm.websphere.jaxrs.server.IBMRestServlet</servlet-class>
 		<init-param>
 			<param-name>javax.ws.rs.Application</param-name>
-			<param-value>jp.co.jaxrs.sample.SampleApplication</param-value>
+			<param-value>jp.co.jaxrs.sample.pres.SampleApplication</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
