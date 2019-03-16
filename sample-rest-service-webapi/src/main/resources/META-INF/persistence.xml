@@ -5,7 +5,11 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
     <persistence-unit name="mydb" transaction-type="JTA">
         <jta-data-source>jdbc/mydb</jta-data-source>
-        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <!-- converter -->
+        <class>jp.co.jaxrs.sample.common.data.converter.LocalDateTimeToTimestampConverter</class>
+
+        <!--  entity -->
+        <class>jp.co.jaxrs.sample.data.entity.CustomerEntity</class>
         <properties>
             <property name="jdbc.persistence.logging" value="true" />
             <property name="eclipselink.logging.level" value="FINE" />

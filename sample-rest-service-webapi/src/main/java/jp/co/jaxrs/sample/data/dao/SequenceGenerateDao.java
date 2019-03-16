@@ -1,4 +1,4 @@
-package jp.co.jaxrs.sample.common.data.dao;
+package jp.co.jaxrs.sample.data.dao;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -6,7 +6,7 @@ import javax.enterprise.context.ApplicationScoped;
  * シーケンス生成Dao.
  */
 @ApplicationScoped
-public class SequenceGenerateDao extends GenericDao<Integer> {
+public class SequenceGenerateDao extends MyDbDao<Integer> {
   private static final String SELECT_SEQ_CUSTOMER_NO = "SELECT NEXT VALUE FOR SEQ_CUSTOMER_NO FROM SYSIBM.DUAL";
 
   /**
@@ -15,7 +15,7 @@ public class SequenceGenerateDao extends GenericDao<Integer> {
    * @return 顧客番号シーケンス
    */
   public int generateCustomerNo() {
-    return (Integer) entityManager.createNativeQuery(SELECT_SEQ_CUSTOMER_NO).getSingleResult();
+    return (Integer) getEntityManager().createNativeQuery(SELECT_SEQ_CUSTOMER_NO).getSingleResult();
   }
 
 }

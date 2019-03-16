@@ -1,6 +1,6 @@
-package jp.co.jaxrs.sample.common.data.dao;
+package jp.co.jaxrs.sample.data.dao;
 
-import jp.co.jaxrs.sample.common.data.entity.CustomerEntity;
+import jp.co.jaxrs.sample.data.entity.CustomerEntity;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 
@@ -8,7 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
  * 顧客Dao.
  */
 @ApplicationScoped
-public class CustomerDao extends GenericDao<CustomerEntity> {
+public class CustomerDao extends MyDbDao<CustomerEntity> {
 
   /**
    * 全件検索.
@@ -17,7 +17,7 @@ public class CustomerDao extends GenericDao<CustomerEntity> {
    */
   @SuppressWarnings("unchecked")
   public List<CustomerEntity> findAll() {
-    return (List<CustomerEntity>) entityManager.createNamedQuery(CustomerEntity.FIND_ALL).getResultList();
+    return (List<CustomerEntity>) getEntityManager().createNamedQuery(CustomerEntity.FIND_ALL).getResultList();
   }
 
   /**
@@ -36,7 +36,7 @@ public class CustomerDao extends GenericDao<CustomerEntity> {
    * @param customerNo 顧客番号
    */
   public void deleteById(String customerNo) {
-    entityManager.createNamedQuery(CustomerEntity.DELETE_BY_ID)
+    getEntityManager().createNamedQuery(CustomerEntity.DELETE_BY_ID)
       .setParameter("customerNo", customerNo)
       .executeUpdate();
   }

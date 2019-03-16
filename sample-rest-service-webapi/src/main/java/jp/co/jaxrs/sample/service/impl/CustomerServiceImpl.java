@@ -1,8 +1,8 @@
 package jp.co.jaxrs.sample.service.impl;
 
-import jp.co.jaxrs.sample.common.data.dao.CustomerDao;
-import jp.co.jaxrs.sample.common.data.dao.SequenceGenerateDao;
-import jp.co.jaxrs.sample.common.data.entity.CustomerEntity;
+import jp.co.jaxrs.sample.data.dao.CustomerDao;
+import jp.co.jaxrs.sample.data.dao.SequenceGenerateDao;
+import jp.co.jaxrs.sample.data.entity.CustomerEntity;
 import jp.co.jaxrs.sample.provider.requestdto.CustomerDto;
 import jp.co.jaxrs.sample.service.CustomerService;
 import java.time.Clock;

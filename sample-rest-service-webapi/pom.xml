@@ -9,14 +9,14 @@
     <packaging>war</packaging>
 
     <parent>
-        <groupId>jp.co.restservice.sample</groupId>
+        <groupId>jp.co.jaxrs.sample</groupId>
         <artifactId>sample-rest-service-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <dependencies>
         <dependency>
-            <groupId>jp.co.restservice.sample</groupId>
+            <groupId>jp.co.jaxrs.sample</groupId>
             <artifactId>sample-rest-service-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

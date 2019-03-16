@@ -1,6 +1,6 @@
 package jp.co.jaxrs.sample.provider.resource;
 
-import jp.co.jaxrs.sample.common.data.entity.CustomerEntity;
+import jp.co.jaxrs.sample.data.entity.CustomerEntity;
 import jp.co.jaxrs.sample.provider.requestdto.CustomerDto;
 import jp.co.jaxrs.sample.service.CustomerService;
 import java.util.List;

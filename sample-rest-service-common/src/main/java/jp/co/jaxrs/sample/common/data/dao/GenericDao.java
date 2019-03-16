@@ -1,7 +1,6 @@
 package jp.co.jaxrs.sample.common.data.dao;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  * mydb汎用Dao.
@@ -10,9 +9,12 @@ import javax.persistence.PersistenceContext;
  */
 public abstract class GenericDao<T> {
 
-  /** mydb EntityManager. */
-  @PersistenceContext(unitName = "mydb")
-  EntityManager entityManager;
+  /**
+   * EntityManagerを取得します.
+   *
+   * @return EntityManager
+   */
+  public abstract EntityManager getEntityManager();
 
   /**
    * Select.
@@ -22,7 +24,7 @@ public abstract class GenericDao<T> {
    * @return result
    */
   public T find(Class<T> entityClass, Object primaryKey) {
-    return entityManager.find(entityClass, primaryKey);
+    return getEntityManager().find(entityClass, primaryKey);
   }
 
   /**
@@ -31,7 +33,7 @@ public abstract class GenericDao<T> {
    * @param entity Entity
    */
   public void create(T entity) {
-    entityManager.persist(entity);
+    getEntityManager().persist(entity);
   }
 
   /**
@@ -40,7 +42,7 @@ public abstract class GenericDao<T> {
    * @param entity Entity
    */
   public void update(T entity) {
-    entityManager.merge(entity);
+    getEntityManager().merge(entity);
   }
 
   /**
@@ -49,7 +51,7 @@ public abstract class GenericDao<T> {
    * @param entity Entity
    */
   public void delete(T entity) {
-    entityManager.remove(entity);
+    getEntityManager().remove(entity);
   }
 
 }
