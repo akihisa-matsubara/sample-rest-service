@@ -1,6 +1,6 @@
-package jp.co.jaxrs.sample.common.data.entity;
+package jp.co.jaxrs.framework.data.entity;
 
-import jp.co.jaxrs.sample.common.data.converter.LocalDateTimeToTimestampConverter;
+import jp.co.jaxrs.framework.data.converter.LocalDateTimeToTimestampConverter;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Convert;

@@ -1,4 +1,4 @@
-package jp.co.jaxrs.sample.common.data.converter;
+package jp.co.jaxrs.framework.data.converter;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

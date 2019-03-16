@@ -1,6 +1,6 @@
 package jp.co.jaxrs.sample.data.dao;
 
-import jp.co.jaxrs.sample.common.data.dao.GenericDao;
+import jp.co.jaxrs.framework.data.dao.GenericDao;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import lombok.Getter;

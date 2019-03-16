@@ -1,4 +1,4 @@
-package jp.co.jaxrs.sample.common.data.dao;
+package jp.co.jaxrs.framework.data.dao;
 
 import javax.persistence.EntityManager;
 

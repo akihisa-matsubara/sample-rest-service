@@ -1,6 +1,6 @@
 package jp.co.jaxrs.sample.data.entity;
 
-import jp.co.jaxrs.sample.common.data.entity.DbBaseEntity;
+import jp.co.jaxrs.framework.data.entity.DbBaseEntity;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
