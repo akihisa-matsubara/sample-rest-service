@@ -102,6 +102,11 @@ public class CustomerServiceImpl implements CustomerService {
   @Override
   @Transactional(rollbackOn = Exception.class)
   public int deleteCustomer(String customerNo) {
+    CustomerEntity customer = getCustomer(customerNo);
+    if (customer == null) {
+      return 0;
+    }
+
     dao.deleteById(customerNo);
 
     return 1;

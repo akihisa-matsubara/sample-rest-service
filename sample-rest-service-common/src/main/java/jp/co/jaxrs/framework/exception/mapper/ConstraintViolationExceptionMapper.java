@@ -3,9 +3,8 @@ package jp.co.jaxrs.framework.exception.mapper;
 import jp.co.jaxrs.framework.code.ResultVo;
 import jp.co.jaxrs.framework.pres.dto.ResponseDto;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Set;
-import javax.validation.ConstraintViolation;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.validation.ConstraintViolationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -29,16 +28,16 @@ public class ConstraintViolationExceptionMapper implements ExceptionMapper<Const
    */
   @Override
   public Response toResponse(ConstraintViolationException exception) {
-    Set<ConstraintViolation<?>> constraintViolations = exception.getConstraintViolations();
+    List<String> errors = exception.getConstraintViolations().stream()
+        .map(cv -> {
+          PathImpl propertyPath = (PathImpl) cv.getPropertyPath();
+          return MessageFormat.format(MESSAGE_FORMAT, propertyPath.getLeafNode().getName(), cv.getInvalidValue(), cv.getMessage());
+        }).collect(Collectors.toList());
+
     ResponseDto responseDto = ResponseDto.builder()
         .result(ResultVo.FAILURE.getDecode())
-        .errors(new ArrayList<>())
+        .errors(errors)
         .build();
-
-    for (ConstraintViolation<?> cv : constraintViolations) {
-      PathImpl propertyPath = (PathImpl) cv.getPropertyPath();
-      responseDto.getErrors().add(MessageFormat.format(MESSAGE_FORMAT, propertyPath.getLeafNode().getName(), cv.getInvalidValue(), cv.getMessage()));
-    }
 
     return Response.status(Status.BAD_REQUEST).entity(responseDto).build();
   }
