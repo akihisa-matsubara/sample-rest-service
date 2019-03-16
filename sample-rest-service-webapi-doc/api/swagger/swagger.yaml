@@ -1,0 +1,78 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: sample-rest-service
+# during dev, should point to your local machine
+host: localhost:9080
+# basePath prefixes all resource paths 
+basePath: /sample-rest-service-webapi/api/v1/sample
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /customers/{customerNo}:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: hello_world
+    get:
+      description: 顧客情報を取得します
+      # used as the method name of the controller
+      operationId: customer
+      parameters:
+        - name: customerNo
+          in: path
+          description: 顧客番号
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/HelloWorldResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /customers:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: hello_world
+    get:
+      description: 顧客情報を一覧で取得します
+      # used as the method name of the controller
+      operationId: customers
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/HelloWorldResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+  HelloWorldResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
