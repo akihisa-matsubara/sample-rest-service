@@ -16,7 +16,7 @@ public class ResponseDto {
   /** 結果. */
   private String result;
 
-  /** 実行結果 */
+  /** 実行結果. */
   private Object response;
 
   /** エラー情報. */
