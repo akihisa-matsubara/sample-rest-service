@@ -1,4 +1,4 @@
-package jp.co.jaxrs.sample.data.entity;
+package jp.co.jaxrs.sample.common.data.entity;
 
 import jp.co.jaxrs.framework.data.entity.DbBaseEntity;
 import java.util.Date;

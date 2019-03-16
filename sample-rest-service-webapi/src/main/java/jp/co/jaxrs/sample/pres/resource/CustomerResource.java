@@ -1,10 +1,13 @@
 package jp.co.jaxrs.sample.pres.resource;
 
+import jp.co.jaxrs.framework.code.ResultVo;
+import jp.co.jaxrs.framework.pres.dto.ResponseDto;
 import jp.co.jaxrs.sample.biz.logic.CustomerService;
-import jp.co.jaxrs.sample.data.entity.CustomerEntity;
-import jp.co.jaxrs.sample.pres.requestdto.CustomerDto;
+import jp.co.jaxrs.sample.common.data.entity.CustomerEntity;
+import jp.co.jaxrs.sample.pres.dto.CustomerDto;
 import java.util.List;
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -28,63 +31,86 @@ public class CustomerResource {
   /**
    * 顧客情報を取得します.
    *
-   * @return 顧客情報
+   * @return Response Dto(顧客情報)
    */
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public List<CustomerEntity> getCustomers() {
-    return customerService.getCustomers();
+  public ResponseDto getCustomers() {
+    List<CustomerEntity> customers = customerService.getCustomers();
+    return ResponseDto.builder()
+        .result(ResultVo.SUCCESS.getDecode())
+        .response(customers)
+        .build();
   }
 
   /**
    * 指定した顧客情報を取得します.
    *
    * @param customerNo 顧客番号
-   * @return 顧客情報
+   * @return Response Dto(顧客情報)
    */
   @Path("{customerNo}")
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public CustomerEntity getCustomer(@PathParam("customerNo") String customerNo) {
-    return customerService.getCustomer(customerNo);
+  public ResponseDto getCustomer(@PathParam("customerNo") String customerNo) {
+    CustomerEntity customer = customerService.getCustomer(customerNo);
+    return ResponseDto.builder()
+        .result(ResultVo.SUCCESS.getDecode())
+        .response(customer)
+        .build();
   }
 
   /**
    * 顧客情報を作成します.
    *
    * @param formList 顧客情報
+   * @return Response Dto
    */
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  public void createCustomer(List<CustomerDto> formList) {
+  @Produces(MediaType.APPLICATION_JSON)
+  public ResponseDto createCustomer(@Valid List<CustomerDto> formList) {
     formList.forEach(form -> customerService.createCustomer(form));
+    return ResponseDto.builder()
+        .result(ResultVo.SUCCESS.getDecode())
+        .build();
   }
 
   /**
    * 顧客情報を更新します.
    *
    * @param formList 顧客情報
-   * @return 更新件数
+   * @return Response Dto(更新件数)
    */
   @PUT
+  @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  public int updateCustomer(List<CustomerDto> formList) {
+  public ResponseDto updateCustomer(@Valid List<CustomerDto> formList) {
     int updateCount = 0;
     for (CustomerDto form : formList) {
       updateCount = updateCount + customerService.updateCustomer(form);
     }
-    return updateCount;
+    return ResponseDto.builder()
+        .result(ResultVo.SUCCESS.getDecode())
+        .response(updateCount)
+        .build();
   }
 
   /**
    * 指定した顧客情報を削除します.
    *
    * @param customerNo 顧客番号
+   * @return Response Dto(削除件数)
    */
   @Path("{customerNo}")
   @DELETE
-  public void deleteCustomer(@PathParam("customerNo") String customerNo) {
-    customerService.deleteCustomer(customerNo);
+  @Produces(MediaType.APPLICATION_JSON)
+  public ResponseDto deleteCustomer(@PathParam("customerNo") String customerNo) {
+    int deleteCount = customerService.deleteCustomer(customerNo);
+    return ResponseDto.builder()
+        .result(ResultVo.SUCCESS.getDecode())
+        .response(deleteCount)
+        .build();
   }
 
 }

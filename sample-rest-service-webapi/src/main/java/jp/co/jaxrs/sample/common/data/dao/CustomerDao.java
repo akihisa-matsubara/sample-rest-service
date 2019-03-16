@@ -1,6 +1,6 @@
-package jp.co.jaxrs.sample.data.dao;
+package jp.co.jaxrs.sample.common.data.dao;
 
-import jp.co.jaxrs.sample.data.entity.CustomerEntity;
+import jp.co.jaxrs.sample.common.data.entity.CustomerEntity;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 
@@ -8,7 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
  * 顧客Dao.
  */
 @ApplicationScoped
-public class CustomerDao extends MyDbDao<CustomerEntity> {
+public class CustomerDao extends MyDbDao<CustomerEntity, String> {
 
   /**
    * 全件検索.
