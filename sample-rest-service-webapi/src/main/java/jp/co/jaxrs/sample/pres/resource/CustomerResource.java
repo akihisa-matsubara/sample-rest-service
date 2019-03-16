@@ -71,7 +71,7 @@ public class CustomerResource {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public ResponseDto createCustomer(@Valid List<CustomerDto> formList) {
-    formList.forEach(form -> customerService.createCustomer(form));
+    formList.forEach(customerService::createCustomer);
     return ResponseDto.builder()
         .result(ResultVo.SUCCESS.getDecode())
         .build();
@@ -87,10 +87,7 @@ public class CustomerResource {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public ResponseDto updateCustomer(@Valid List<CustomerDto> formList) {
-    int updateCount = 0;
-    for (CustomerDto form : formList) {
-      updateCount = updateCount + customerService.updateCustomer(form);
-    }
+    int updateCount = formList.stream().mapToInt(customerService::updateCustomer).sum();
     return ResponseDto.builder()
         .result(ResultVo.SUCCESS.getDecode())
         .response(updateCount)
