@@ -1,6 +1,7 @@
-package jp.co.jaxrs.sample.pres.requestdto;
+package jp.co.jaxrs.sample.pres.dto;
 
 import java.util.Date;
+import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,7 @@ import lombok.Setter;
 public class CustomerDto {
 
   /** 顧客番号. */
+  @Size(min = 8, max = 8)
   private String customerNo;
 
   /** 氏名漢字. */

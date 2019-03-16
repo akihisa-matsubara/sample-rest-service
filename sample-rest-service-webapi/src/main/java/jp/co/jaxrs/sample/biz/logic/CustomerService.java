@@ -1,7 +1,7 @@
 package jp.co.jaxrs.sample.biz.logic;
 
-import jp.co.jaxrs.sample.data.entity.CustomerEntity;
-import jp.co.jaxrs.sample.pres.requestdto.CustomerDto;
+import jp.co.jaxrs.sample.common.data.entity.CustomerEntity;
+import jp.co.jaxrs.sample.pres.dto.CustomerDto;
 import java.util.List;
 
 /**
@@ -43,7 +43,8 @@ public interface CustomerService {
    * 指定した顧客情報を削除します.
    *
    * @param customerNo 顧客番号
+   * @return 削除件数
    */
-  void deleteCustomer(String customerNo);
+  int deleteCustomer(String customerNo);
 
 }

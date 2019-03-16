@@ -1,13 +1,19 @@
 package jp.co.jaxrs.framework.data.dao;
 
+import jp.co.jaxrs.framework.util.ReflectionUtils;
+import java.io.Serializable;
+import java.util.Arrays;
+import javax.persistence.EmbeddedId;
 import javax.persistence.EntityManager;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * mydb汎用Dao.
  *
  * @param <T> Entity
  */
-public abstract class GenericDao<T> {
+public abstract class GenericDao<T, P extends Serializable> {
 
   /**
    * EntityManagerを取得します.
@@ -29,11 +35,24 @@ public abstract class GenericDao<T> {
 
   /**
    * Insert.
+   * PKを自動採番する場合はDB反映し値を確定させる
    *
    * @param entity Entity
+   * @return PK. PKが存在しない場合はnull
    */
-  public void create(T entity) {
+  public P create(T entity) {
     getEntityManager().persist(entity);
+
+    if (isGeneratedValue(entity)) {
+      getEntityManager().flush();
+    }
+
+    P pk = ReflectionUtils.getAnnotatedField(Id.class, entity);
+    if (pk != null) {
+      return pk;
+    }
+
+    return ReflectionUtils.getAnnotatedField(EmbeddedId.class,entity);
   }
 
   /**
@@ -54,4 +73,14 @@ public abstract class GenericDao<T> {
     getEntityManager().remove(entity);
   }
 
+  /**
+   * DBによる自動採番を行うカラムが存在するか確認します.
+   *
+   * @param entity Entity
+   * @return 自動採番を行うカラムが存在する場合はtrue
+   */
+  private boolean isGeneratedValue(T entity) {
+    return Arrays.stream(entity.getClass().getDeclaredFields())
+        .anyMatch(field -> field.getAnnotation(Id.class) != null && field.getAnnotation(GeneratedValue.class) != null);
+  }
 }

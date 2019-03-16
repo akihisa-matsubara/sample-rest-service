@@ -1,10 +1,11 @@
 package jp.co.jaxrs.sample.biz.logic.impl;
 
 import jp.co.jaxrs.sample.biz.logic.CustomerService;
-import jp.co.jaxrs.sample.data.dao.CustomerDao;
-import jp.co.jaxrs.sample.data.dao.SequenceGenerateDao;
-import jp.co.jaxrs.sample.data.entity.CustomerEntity;
-import jp.co.jaxrs.sample.pres.requestdto.CustomerDto;
+import jp.co.jaxrs.sample.common.code.ServiceVo;
+import jp.co.jaxrs.sample.common.data.dao.CustomerDao;
+import jp.co.jaxrs.sample.common.data.dao.SequenceGenerateDao;
+import jp.co.jaxrs.sample.common.data.entity.CustomerEntity;
+import jp.co.jaxrs.sample.pres.dto.CustomerDto;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -61,9 +62,9 @@ public class CustomerServiceImpl implements CustomerService {
     customer.setAddress(form.getAddress());
 
     // common culomn
-    customer.setCreationUserId("customers");
+    customer.setCreationUserId(ServiceVo.CUSTOMERS.getCode());
     customer.setCreationDate(LocalDateTime.now(Clock.systemDefaultZone()));
-    customer.setUpdatedUserId("customers");
+    customer.setUpdatedUserId(ServiceVo.CUSTOMERS.getCode());
     customer.setUpdatedDate(LocalDateTime.now(Clock.systemDefaultZone()));
 
     dao.create(customer);
@@ -88,7 +89,7 @@ public class CustomerServiceImpl implements CustomerService {
     customer.setAddress(form.getAddress());
 
     // common culomn
-    customer.setUpdatedUserId("customers");
+    customer.setUpdatedUserId(ServiceVo.CUSTOMERS.getCode());
     customer.setUpdatedDate(LocalDateTime.now(Clock.systemDefaultZone()));
     dao.update(customer);
 
@@ -100,12 +101,14 @@ public class CustomerServiceImpl implements CustomerService {
    */
   @Override
   @Transactional(rollbackOn = Exception.class)
-  public void deleteCustomer(String customerNo) {
+  public int deleteCustomer(String customerNo) {
     dao.deleteById(customerNo);
+
+    return 1;
   }
 
   /**
-   * 顧客番号生成.
+   * 顧客番号生成("C" + 左0埋め7桁の連番).
    *
    * @return 顧客番号
    */
