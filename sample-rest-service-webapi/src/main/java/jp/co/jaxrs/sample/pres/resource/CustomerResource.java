@@ -8,6 +8,7 @@ import jp.co.jaxrs.sample.pres.dto.CustomerDto;
 import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
+import javax.validation.constraints.Size;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -52,7 +53,7 @@ public class CustomerResource {
   @Path("{customerNo}")
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public ResponseDto getCustomer(@PathParam("customerNo") String customerNo) {
+  public ResponseDto getCustomer(@PathParam("customerNo") @Size(min = 8, max = 8) String customerNo) {
     CustomerEntity customer = customerService.getCustomer(customerNo);
     return ResponseDto.builder()
         .result(ResultVo.SUCCESS.getDecode())
@@ -105,7 +106,7 @@ public class CustomerResource {
   @Path("{customerNo}")
   @DELETE
   @Produces(MediaType.APPLICATION_JSON)
-  public ResponseDto deleteCustomer(@PathParam("customerNo") String customerNo) {
+  public ResponseDto deleteCustomer(@PathParam("customerNo") @Size(min = 8, max = 8) String customerNo) {
     int deleteCount = customerService.deleteCustomer(customerNo);
     return ResponseDto.builder()
         .result(ResultVo.SUCCESS.getDecode())
