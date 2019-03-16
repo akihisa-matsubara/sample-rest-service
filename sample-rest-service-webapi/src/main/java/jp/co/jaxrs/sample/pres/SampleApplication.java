@@ -1,4 +1,4 @@
-package jp.co.jaxrs.sample;
+package jp.co.jaxrs.sample.pres;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

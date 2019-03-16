@@ -1,10 +1,10 @@
-package jp.co.jaxrs.sample.service.impl;
+package jp.co.jaxrs.sample.biz.logic.impl;
 
+import jp.co.jaxrs.sample.biz.logic.CustomerService;
 import jp.co.jaxrs.sample.data.dao.CustomerDao;
 import jp.co.jaxrs.sample.data.dao.SequenceGenerateDao;
 import jp.co.jaxrs.sample.data.entity.CustomerEntity;
-import jp.co.jaxrs.sample.provider.requestdto.CustomerDto;
-import jp.co.jaxrs.sample.service.CustomerService;
+import jp.co.jaxrs.sample.pres.requestdto.CustomerDto;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;

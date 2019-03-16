@@ -1,7 +1,7 @@
-package jp.co.jaxrs.sample.service;
+package jp.co.jaxrs.sample.biz.logic;
 
 import jp.co.jaxrs.sample.data.entity.CustomerEntity;
-import jp.co.jaxrs.sample.provider.requestdto.CustomerDto;
+import jp.co.jaxrs.sample.pres.requestdto.CustomerDto;
 import java.util.List;
 
 /**

@@ -1,8 +1,8 @@
-package jp.co.jaxrs.sample.provider.resource;
+package jp.co.jaxrs.sample.pres.resource;
 
+import jp.co.jaxrs.sample.biz.logic.CustomerService;
 import jp.co.jaxrs.sample.data.entity.CustomerEntity;
-import jp.co.jaxrs.sample.provider.requestdto.CustomerDto;
-import jp.co.jaxrs.sample.service.CustomerService;
+import jp.co.jaxrs.sample.pres.requestdto.CustomerDto;
 import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;

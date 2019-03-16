@@ -1,4 +1,4 @@
-package jp.co.jaxrs.sample.provider.requestdto;
+package jp.co.jaxrs.sample.pres.requestdto;
 
 import java.util.Date;
 import lombok.Getter;
