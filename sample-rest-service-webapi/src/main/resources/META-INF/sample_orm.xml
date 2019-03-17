@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1"
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+                            http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
+    <named-query name="Customer.findAll">
+        <query><![CDATA[
+            SELECT
+                cst
+            FROM
+                CustomerEntity cst
+            ORDER BY
+                cst.customerNo
+        ]]></query>
+    </named-query>
+    <named-query name="Customer.deleteById">
+        <query><![CDATA[
+            DELETE FROM
+                CustomerEntity cst
+            WHERE
+                cst.customerNo = :customerNo
+        ]]></query>
+    </named-query>
+</entity-mappings>

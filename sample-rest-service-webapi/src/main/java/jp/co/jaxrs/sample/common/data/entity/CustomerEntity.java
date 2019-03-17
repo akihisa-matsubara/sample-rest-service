@@ -5,8 +5,6 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,10 +18,6 @@ import lombok.EqualsAndHashCode;
 @Table(name = "T_CUSTOMER")
 @Data
 @EqualsAndHashCode(callSuper = true)
-@NamedQueries({
-    @NamedQuery(name = CustomerEntity.FIND_ALL, query = "SELECT cst FROM CustomerEntity cst ORDER BY cst.customerNo"),
-    @NamedQuery(name = CustomerEntity.DELETE_BY_ID, query = "DELETE FROM CustomerEntity cst WHERE cst.customerNo = :customerNo")
-})
 public class CustomerEntity extends DbBaseEntity {
 
   /** 全件取得Query. */
