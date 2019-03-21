@@ -1,13 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration>
 <configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <property name="LOG_DIR" value="C:/development/log/sample-rest-service" />
+
+    <appender name="DEBUG_LOG_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/debug.log</file>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/debug.%d{yyyy-MM-dd}.log.tar.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
     </appender>
 
-    <root level="debug">
-        <appender-ref ref="STDOUT" />
+    <appender name="PERFORMANCE_LOG_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/performance.log</file>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/performance.%d{yyyy-MM-dd}.log.tar.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="ACCESS_LOG_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/access.log</file>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/access.%d{yyyy-MM-dd}.log.tar.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="jp.co.jaxrs" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="DEBUG_LOG_APPENDER" />
+    </logger>
+
+    <logger name="PERFORMANCE_LOGGER" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="PERFORMANCE_LOG_APPENDER" />
+    </logger>
+
+    <logger name="ACCESS_LOGGER" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="ACCESS_LOG_APPENDER" />
+    </logger>
+
+    <root level="DEBUG">
+        <appender-ref ref="DEBUG_LOG_APPENDER" />
     </root>
 </configuration>

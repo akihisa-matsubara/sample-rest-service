@@ -6,7 +6,7 @@
     <persistence-unit name="mydb" transaction-type="JTA">
         <jta-data-source>jdbc/mydb</jta-data-source>
         <!-- orm -->
-        <mapping-file>META-INF/sample_orm.xml</mapping-file>
+        <mapping-file>META-INF/customer_orm.xml</mapping-file>
 
         <!-- converter -->
         <class>jp.co.jaxrs.framework.data.converter.LocalDateTimeToTimestampConverter</class>

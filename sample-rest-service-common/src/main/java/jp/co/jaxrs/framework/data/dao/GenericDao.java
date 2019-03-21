@@ -35,7 +35,7 @@ public abstract class GenericDao<T, P extends Serializable> {
 
   /**
    * Insert.
-   * PKを自動採番する場合はDB反映し値を確定させる
+   * （PKを自動採番する場合はDB反映し値を確定させる）
    *
    * @param entity Entity
    * @return PK. PKが存在しない場合はnull

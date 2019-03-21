@@ -14,17 +14,16 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
+    <properties>
+        <!-- override -->
+        <project.lib.path>${basedir}/../lib</project.lib.path>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>jp.co.jaxrs.sample</groupId>
             <artifactId>sample-rest-service-common</artifactId>
             <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
         </dependency>
     </dependencies>
 

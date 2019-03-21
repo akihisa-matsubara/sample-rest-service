@@ -14,23 +14,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <dependencies>
-        <!-- OSS Library -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
-        </dependency>
-
-        <!-- System Scope (Refference) -->
-        <dependency>
-            <groupId>com.ibm.ws.prereq</groupId>
-            <artifactId>beanvalidation</artifactId>
-            <version>1.1.2</version>
-            <scope>system</scope>
-            <systemPath>${project.lib.path}/com.ibm.ws.prereq.beanvalidation.jar</systemPath>
-        </dependency>
-    </dependencies>
+    <properties>
+        <!-- override -->
+        <project.lib.path>${basedir}/../lib</project.lib.path>
+    </properties>
 
     <build>
         <finalName>sample-rest-service-common</finalName>
