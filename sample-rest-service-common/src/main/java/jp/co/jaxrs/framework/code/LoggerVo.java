@@ -9,9 +9,11 @@ import lombok.Getter;
 public enum LoggerVo implements CodeVo {
 
   /** パフォーマンスロガー. */
-  PERFORMANCE_LOGGER("PERFORMANCE_LOGGER", "Performance Log"),
+  PERFORMANCE_LOGGER("PERFORMANCE_LOGGER", "Performance Logger"),
   /** アクセスロガー. */
-  ACCESS_LOGGER("ACCESS_LOGGER", "Access Log"),
+  ACCESS_LOGGER("ACCESS_LOGGER", "Access Logger"),
+  /** エラーロガー. */
+  ERROR_LOGGER("ERROR_LOGGER", "Error Logger"),
   ;
 
   /** コード. */

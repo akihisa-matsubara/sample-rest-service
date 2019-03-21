@@ -19,6 +19,8 @@ import org.slf4j.MDC;
  */
 @Provider
 public class LoggingFilter implements ContainerRequestFilter, ContainerResponseFilter {
+  /** MDC Key - start time. */
+  private static final String START_TIME = "start-time";
 
   /** Debug Logger. */
   private static final Logger DEBUG_LOGGER = LoggerFactory.getLogger(LoggingFilter.class);
@@ -38,7 +40,7 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
    */
   @Override
   public void filter(ContainerRequestContext requestContext) throws IOException {
-    MDC.put("start-time", String.valueOf(System.currentTimeMillis()));
+    MDC.put(START_TIME, String.valueOf(System.currentTimeMillis()));
 
     ACCESS_LOGGER.debug("Resource : /{}, Method Type : {}, Method Name : {}", requestContext.getUriInfo().getPath(),
         requestContext.getMethod(), resourceInfo.getResourceMethod().getName());
@@ -99,7 +101,7 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
    * @param requestContext ContainerRequestContext
    */
   private void logPerformance(ContainerRequestContext requestContext) {
-    String startTime = MDC.get("start-time");
+    String startTime = MDC.get(START_TIME);
     if (startTime == null || startTime.isEmpty()) {
       return;
     }

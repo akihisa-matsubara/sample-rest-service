@@ -1,37 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration>
 <configuration>
-    <property name="LOG_DIR" value="C:/development/log/sample-rest-service" />
+    <property scope="system" name="LOG_DIR" value="C:/development/log/sample-rest-service" />
+    <property scope="system" name="DETAIL_FORMAT" value="%d{yy/MM/dd HH:mm:ss.SSS} ${HOSTNAME} [%thread] %-5level %logger{36} - %msg%n" />
+    <property scope="system" name="SIMPLE_FORMAT" value="%d{yy/MM/dd HH:mm:ss.SSS} ${HOSTNAME} [%thread] %.-1level - %msg%n" />
 
     <appender name="DEBUG_LOG_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_DIR}/debug.log</file>
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>${DETAIL_FORMAT}</pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_DIR}/debug.%d{yyyy-MM-dd}.log.tar.gz</fileNamePattern>
             <maxHistory>7</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
     </appender>
 
     <appender name="PERFORMANCE_LOG_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_DIR}/performance.log</file>
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level - %msg%n</pattern>
+            <pattern>${SIMPLE_FORMAT}</pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_DIR}/performance.%d{yyyy-MM-dd}.log.tar.gz</fileNamePattern>
             <maxHistory>7</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
     </appender>
 
     <appender name="ACCESS_LOG_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_DIR}/access.log</file>
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level - %msg%n</pattern>
+            <pattern>${SIMPLE_FORMAT}</pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_DIR}/access.%d{yyyy-MM-dd}.log.tar.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="ERROR_LOG_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/error.log</file>
+        <encoder>
+            <pattern>${SIMPLE_FORMAT}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/error.%d{yyyy-MM-dd}.log.tar.gz</fileNamePattern>
             <maxHistory>7</maxHistory>
         </rollingPolicy>
     </appender>
@@ -49,6 +65,11 @@
     <logger name="ACCESS_LOGGER" additivity="false">
         <level value="DEBUG" />
         <appender-ref ref="ACCESS_LOG_APPENDER" />
+    </logger>
+
+    <logger name="ERROR_LOGGER" additivity="false">
+        <level value="WARN" />
+        <appender-ref ref="ERROR_LOG_APPENDER" />
     </logger>
 
     <root level="DEBUG">
