@@ -3,8 +3,7 @@ package jp.co.jaxrs.sample.pres.resource;
 import jp.co.jaxrs.framework.code.ResultVo;
 import jp.co.jaxrs.framework.pres.dto.ResponseDto;
 import jp.co.jaxrs.sample.biz.logic.CustomerService;
-import jp.co.jaxrs.sample.common.data.entity.CustomerEntity;
-import jp.co.jaxrs.sample.pres.dto.CustomerDto;
+import jp.co.jaxrs.sample.common.dto.CustomerDto;
 import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -37,7 +36,7 @@ public class CustomerResource {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   public ResponseDto getCustomers() {
-    List<CustomerEntity> customers = customerService.getCustomers();
+    List<CustomerDto> customers = customerService.getCustomers();
     return ResponseDto.builder()
         .result(ResultVo.SUCCESS.getDecode())
         .response(customers)
@@ -54,7 +53,7 @@ public class CustomerResource {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   public ResponseDto getCustomer(@PathParam("customerNo") @Size(min = 8, max = 8) String customerNo) {
-    CustomerEntity customer = customerService.getCustomer(customerNo);
+    CustomerDto customer = customerService.getCustomer(customerNo);
     return ResponseDto.builder()
         .result(ResultVo.SUCCESS.getDecode())
         .response(customer)

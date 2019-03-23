@@ -18,9 +18,12 @@ public class SystemException extends RuntimeException {
   /**
    * デフォルトコンストラクター.
    *
-   * @param errorDto エラーDto
+   * @param cause 例外
+   * @param error エラーDto
    */
-  public SystemException(ErrorDto errorDto) {
-    this.errorDto = errorDto;
+  public SystemException(Throwable cause, ErrorDto error) {
+    super(cause);
+    this.errorDto = error;
   }
+
 }

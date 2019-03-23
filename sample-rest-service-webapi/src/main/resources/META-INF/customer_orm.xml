@@ -4,6 +4,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
                             http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
+    <persistence-unit-metadata>
+        <persistence-unit-defaults>
+            <entity-listeners>
+                <entity-listener class="jp.co.jaxrs.framework.data.entity.DbBaseEntityListener" />
+            </entity-listeners>
+        </persistence-unit-defaults>
+    </persistence-unit-metadata>
     <named-query name="Customer.findAll">
         <query><![CDATA[
             SELECT
@@ -22,4 +29,6 @@
                 cst.customerNo = :customerNo
         ]]></query>
     </named-query>
+    <entity
+        class="jp.co.jaxrs.sample.common.data.entity.CustomerEntity" />
 </entity-mappings>

@@ -1,6 +1,7 @@
 package jp.co.jaxrs.framework.data.entity;
 
 import jp.co.jaxrs.framework.data.converter.LocalDateTimeToTimestampConverter;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -13,7 +14,10 @@ import lombok.Data;
  */
 @Data
 @MappedSuperclass
-public abstract class DbBaseEntity {
+public abstract class DbBaseEntity implements Serializable {
+
+  /** serialVersionUID. */
+  private static final long serialVersionUID = -486137350490161455L;
 
   /** バージョン. */
   @Version

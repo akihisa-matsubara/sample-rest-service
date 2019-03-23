@@ -23,7 +23,7 @@ public class MessageUtils {
 
     try {
       messages.load(is);
-    } catch (IOException e) {
+    } catch (IOException ioe) {
       throw new ExceptionInInitializerError("メッセージプロパティファイルの読み込みが失敗しました。");
     }
   }

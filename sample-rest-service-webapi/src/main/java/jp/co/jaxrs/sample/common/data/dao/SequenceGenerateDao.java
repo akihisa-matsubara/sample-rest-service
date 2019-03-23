@@ -18,4 +18,12 @@ public class SequenceGenerateDao extends MyDbDao<Integer, String> {
     return (Integer) getEntityManager().createNativeQuery(SELECT_SEQ_CUSTOMER_NO).getSingleResult();
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Class<Integer> getEntityType() {
+    return Integer.class;
+  }
+
 }

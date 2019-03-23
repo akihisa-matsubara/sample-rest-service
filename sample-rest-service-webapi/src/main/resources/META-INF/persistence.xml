@@ -11,8 +11,6 @@
         <!-- converter -->
         <class>jp.co.jaxrs.framework.data.converter.LocalDateTimeToTimestampConverter</class>
 
-        <!--  entity -->
-        <class>jp.co.jaxrs.sample.common.data.entity.CustomerEntity</class>
         <properties>
             <property name="jdbc.persistence.logging" value="true" />
             <property name="eclipselink.logging.level" value="FINE" />

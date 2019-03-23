@@ -1,14 +1,13 @@
 package jp.co.jaxrs.sample.biz.logic.impl;
 
 import jp.co.jaxrs.sample.biz.logic.CustomerService;
-import jp.co.jaxrs.sample.common.code.ServiceVo;
 import jp.co.jaxrs.sample.common.data.dao.CustomerDao;
 import jp.co.jaxrs.sample.common.data.dao.SequenceGenerateDao;
 import jp.co.jaxrs.sample.common.data.entity.CustomerEntity;
-import jp.co.jaxrs.sample.pres.dto.CustomerDto;
-import java.time.Clock;
-import java.time.LocalDateTime;
+import jp.co.jaxrs.sample.common.dto.CustomerDto;
+import jp.co.jaxrs.sample.common.util.SampleBeanUtils;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -33,8 +32,9 @@ public class CustomerServiceImpl implements CustomerService {
    */
   @Override
   @Transactional(rollbackOn = Exception.class)
-  public List<CustomerEntity> getCustomers() {
-    return dao.findAll();
+  public List<CustomerDto> getCustomers() {
+    List<CustomerEntity> entities = dao.findAll();
+    return entities.stream().map(entity -> SampleBeanUtils.copyProperties(CustomerDto.class, entity)).collect(Collectors.toList());
   }
 
   /**
@@ -42,8 +42,14 @@ public class CustomerServiceImpl implements CustomerService {
    */
   @Override
   @Transactional(rollbackOn = Exception.class)
-  public CustomerEntity getCustomer(String customerNo) {
-    return dao.findById(customerNo);
+  public CustomerDto getCustomer(String customerNo) {
+    CustomerEntity entity = dao.find(customerNo);
+
+    if (entity == null) {
+      return null;
+    }
+
+    return SampleBeanUtils.copyProperties(CustomerDto.class, entity);
   }
 
   /**
@@ -51,21 +57,11 @@ public class CustomerServiceImpl implements CustomerService {
    */
   @Override
   @Transactional(rollbackOn = Exception.class)
-  public void createCustomer(CustomerDto form) {
-    CustomerEntity customer = new CustomerEntity();
+  public void createCustomer(CustomerDto dto) {
+    CustomerEntity customer = SampleBeanUtils.copyProperties(CustomerEntity.class, dto);
+
+    // generate pk
     customer.setCustomerNo(generateCustomerNo());
-    customer.setNameKanji(form.getNameKanji());
-    customer.setNameKana(form.getNameKana());
-    customer.setGender(form.getGender());
-    customer.setBirthday(form.getBirthday());
-    customer.setAddressZip(form.getAddressZip());
-    customer.setAddress(form.getAddress());
-
-    // common culomn
-    customer.setCreationUserId(ServiceVo.CUSTOMERS.getCode());
-    customer.setCreationDate(LocalDateTime.now(Clock.systemDefaultZone()));
-    customer.setUpdatedUserId(ServiceVo.CUSTOMERS.getCode());
-    customer.setUpdatedDate(LocalDateTime.now(Clock.systemDefaultZone()));
 
     dao.create(customer);
   }
@@ -75,22 +71,13 @@ public class CustomerServiceImpl implements CustomerService {
    */
   @Override
   @Transactional(rollbackOn = Exception.class)
-  public int updateCustomer(CustomerDto form) {
-    CustomerEntity customer = getCustomer(form.getCustomerNo());
+  public int updateCustomer(CustomerDto dto) {
+    CustomerEntity customer = dao.find(dto.getCustomerNo());
     if (customer == null) {
       return 0;
     }
 
-    customer.setNameKanji(form.getNameKanji());
-    customer.setNameKana(form.getNameKana());
-    customer.setGender(form.getGender());
-    customer.setBirthday(form.getBirthday());
-    customer.setAddressZip(form.getAddressZip());
-    customer.setAddress(form.getAddress());
-
-    // common culomn
-    customer.setUpdatedUserId(ServiceVo.CUSTOMERS.getCode());
-    customer.setUpdatedDate(LocalDateTime.now(Clock.systemDefaultZone()));
+    SampleBeanUtils.copyProperties(customer, dto);
     dao.update(customer);
 
     return 1;
@@ -102,7 +89,7 @@ public class CustomerServiceImpl implements CustomerService {
   @Override
   @Transactional(rollbackOn = Exception.class)
   public int deleteCustomer(String customerNo) {
-    CustomerEntity customer = getCustomer(customerNo);
+    CustomerEntity customer = dao.find(customerNo);
     if (customer == null) {
       return 0;
     }
@@ -121,4 +108,5 @@ public class CustomerServiceImpl implements CustomerService {
     int sequenceNo = sequenceDao.generateCustomerNo();
     return "C" + StringUtils.leftPad(String.valueOf(sequenceNo), 7, "0");
   }
+
 }

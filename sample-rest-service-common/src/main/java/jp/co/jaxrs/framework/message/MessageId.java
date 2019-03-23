@@ -9,8 +9,11 @@ import lombok.Getter;
 public enum MessageId {
 
   // F～ FRAMEWORK
+  /** Beanの変換({0} -> {1})に失敗しました. */
+  F0001E("F0001E"),
   // C～ COMMON
-  // A～ APPLICATION
+  // B～ BUSINESS LOGIC
+  // P～ PRESENTATION
   ;
 
   /** メッセージID. */

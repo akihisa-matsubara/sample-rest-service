@@ -20,6 +20,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class CustomerEntity extends DbBaseEntity {
 
+  /** serialVersionUID. */
+  private static final long serialVersionUID = 7997404289024567972L;
+
   /** 全件取得Query. */
   public static final String FIND_ALL = "Customer.findAll";
 

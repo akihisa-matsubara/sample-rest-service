@@ -13,21 +13,11 @@ public class CustomerDao extends MyDbDao<CustomerEntity, String> {
   /**
    * 全件検索.
    *
-   * @return 検索結果
+   * @return 検索結果. 存在しない場合は空のリスト
    */
   @SuppressWarnings("unchecked")
   public List<CustomerEntity> findAll() {
     return (List<CustomerEntity>) getEntityManager().createNamedQuery(CustomerEntity.FIND_ALL).getResultList();
-  }
-
-  /**
-   * 主キー検索.
-   *
-   * @param customerNo 顧客番号
-   * @return 検索結果
-   */
-  public CustomerEntity findById(String customerNo) {
-    return super.find(CustomerEntity.class, customerNo);
   }
 
   /**
@@ -39,5 +29,13 @@ public class CustomerDao extends MyDbDao<CustomerEntity, String> {
     getEntityManager().createNamedQuery(CustomerEntity.DELETE_BY_ID)
       .setParameter("customerNo", customerNo)
       .executeUpdate();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Class<CustomerEntity> getEntityType() {
+    return CustomerEntity.class;
   }
 }

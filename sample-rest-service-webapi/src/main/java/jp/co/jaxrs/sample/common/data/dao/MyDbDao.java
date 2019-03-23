@@ -9,11 +9,11 @@ import lombok.Getter;
 /**
  * mydb汎用Dao.
  *
- * @param <T> Entity
- * @param <P> Primary Key
+ * @param <E> Entity
+ * @param <PK> Primary Key
  */
 @Getter
-public abstract class MyDbDao<T, P extends Serializable> extends GenericDao<T, Serializable> {
+public abstract class MyDbDao<E, PK extends Serializable> extends GenericDao<E, PK> {
 
   /** EntityManager. */
   @PersistenceContext(unitName = "mydb")
