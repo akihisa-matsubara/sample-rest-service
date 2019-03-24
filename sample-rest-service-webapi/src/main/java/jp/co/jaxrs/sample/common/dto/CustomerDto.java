@@ -1,5 +1,6 @@
 package jp.co.jaxrs.sample.common.dto;
 
+import java.util.Date;
 import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -54,7 +55,7 @@ public class CustomerDto {
   private String gender;
 
   /** 生年月日. */
-  private String birthday;
+  private Date birthday;
 
   /** 郵便番号. */
   // @JsonProperty("addressZip") // XXX 名称の変更も可能？？
