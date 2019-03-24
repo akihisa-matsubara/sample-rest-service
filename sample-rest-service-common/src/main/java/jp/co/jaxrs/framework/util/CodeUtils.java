@@ -21,7 +21,7 @@ public class CodeUtils {
    * @param <CD> デコード先となるコードの型
    * @param codeValue コード値
    * @param codeType デコード先となるコードの型
-   * @return コードVO. 存在しない場合はnull
+   * @return {@link CodeVo} コードVO. 存在しない場合はnull
    */
   @SuppressWarnings("unchecked")
   public static <CD extends CodeVo> CD decode(String codeValue, Class<CD> codeType) {

@@ -22,7 +22,7 @@ public abstract class GenericDao<E, PK extends Serializable> {
   /**
    * EntityManagerを取得します.
    *
-   * @return EntityManager
+   * @return {@link EntityManager} EntityManager
    */
   public abstract EntityManager getEntityManager();
 

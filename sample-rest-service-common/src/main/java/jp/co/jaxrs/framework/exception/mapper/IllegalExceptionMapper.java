@@ -26,7 +26,7 @@ public class IllegalExceptionMapper implements ExceptionMapper<Exception> {
   /**
    * 例外をResponseに設定します.
    *
-   * @return 例外を設定したResponse
+   * @return {@link Response} 例外を設定したResponse
    */
   @Override
   public Response toResponse(Exception exception) {

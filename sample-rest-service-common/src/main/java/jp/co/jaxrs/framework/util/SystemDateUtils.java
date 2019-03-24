@@ -9,6 +9,8 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * システム日付ユーティリティー.
+ * システム日付を変更したい場合は、クラスパス上にsystemDate.propertiesを配置し、
+ * systemDate=yyyyMMdd形式で設定してください.
  */
 public class SystemDateUtils {
 

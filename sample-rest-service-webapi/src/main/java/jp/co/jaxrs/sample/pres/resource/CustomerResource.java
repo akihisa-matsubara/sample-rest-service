@@ -31,7 +31,7 @@ public class CustomerResource {
   /**
    * 顧客情報を取得します.
    *
-   * @return Response Dto(顧客情報)
+   * @return {@link ResponseDto} Response Dto(顧客情報)
    */
   @GET
   @Produces(MediaType.APPLICATION_JSON)
@@ -47,7 +47,7 @@ public class CustomerResource {
    * 指定した顧客情報を取得します.
    *
    * @param customerNo 顧客番号
-   * @return Response Dto(顧客情報)
+   * @return {@link ResponseDto} Response Dto(顧客情報)
    */
   @Path("{customerNo}")
   @GET
@@ -64,7 +64,7 @@ public class CustomerResource {
    * 顧客情報を作成します.
    *
    * @param formList 顧客情報
-   * @return Response Dto
+   * @return {@link ResponseDto} Response Dto
    */
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
@@ -80,7 +80,7 @@ public class CustomerResource {
    * 顧客情報を更新します.
    *
    * @param formList 顧客情報
-   * @return Response Dto(更新件数)
+   * @return {@link ResponseDto} Response Dto(更新件数)
    */
   @PUT
   @Consumes(MediaType.APPLICATION_JSON)
@@ -97,7 +97,7 @@ public class CustomerResource {
    * 指定した顧客情報を削除します.
    *
    * @param customerNo 顧客番号
-   * @return Response Dto(削除件数)
+   * @return {@link ResponseDto} Response Dto(削除件数)
    */
   @Path("{customerNo}")
   @DELETE

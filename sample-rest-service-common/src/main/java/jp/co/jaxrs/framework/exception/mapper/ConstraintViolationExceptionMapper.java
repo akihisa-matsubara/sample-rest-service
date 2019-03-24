@@ -33,7 +33,7 @@ public class ConstraintViolationExceptionMapper implements ExceptionMapper<Const
   /**
    * 例外をResponseに設定します.
    *
-   * @return 例外を設定したResponse
+   * @return {@link Response} 例外を設定したResponse
    */
   @Override
   public Response toResponse(ConstraintViolationException exception) {

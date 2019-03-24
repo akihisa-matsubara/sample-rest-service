@@ -11,7 +11,7 @@ public interface CustomerService {
   /**
    * 顧客情報を取得します.
    *
-   * @return 顧客情報、存在しない場合は空のリスト
+   * @return 顧客情報({@link CustomerDto})のリスト、存在しない場合は空のリスト
    */
   List<CustomerDto> getCustomers();
 
@@ -19,21 +19,21 @@ public interface CustomerService {
    * 指定した顧客情報を取得します.
    *
    * @param customerNo 顧客番号
-   * @return 顧客情報、存在しない場合はnull
+   * @return {@link CustomerDto} 顧客情報、存在しない場合はnull
    */
   CustomerDto getCustomer(String customerNo);
 
   /**
    * 顧客情報を作成します.
    *
-   * @param dto 顧客情報
+   * @param dto {@link CustomerDto} 顧客情報
    */
   void createCustomer(CustomerDto dto);
 
   /**
    * 顧客情報を更新します.
    *
-   * @param dto 顧客情報
+   * @param dto {@link CustomerDto} 顧客情報
    * @return 更新件数
    */
   int updateCustomer(CustomerDto dto);
