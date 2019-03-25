@@ -41,10 +41,8 @@ public class ConstraintViolationExceptionMapper implements ExceptionMapper<Const
     ERROR_LOGGER.error(ExceptionUtils.getStackTrace(exception));
 
     List<String> errors = exception.getConstraintViolations().stream()
-        .map(cv -> {
-          PathImpl propertyPath = (PathImpl) cv.getPropertyPath();
-          return MessageFormat.format(MESSAGE_FORMAT, propertyPath.getLeafNode().getName(), cv.getInvalidValue(), cv.getMessage());
-        }).collect(Collectors.toList());
+        .map(cv -> MessageFormat.format(MESSAGE_FORMAT, ((PathImpl) cv.getPropertyPath()).getLeafNode().getName(), cv.getInvalidValue(), cv.getMessage()))
+        .collect(Collectors.toList());
 
     ResponseDto responseDto = ResponseDto.builder()
         .result(ResultVo.FAILURE.getDecode())

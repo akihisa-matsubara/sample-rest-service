@@ -1,10 +1,12 @@
 package jp.co.jaxrs.framework.code;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
  * 結果VO.
  */
+@AllArgsConstructor
 @Getter
 public enum ResultVo implements CodeVo {
 
@@ -19,16 +21,5 @@ public enum ResultVo implements CodeVo {
 
   /** デコード. */
   private String decode;
-
-  /**
-   * デフォルトコンストラクタ.
-   *
-   * @param code コード
-   * @param decode デコード
-   */
-  private ResultVo(String code, String decode) {
-    this.code = code;
-    this.decode = decode;
-  }
 
 }

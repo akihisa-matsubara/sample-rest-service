@@ -1,5 +1,6 @@
 package jp.co.jaxrs.sample.biz.logic;
 
+import jp.co.jaxrs.framework.data.condition.SearchConditionDo;
 import jp.co.jaxrs.sample.common.dto.CustomerDto;
 import java.util.List;
 
@@ -11,9 +12,10 @@ public interface CustomerService {
   /**
    * 顧客情報を取得します.
    *
+   * @param searchCondition {@link SearchConditionDo} 検索条件DO
    * @return 顧客情報({@link CustomerDto})のリスト、存在しない場合は空のリスト
    */
-  List<CustomerDto> getCustomers();
+  List<CustomerDto> getCustomers(SearchConditionDo searchCondition);
 
   /**
    * 指定した顧客情報を取得します.

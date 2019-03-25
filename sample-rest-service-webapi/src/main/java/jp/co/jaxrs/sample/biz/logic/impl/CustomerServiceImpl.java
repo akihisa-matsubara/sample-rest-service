@@ -1,5 +1,6 @@
 package jp.co.jaxrs.sample.biz.logic.impl;
 
+import jp.co.jaxrs.framework.data.condition.SearchConditionDo;
 import jp.co.jaxrs.sample.biz.logic.CustomerService;
 import jp.co.jaxrs.sample.common.data.dao.CustomerDao;
 import jp.co.jaxrs.sample.common.data.dao.SequenceGenerateDao;
@@ -32,8 +33,8 @@ public class CustomerServiceImpl implements CustomerService {
    */
   @Override
   @Transactional(rollbackOn = Exception.class)
-  public List<CustomerDto> getCustomers() {
-    List<CustomerEntity> entities = dao.findAll();
+  public List<CustomerDto> getCustomers(SearchConditionDo searchCondition) {
+    List<CustomerEntity> entities = dao.search(searchCondition);
     return entities.stream().map(entity -> SampleBeanUtils.copyProperties(CustomerDto.class, entity)).collect(Collectors.toList());
   }
 

@@ -11,16 +11,6 @@
             </entity-listeners>
         </persistence-unit-defaults>
     </persistence-unit-metadata>
-    <named-query name="Customer.findAll">
-        <query><![CDATA[
-            SELECT
-                cst
-            FROM
-                CustomerEntity cst
-            ORDER BY
-                cst.customerNo
-        ]]></query>
-    </named-query>
     <named-query name="Customer.deleteById">
         <query><![CDATA[
             DELETE FROM

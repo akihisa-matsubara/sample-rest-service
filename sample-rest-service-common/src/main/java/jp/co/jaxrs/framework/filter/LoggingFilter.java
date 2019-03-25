@@ -72,14 +72,14 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
    * @param requestContext ContainerRequestContext
    */
   private void logQueryParameters(ContainerRequestContext requestContext) {
-    requestContext.getUriInfo().getPathParameters().keySet().stream().forEach(name -> {
+    for (String name : requestContext.getUriInfo().getPathParameters().keySet()) {
       List<String> obj = requestContext.getUriInfo().getPathParameters().get(name);
       String value = null;
       if (obj != null && !obj.isEmpty()) {
         value = obj.get(0);
       }
       DEBUG_LOGGER.debug("Query Parameter Name: {}, Value :{}", name, value);
-    });
+    }
   }
 
   /**
@@ -90,8 +90,9 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
   private void logRequestHeader(ContainerRequestContext requestContext) {
     DEBUG_LOGGER.debug("----Start Header Section of request ----");
     DEBUG_LOGGER.debug("Method Type : {}", requestContext.getMethod());
-    requestContext.getHeaders().keySet().stream()
-        .forEach(headerName -> DEBUG_LOGGER.debug("Header Name: {}, Header Value :{} ", headerName, requestContext.getHeaderString(headerName)));
+    for (String headerName : requestContext.getHeaders().keySet()) {
+      DEBUG_LOGGER.debug("Header Name: {}, Header Value :{} ", headerName, requestContext.getHeaderString(headerName));
+    }
     DEBUG_LOGGER.debug("----End Header Section of request ----");
   }
 

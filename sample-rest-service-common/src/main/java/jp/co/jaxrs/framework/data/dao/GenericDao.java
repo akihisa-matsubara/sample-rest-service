@@ -1,6 +1,7 @@
 package jp.co.jaxrs.framework.data.dao;
 
 import jp.co.jaxrs.framework.data.condition.SearchConditionDo;
+import jp.co.jaxrs.framework.util.QueryBuilder;
 import jp.co.jaxrs.framework.util.ReflectionUtils;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -84,19 +85,6 @@ public abstract class GenericDao<E, PK extends Serializable> {
   public abstract Class<E> getEntityType();
 
   /**
-   * 件数を取得します.
-   *
-   * @param condition 検索条件
-   * @return 件数
-   */
-  public int count(SearchConditionDo condition) {
-    Query query = getEntityManager().createQuery(condition.getCountQuery());
-    condition.getQueryParams().entrySet().stream().forEach(
-        param -> query.setParameter(param.getKey(), param.getValue()));
-    return ((Long) query.getSingleResult()).intValue();
-  }
-
-  /**
    * 検索条件に従い検索結果を取得します.
    * 開始行から指定件数を検索します.
    *
@@ -105,12 +93,18 @@ public abstract class GenericDao<E, PK extends Serializable> {
    */
   @SuppressWarnings("unchecked")
   public List<E> search(SearchConditionDo condition) {
-    Query query = getEntityManager().createQuery(condition.getSearchQuery());
-    condition.getQueryParams().entrySet().forEach(
-        param -> query.setParameter(param.getKey(), param.getValue()));
-    query.setFirstResult(condition.getPageCtrl().getRowNumFrom());
-    query.setMaxResults(condition.getPageCtrl().getRowCntPerPage());
-    return query.getResultList();
+    QueryBuilder.buildQuery(getEntityType(), condition);
+
+    Query countQuery = getEntityManager().createQuery(condition.getCountQuery());
+    condition.getQueryParams().forEach(countQuery::setParameter);
+    int count = ((Long) countQuery.getSingleResult()).intValue();
+    condition.getFilter().setTotal(count);
+
+    Query searchQuery = getEntityManager().createQuery(condition.getSearchQuery());
+    condition.getQueryParams().forEach(searchQuery::setParameter);
+    searchQuery.setFirstResult(condition.getFilter().getOffset());
+    searchQuery.setMaxResults(condition.getFilter().getLimit());
+    return searchQuery.getResultList();
   }
 
   /**

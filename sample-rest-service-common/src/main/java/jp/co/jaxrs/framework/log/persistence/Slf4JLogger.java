@@ -21,7 +21,7 @@ public class Slf4JLogger extends AbstractSessionLog {
     void log(final Logger logger, final String message);
   }
 
-  /** {@code TRACE} level log. */
+  /** TRACE level log. */
   private static final class LogTrace implements LoggerCall {
     @Override
     public void log(final Logger logger, final String msg, final Throwable t) {
@@ -34,7 +34,7 @@ public class Slf4JLogger extends AbstractSessionLog {
     }
   }
 
-  /** {@code DEBUG} level log. */
+  /** DEBUG level log. */
   private static final class LogDebug implements LoggerCall {
     @Override
     public void log(final Logger logger, final String msg, final Throwable t) {
@@ -47,7 +47,7 @@ public class Slf4JLogger extends AbstractSessionLog {
     }
   }
 
-  /** {@code INFO} level log. */
+  /** INFO level log. */
   private static final class LogInfo implements LoggerCall {
     @Override
     public void log(final Logger logger, final String msg, final Throwable t) {
@@ -60,7 +60,7 @@ public class Slf4JLogger extends AbstractSessionLog {
     }
   }
 
-  /** {@code WARN} level log. */
+  /** WARN level log. */
   private static final class LogWarn implements LoggerCall {
     @Override
     public void log(final Logger logger, final String msg, final Throwable t) {
@@ -73,7 +73,7 @@ public class Slf4JLogger extends AbstractSessionLog {
     }
   }
 
-  /** {@code ERROR} level log. */
+  /** ERROR level log. */
   private static final class LogError implements LoggerCall {
     @Override
     public void log(final Logger logger, final String msg, final Throwable t) {
@@ -99,14 +99,14 @@ public class Slf4JLogger extends AbstractSessionLog {
   public static final String ECLIPSELINK_NAMESPACE = "org.eclipse.persistence";
 
   /** SLF4J logger calls mapping for EclipseLink logging levels. */
-  private static final LoggerCall[] loggerCall = new LoggerCall[LogLevel.length];
+  private static final LoggerCall[] loggerCall = new LoggerCall[LogLevel.LENGTH];
 
   /** Loggers lookup array. */
-  private static final Logger[] categoryLoggers = new Logger[LogCategory.length];
+  private static final Logger[] categoryLoggers = new Logger[LogCategory.LENGTH];
 
   static {
     // Initialize loggers lookup array.
-    for (int i = 0; i < LogCategory.length; i++) {
+    for (int i = 0; i < LogCategory.LENGTH; i++) {
       categoryLoggers[i] = null;
     }
     // Initialize SLF4J logger calls mapping for EclipseLink logging levels.
@@ -136,13 +136,13 @@ public class Slf4JLogger extends AbstractSessionLog {
   private final LogLevel[] logLevels;
 
   /**
-   * Creates an instance of EclipseLink logger bridge over SLF4J
+   * Creates an instance of EclipseLink logger bridge over SLF4J.
    */
   public Slf4JLogger() {
     super();
     // Set default logging levels for all logging categories.
     final byte defaultLevel = LogLevel.toValue(level).getId();
-    logLevels = new LogLevel[LogCategory.length];
+    logLevels = new LogLevel[LogCategory.LENGTH];
     for (LogCategory category : LogCategory.values()) {
       final int i = category.getId();
       switch (category) {

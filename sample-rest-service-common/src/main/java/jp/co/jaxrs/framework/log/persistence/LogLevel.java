@@ -2,7 +2,14 @@ package jp.co.jaxrs.framework.log.persistence;
 
 import java.util.HashMap;
 import java.util.Map;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+/**
+ * ログレベル.
+ */
+@AllArgsConstructor
+@Getter
 public enum LogLevel {
 
   /** Log everything. */
@@ -25,23 +32,27 @@ public enum LogLevel {
   OFF((byte) 0x08, "OFF");
 
   /** Logging levels enumeration length. */
-  public static final int length = LogLevel.values().length;
+  public static final int LENGTH = LogLevel.values().length;
 
-  /** {@link Map} for {@link String} to {@link LogLevel} case insensitive lookup. */
-  private static final Map<String, LogLevel> stringValuesMap = new HashMap<String, LogLevel>(2 * length);
+  /** Map for String to LogLevel case insensitive lookup. */
+  private static final Map<String, LogLevel> stringValuesMap = new HashMap<>(2 * LENGTH);
 
-  // Initialize String to LogLevel case insensitive lookup Map.
+  // Holds value of SessionLog logging levels constants (e.g. ALL, FINES, FINER, ...).
+  /** Logging level ID. Continuous integer sequence starting from 0. */
+  private final byte id;
+
+  /** Logging level name. */
+  private final String name;
+
+  /** Array for id to LogLevel lookup. */
+  private static final LogLevel[] idValues = new LogLevel[LENGTH];
+
   static {
+    // Initialize String to LogLevel case insensitive lookup Map.
     for (LogLevel logLevel : LogLevel.values()) {
       stringValuesMap.put(logLevel.name.toUpperCase(), logLevel);
     }
-  }
-
-  /** Array for id to {@link LogLevel} lookup. */
-  private static final LogLevel idValues[] = new LogLevel[length];
-
-  // Initialize id to LogLevel lookup array.
-  static {
+    // Initialize id to LogLevel lookup array.
     for (LogLevel logLevel : LogLevel.values()) {
       idValues[logLevel.id] = logLevel;
     }
@@ -83,9 +94,9 @@ public enum LogLevel {
    * @throws IllegalArgumentException when {@link LogLevel} ID is out of valid {@link LogLevel} IDs range.
    */
   public static final LogLevel toValue(final int id) {
-    if (id < 0 || id >= length) {
+    if (id < 0 || id >= LENGTH) {
       throw new IllegalArgumentException(
-          "Log level ID " + id + "is out of range <0, " + Integer.toString(length) + ">.");
+          "Log level ID " + id + "is out of range <0, " + Integer.toString(LENGTH) + ">.");
     }
     return idValues[id];
   }
@@ -100,46 +111,10 @@ public enum LogLevel {
    * @throws IllegalArgumentException when {@link LogLevel} ID is out of valid {@link LogLevel} IDs range.
    */
   public static final LogLevel toValue(final int id, final LogLevel fallBack) {
-    if (id >= 0 && id < length) {
+    if (id >= 0 && id < LENGTH) {
       return idValues[id];
     }
     return fallBack;
-  }
-
-  // Holds value of SessionLog logging levels constants (e.g. ALL, FINES, FINER, ...).
-  /** Logging level ID. Continuous integer sequence starting from 0. */
-  private final byte id;
-
-  /** Logging level name. */
-  private final String name;
-
-  /**
-   * Creates an instance of logging level.
-   *
-   * @param id Logging level ID.
-   * @param name Logging level name.
-   */
-  private LogLevel(final byte id, final String name) {
-    this.id = id;
-    this.name = name;
-  }
-
-  /**
-   * Get logging level ID.
-   *
-   * @return Logging level ID.
-   */
-  public byte getId() {
-    return id;
-  }
-
-  /**
-   * Get logging level name.
-   *
-   * @return Logging level name.
-   */
-  public String getName() {
-    return name;
   }
 
   /**

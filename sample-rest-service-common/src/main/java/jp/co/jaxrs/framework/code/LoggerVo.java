@@ -1,10 +1,12 @@
 package jp.co.jaxrs.framework.code;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
  * ロガーVO.
  */
+@AllArgsConstructor
 @Getter
 public enum LoggerVo implements CodeVo {
 
@@ -21,16 +23,5 @@ public enum LoggerVo implements CodeVo {
 
   /** デコード. */
   private String decode;
-
-  /**
-   * デフォルトコンストラクタ.
-   *
-   * @param code コード
-   * @param decode デコード
-   */
-  private LoggerVo(String code, String decode) {
-    this.code = code;
-    this.decode = decode;
-  }
 
 }
