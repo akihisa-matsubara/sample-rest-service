@@ -19,6 +19,5 @@
                 cst.customerNo = :customerNo
         ]]></query>
     </named-query>
-    <entity
-        class="jp.co.jaxrs.sample.common.data.entity.CustomerEntity" />
+    <entity class="jp.co.jaxrs.sample.common.data.entity.CustomerEntity" />
 </entity-mappings>

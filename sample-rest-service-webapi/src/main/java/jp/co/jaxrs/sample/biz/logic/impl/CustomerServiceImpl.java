@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
  * 顧客サービス実装.
  */
 @ApplicationScoped
+@Transactional(rollbackOn = Exception.class)
 public class CustomerServiceImpl implements CustomerService {
 
   /** 顧客Dao. */
@@ -32,7 +33,6 @@ public class CustomerServiceImpl implements CustomerService {
    * {@inheritDoc}
    */
   @Override
-  @Transactional(rollbackOn = Exception.class)
   public List<CustomerDto> getCustomers(SearchConditionDo searchCondition) {
     List<CustomerEntity> entities = dao.search(searchCondition);
     return entities.stream().map(entity -> SampleBeanUtils.copyProperties(CustomerDto.class, entity)).collect(Collectors.toList());
@@ -42,7 +42,6 @@ public class CustomerServiceImpl implements CustomerService {
    * {@inheritDoc}
    */
   @Override
-  @Transactional(rollbackOn = Exception.class)
   public CustomerDto getCustomer(String customerNo) {
     CustomerEntity entity = dao.find(customerNo);
 
@@ -57,7 +56,6 @@ public class CustomerServiceImpl implements CustomerService {
    * {@inheritDoc}
    */
   @Override
-  @Transactional(rollbackOn = Exception.class)
   public void createCustomer(CustomerDto dto) {
     CustomerEntity customer = SampleBeanUtils.copyProperties(CustomerEntity.class, dto);
 
@@ -71,7 +69,6 @@ public class CustomerServiceImpl implements CustomerService {
    * {@inheritDoc}
    */
   @Override
-  @Transactional(rollbackOn = Exception.class)
   public int updateCustomer(CustomerDto dto) {
     CustomerEntity customer = dao.find(dto.getCustomerNo());
     if (customer == null) {
@@ -88,7 +85,6 @@ public class CustomerServiceImpl implements CustomerService {
    * {@inheritDoc}
    */
   @Override
-  @Transactional(rollbackOn = Exception.class)
   public int deleteCustomer(String customerNo) {
     CustomerEntity customer = dao.find(customerNo);
     if (customer == null) {
