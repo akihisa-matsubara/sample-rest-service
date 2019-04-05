@@ -1,10 +1,12 @@
 package jp.co.jaxrs.framework.message;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
  * メッセージID.
  */
+@AllArgsConstructor
 @Getter
 public enum MessageId {
 
@@ -18,14 +20,5 @@ public enum MessageId {
 
   /** メッセージID. */
   private String id;
-
-  /**
-   * デフォルトコンストラクタ.
-   *
-   * @param id ID
-   */
-  private MessageId(String id) {
-    this.id = id;
-  }
 
 }

@@ -27,7 +27,7 @@ public class SearchConditionDo {
   private Map<String, Object> queryParams = new HashMap<>();
 
   /** 検索件数を取得するためのクエリ. */
-  public String countQuery;
+  private String countQuery;
 
   /** 検索結果を取得するためのクエリ. */
   private String searchQuery;

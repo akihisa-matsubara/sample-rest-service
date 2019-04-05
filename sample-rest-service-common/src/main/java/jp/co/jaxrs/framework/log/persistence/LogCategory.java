@@ -13,6 +13,7 @@ import org.eclipse.persistence.logging.SessionLog;
 @AllArgsConstructor
 @Getter
 public enum LogCategory {
+
   /** ALL. */
   ALL((byte) 0x00, "all"),
   /** CACHE. */

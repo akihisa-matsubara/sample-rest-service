@@ -89,10 +89,14 @@ public class Slf4JLogger extends AbstractSessionLog {
   /** Do not log anything. */
   private static final class LogNop implements LoggerCall {
     @Override
-    public void log(final Logger logger, final String msg, final Throwable t) {}
+    public void log(final Logger logger, final String msg, final Throwable t) {
+      // do nothing
+    }
 
     @Override
-    public void log(final Logger logger, final String message) {}
+    public void log(final Logger logger, final String message) {
+      // do nothing
+    }
   }
 
   /** The default session name in case there is session name is missing. */
@@ -129,7 +133,8 @@ public class Slf4JLogger extends AbstractSessionLog {
     if (logger != null) {
       return logger;
     }
-    return categoryLoggers[category.getId()] = LoggerFactory.getLogger(category.getNameSpace());
+    categoryLoggers[category.getId()] = LoggerFactory.getLogger(category.getNameSpace());
+    return categoryLoggers[category.getId()];
   }
 
   /** Logging levels for individual logging categories. */
@@ -145,17 +150,17 @@ public class Slf4JLogger extends AbstractSessionLog {
     logLevels = new LogLevel[LogCategory.LENGTH];
     for (LogCategory category : LogCategory.values()) {
       final int i = category.getId();
-      switch (category) {
-        case ALL:
-          logLevels[i] = LogLevel.toValue(defaultLevel);
-          break;
-        default:
-          final String property = PersistenceUnitProperties.CATEGORY_LOGGING_LEVEL_ + category.getName();
-          final String logLevelStr = PrivilegedAccessHelper.shouldUsePrivilegedAccess()
-              ? AccessController.doPrivileged(new PrivilegedGetSystemProperty(property))
-              : System.getProperty(property);
-          logLevels[i] = LogLevel.toValue(
-              logLevelStr != null ? translateStringToLoggingLevel(logLevelStr) : defaultLevel);
+
+      if (LogCategory.ALL == category) {
+        logLevels[i] = LogLevel.toValue(defaultLevel);
+
+      } else {
+        final String property = PersistenceUnitProperties.CATEGORY_LOGGING_LEVEL_ + category.getName();
+        final String logLevelStr = PrivilegedAccessHelper.shouldUsePrivilegedAccess()
+            ? AccessController.doPrivileged(new PrivilegedGetSystemProperty(property))
+            : System.getProperty(property);
+        logLevels[i] = LogLevel.toValue(
+            logLevelStr != null ? translateStringToLoggingLevel(logLevelStr) : defaultLevel);
       }
     }
   }
@@ -194,7 +199,6 @@ public class Slf4JLogger extends AbstractSessionLog {
   public void setLevel(final int level) {
     super.setLevel(level);
     logLevels[LogCategory.ALL.getId()] = LogLevel.toValue(level);
-    // TODO: Handle logging levels on SLF4J side too.
   }
 
   /**
@@ -210,7 +214,6 @@ public class Slf4JLogger extends AbstractSessionLog {
       throw new IllegalArgumentException("Unknown logging category name.");
     }
     logLevels[category.getId()] = LogLevel.toValue(level);
-    // TODO: Handle logging levels on SLF4J side too.
   }
 
   /**
