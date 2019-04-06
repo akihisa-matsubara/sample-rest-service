@@ -1,11 +1,11 @@
 package jp.co.jaxrs.sample.pres.resource;
 
 import jp.co.jaxrs.framework.code.ResultVo;
-import jp.co.jaxrs.framework.constant.CommonParam;
+import jp.co.jaxrs.framework.constant.CommonReqParam;
 import jp.co.jaxrs.framework.pres.dto.ResponseDto;
 import jp.co.jaxrs.framework.util.QueryBuilder;
 import jp.co.jaxrs.sample.biz.logic.CustomerService;
-import jp.co.jaxrs.sample.common.constant.Param;
+import jp.co.jaxrs.sample.common.constant.ReqParam;
 import jp.co.jaxrs.sample.common.dto.CustomerDto;
 import jp.co.jaxrs.sample.pres.SampleApplication;
 import java.util.Date;
@@ -59,24 +59,24 @@ public class CustomerResource {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   public ResponseDto getCustomers(
-      @DefaultValue("0") @QueryParam(CommonParam.OFFSET) int offset,
-      @DefaultValue("100") @QueryParam(CommonParam.LIMIT) int limit,
-      @QueryParam(CommonParam.SORT) String sort,
-      @QueryParam(Param.NAME_KANJI) String nameKanji,
-      @QueryParam(Param.NAME_KANA) String nameKana,
-      @QueryParam(Param.GENDER) String gender,
-      @QueryParam(Param.BIRTHDAY) Date birthday,
-      @QueryParam(Param.ADDRESS_ZIP) String addressZip,
-      @QueryParam(Param.ADDRESS) String address) {
+      @DefaultValue("0") @QueryParam(CommonReqParam.OFFSET) int offset,
+      @DefaultValue("100") @QueryParam(CommonReqParam.LIMIT) int limit,
+      @QueryParam(CommonReqParam.SORT) String sort,
+      @QueryParam(ReqParam.NAME_KANJI) String nameKanji,
+      @QueryParam(ReqParam.NAME_KANA) String nameKana,
+      @QueryParam(ReqParam.GENDER) String gender,
+      @QueryParam(ReqParam.BIRTHDAY) Date birthday,
+      @QueryParam(ReqParam.ADDRESS_ZIP) String addressZip,
+      @QueryParam(ReqParam.ADDRESS) String address) {
 
     // XXX 格納順番がそのままwhere節の出力順となる為、INDEXを考慮すること（ただし、多数の条件でOptimizerが正しい実行計画を選択するかは不明）
     Map<String, Object> queryParams = new LinkedHashMap<>();
-    QueryBuilder.putParam(queryParams, Param.NAME_KANJI, nameKanji);
-    QueryBuilder.putParam(queryParams, Param.NAME_KANA, nameKana);
-    QueryBuilder.putParam(queryParams, Param.GENDER, gender);
-    QueryBuilder.putParam(queryParams, Param.BIRTHDAY, birthday);
-    QueryBuilder.putParam(queryParams, Param.ADDRESS_ZIP, addressZip);
-    QueryBuilder.putParam(queryParams, Param.ADDRESS, address);
+    QueryBuilder.putParam(queryParams, ReqParam.NAME_KANJI, nameKanji);
+    QueryBuilder.putParam(queryParams, ReqParam.NAME_KANA, nameKana);
+    QueryBuilder.putParam(queryParams, ReqParam.GENDER, gender);
+    QueryBuilder.putParam(queryParams, ReqParam.BIRTHDAY, birthday);
+    QueryBuilder.putParam(queryParams, ReqParam.ADDRESS_ZIP, addressZip);
+    QueryBuilder.putParam(queryParams, ReqParam.ADDRESS, address);
 
     List<CustomerDto> customers = customerService.getCustomers(QueryBuilder.createSearchCondition(offset, limit, sort, queryParams));
     return ResponseDto.builder()
@@ -91,10 +91,10 @@ public class CustomerResource {
    * @param customerNo 顧客番号
    * @return {@link ResponseDto} Response Dto(顧客情報)
    */
-  @Path("/{" + Param.CUSTOMER_NO + "}")
+  @Path("/{" + ReqParam.CUSTOMER_NO + "}")
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public ResponseDto getCustomer(@PathParam(Param.CUSTOMER_NO) @Size(min = 8, max = 8) String customerNo) {
+  public ResponseDto getCustomer(@PathParam(ReqParam.CUSTOMER_NO) @Size(min = 8, max = 8) String customerNo) {
     CustomerDto customer = customerService.getCustomer(customerNo);
     return ResponseDto.builder()
         .result(ResultVo.SUCCESS.getDecode())
@@ -141,10 +141,10 @@ public class CustomerResource {
    * @param customerNo 顧客番号
    * @return {@link ResponseDto} Response Dto(削除件数)
    */
-  @Path("/{" + Param.CUSTOMER_NO + "}")
+  @Path("/{" + ReqParam.CUSTOMER_NO + "}")
   @DELETE
   @Produces(MediaType.APPLICATION_JSON)
-  public ResponseDto deleteCustomer(@PathParam(Param.CUSTOMER_NO) @Size(min = 8, max = 8) String customerNo) {
+  public ResponseDto deleteCustomer(@PathParam(ReqParam.CUSTOMER_NO) @Size(min = 8, max = 8) String customerNo) {
     int deleteCount = customerService.deleteCustomer(customerNo);
     return ResponseDto.builder()
         .result(ResultVo.SUCCESS.getDecode())

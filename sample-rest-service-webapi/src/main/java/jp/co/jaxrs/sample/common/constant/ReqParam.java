@@ -1,10 +1,10 @@
 package jp.co.jaxrs.sample.common.constant;
 
 /**
- * パラメーター定数.
+ * リクエストパラメーター定数.
  * {@code @QueryParam}、{@code @Path}、{@code @PathParam} で利用するパラメーター定数
  */
-public final class Param {
+public final class ReqParam {
 
   /** -- 汎用項目 ------------------------------------------------------------------------------. */
   /** 氏名漢字. */
@@ -28,7 +28,7 @@ public final class Param {
   /**
    * デフォルトコンストラクター.
    */
-  private Param() {
+  private ReqParam() {
     // do nothing
   }
 }

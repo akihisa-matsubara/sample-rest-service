@@ -1,10 +1,10 @@
 package jp.co.jaxrs.framework.constant;
 
 /**
- * パラメーター定数(共通項目).
+ * リクエストパラメーター定数(共通項目).
  * {@code @QueryParam}、{@code @Path}、{@code @PathParam} で利用するパラメーター定数
  */
-public final class CommonParam {
+public final class CommonReqParam {
 
   /** Offset. */
   public static final String OFFSET = "offset";
@@ -16,7 +16,7 @@ public final class CommonParam {
   /**
    * デフォルトコンストラクター.
    */
-  private CommonParam() {
+  private CommonReqParam() {
     // do nothing
   }
 }
