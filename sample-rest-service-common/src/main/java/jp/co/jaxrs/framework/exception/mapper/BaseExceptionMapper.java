@@ -6,6 +6,7 @@ import jp.co.jaxrs.framework.pres.dto.ResponseDto;
 import java.util.List;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +17,9 @@ import org.slf4j.LoggerFactory;
  * @param <EM> ExceptionMapper
  * @param <E> Exception
  */
+@Slf4j
 public abstract class BaseExceptionMapper<EM, E extends Exception> {
 
-  /** Debug Logger. */
-  private static final Logger DEBUG_LOGGER = LoggerFactory.getLogger(BaseExceptionMapper.class);
   /** Error Logger. */
   private static final Logger ERROR_LOGGER = LoggerFactory.getLogger(LoggerVo.ERROR_LOGGER.getCode());
 
@@ -30,7 +30,7 @@ public abstract class BaseExceptionMapper<EM, E extends Exception> {
    * @return {@link Response} 例外を設定したResponse
    */
   public Response toResponse(E exception) {
-    DEBUG_LOGGER.error(ExceptionUtils.getStackTrace(exception));
+    log.error(ExceptionUtils.getStackTrace(exception));
     ERROR_LOGGER.error(ExceptionUtils.getStackTrace(exception));
 
     ResponseDto responseDto = ResponseDto.builder()

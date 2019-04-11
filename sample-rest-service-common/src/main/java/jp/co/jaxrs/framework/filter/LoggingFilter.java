@@ -10,6 +10,7 @@ import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.ext.Provider;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -18,12 +19,11 @@ import org.slf4j.MDC;
  * ログ出力フィルター.
  */
 @Provider
+@Slf4j
 public class LoggingFilter implements ContainerRequestFilter, ContainerResponseFilter {
   /** MDC Key - start time. */
   private static final String START_TIME = "start-time";
 
-  /** Debug Logger. */
-  private static final Logger DEBUG_LOGGER = LoggerFactory.getLogger(LoggingFilter.class);
   /** Performance Logger. */
   private static final Logger PERFORMANCE_LOGGER = LoggerFactory.getLogger(LoggerVo.PERFORMANCE_LOGGER.getCode());
   /** Access Logger. */
@@ -45,9 +45,9 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
     ACCESS_LOGGER.debug("Resource : /{}, Method Type : {}, Method Name : {}", requestContext.getUriInfo().getPath(),
         requestContext.getMethod(), resourceInfo.getResourceMethod().getName());
 
-    DEBUG_LOGGER.debug("Entering in Resource : /{} ", requestContext.getUriInfo().getPath());
-    DEBUG_LOGGER.debug("Method Name : {} ", resourceInfo.getResourceMethod().getName());
-    DEBUG_LOGGER.debug("Class : {} ", resourceInfo.getResourceClass().getCanonicalName());
+    log.debug("Entering in Resource : /{} ", requestContext.getUriInfo().getPath());
+    log.debug("Method Name : {} ", resourceInfo.getResourceMethod().getName());
+    log.debug("Class : {} ", resourceInfo.getResourceClass().getCanonicalName());
     logQueryParameters(requestContext);
     logRequestHeader(requestContext);
   }
@@ -78,7 +78,7 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
       if (obj != null && !obj.isEmpty()) {
         value = obj.get(0);
       }
-      DEBUG_LOGGER.debug("Query Parameter Name: {}, Value :{}", name, value);
+      log.debug("Query Parameter Name: {}, Value :{}", name, value);
     }
   }
 
@@ -88,12 +88,12 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
    * @param requestContext ContainerRequestContext
    */
   private void logRequestHeader(ContainerRequestContext requestContext) {
-    DEBUG_LOGGER.debug("----Start Header Section of request ----");
-    DEBUG_LOGGER.debug("Method Type : {}", requestContext.getMethod());
+    log.debug("----Start Header Section of request ----");
+    log.debug("Method Type : {}", requestContext.getMethod());
     for (String headerName : requestContext.getHeaders().keySet()) {
-      DEBUG_LOGGER.debug("Header Name: {}, Header Value :{} ", headerName, requestContext.getHeaderString(headerName));
+      log.debug("Header Name: {}, Header Value :{} ", headerName, requestContext.getHeaderString(headerName));
     }
-    DEBUG_LOGGER.debug("----End Header Section of request ----");
+    log.debug("----End Header Section of request ----");
   }
 
   /**

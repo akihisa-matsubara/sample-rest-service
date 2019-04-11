@@ -7,19 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 
 /**
  * クエリビルダー.
  */
+@UtilityClass
 public class QueryBuilder {
-
-  /**
-   * デフォルトコンストラクタ.
-   */
-  private QueryBuilder() {
-    throw new IllegalStateException("Utility class");
-  }
 
   /**
    * クエリパラメータMapにパラメーターを格納する.

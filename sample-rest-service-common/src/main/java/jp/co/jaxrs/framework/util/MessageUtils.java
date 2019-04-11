@@ -5,10 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
 import java.util.Properties;
+import lombok.experimental.UtilityClass;
 
 /**
  * メッセージ・ユーティリティー.
  */
+@UtilityClass
 public class MessageUtils {
 
   /** メッセージプロパティ名. */
@@ -26,13 +28,6 @@ public class MessageUtils {
     } catch (IOException ioe) {
       throw new ExceptionInInitializerError("メッセージプロパティファイルの読み込みが失敗しました。");
     }
-  }
-
-  /**
-   * デフォルトコンストラクタ.
-   */
-  private MessageUtils() {
-    throw new IllegalStateException("Utility class");
   }
 
   /**

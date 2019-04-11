@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -12,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
  * システム日付を変更したい場合は、クラスパス上にsystemDate.propertiesを配置し、
  * systemDate=yyyyMMdd形式で設定してください.
  */
+@UtilityClass
 public class SystemDateUtils {
 
   /** システム日付プロパティ名. */
@@ -35,13 +37,6 @@ public class SystemDateUtils {
     } catch (MissingResourceException mre) {
       // nothing
     }
-  }
-
-  /**
-   * コンストラクタ.
-   */
-  private SystemDateUtils() {
-    throw new IllegalStateException("Utility class");
   }
 
   /**

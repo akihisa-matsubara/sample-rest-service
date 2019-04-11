@@ -34,7 +34,7 @@ public abstract class AbstractBeanUtils {
    * デフォルトコンストラクタ.
    */
   protected AbstractBeanUtils() {
-    throw new IllegalStateException("Utility class");
+    throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
   }
 
   /**

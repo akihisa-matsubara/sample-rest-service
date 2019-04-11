@@ -3,19 +3,15 @@ package jp.co.jaxrs.framework.util;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.List;
+import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 /**
  * Reflectionユーティリティー.
  */
+@UtilityClass
 public class ReflectionUtils {
-
-  /**
-   * デフォルトコンストラクタ.
-   */
-  private ReflectionUtils() {
-    throw new IllegalStateException("Utility class");
-  }
 
   /**
    * オブジェクトからアノテーションが定義されたインスタンス変数を取得します.
@@ -26,11 +22,7 @@ public class ReflectionUtils {
    * @return インスタンス変数、アノテーションが見つからない場合はnull
    */
   @SuppressWarnings("unchecked")
-  public static <T> T getAnnotatedField(Class<? extends Annotation> annotation, Object target) {
-    if (annotation == null || target == null) {
-      return null;
-    }
-
+  public static <T> T getAnnotatedField(@NonNull Class<? extends Annotation> annotation, @NonNull Object target) {
     List<Field> fieldsListWithAnnotation = FieldUtils.getFieldsListWithAnnotation(target.getClass(), annotation);
     if (!fieldsListWithAnnotation.isEmpty()) {
       Field field = fieldsListWithAnnotation.get(0);

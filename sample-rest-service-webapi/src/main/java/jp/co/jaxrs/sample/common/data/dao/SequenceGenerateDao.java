@@ -6,6 +6,7 @@ import javax.enterprise.context.ApplicationScoped;
  * シーケンス生成Dao.
  */
 @ApplicationScoped
+// PKはコンパイルエラー回避のためにStringを設定
 public class SequenceGenerateDao extends MyDbDao<Integer, String> {
   private static final String SELECT_SEQ_CUSTOMER_NO = "SELECT NEXT VALUE FOR SEQ_CUSTOMER_NO FROM SYSIBM.DUAL";
 
