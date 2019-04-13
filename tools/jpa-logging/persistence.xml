@@ -17,6 +17,7 @@
             <property name="eclipselink.logging.level" value="FINE" />
             <property name="eclipselink.logging.level.sql" value="FINE" />
             <property name="eclipselink.logging.parameters" value="true" />
+            <property name="eclipselink.logging.logger" value="jp.co.jaxrs.framework.log.persistence.Slf4JLogger"/>
         </properties>
     </persistence-unit>
 </persistence>
