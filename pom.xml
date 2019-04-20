@@ -19,6 +19,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.lib.path>${basedir}/lib</project.lib.path>
+        <!-- version -->
+        <javaee.version>7.0</javaee.version>
+        <commons-lang3.version>3.8.1</commons-lang3.version>
+        <commons-beanutils.version>1.9.3</commons-beanutils.version>
+        <logback.version>1.2.3</logback.version>
+        <lombok.version>1.18.6</lombok.version>
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+        <maven-war-plugin.version>3.2.2</maven-war-plugin.version>
+        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -26,42 +36,39 @@
             <!-- JavaEE7 -->
             <dependency>
                 <groupId>javax</groupId>
-                <artifactId>javaee-web-api</artifactId>
-                <version>7.0</version>
-                <scope>provided</scope>
+                <artifactId>javaee-api</artifactId>
+                <version>${javaee.version}</version>
             </dependency>
 
             <!-- OSS Library -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.8.1</version>
+                <version>${commons-lang3.version}</version>
             </dependency>
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
-                <version>1.9.3</version>
+                <version>${commons-beanutils.version}</version>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.2.3</version>
+                <version>${logback.version}</version>
             </dependency>
-
-            <!-- provided scope -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.4</version>
-                <scope>provided</scope>
+                <version>${lombok.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
+        <!-- JavaEE7 -->
         <dependency>
             <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
+            <artifactId>javaee-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -111,4 +118,26 @@
 
     </dependencies>
 
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${maven-war-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
