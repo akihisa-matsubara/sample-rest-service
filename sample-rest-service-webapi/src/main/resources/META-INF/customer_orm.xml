@@ -7,7 +7,7 @@
     <persistence-unit-metadata>
         <persistence-unit-defaults>
             <entity-listeners>
-                <entity-listener class="jp.co.jaxrs.framework.data.entity.DbBaseEntityListener" />
+                <entity-listener class="jp.co.sample.rest.framework.data.entity.DbBaseEntityListener" />
             </entity-listeners>
         </persistence-unit-defaults>
     </persistence-unit-metadata>
@@ -19,5 +19,5 @@
                 cst.customerNo = :customerNo
         ]]></query>
     </named-query>
-    <entity class="jp.co.jaxrs.sample.common.data.entity.CustomerEntity" />
+    <entity class="jp.co.sample.rest.common.data.entity.CustomerEntity" />
 </entity-mappings>

@@ -5,7 +5,7 @@
             <dependent-object>Module_1548571302401</dependent-object>
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="sample-rest-service-common.jar" deploy-path="/lib" handle="module:/resource/sample-rest-service-common/sample-rest-service-common">
+        <dependent-module archiveName="sample-rest-service-common.jar" deploy-path="/lib" handle="module:/resource/sample-rest-service-common-jar/sample-rest-service-common-jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>

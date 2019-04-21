@@ -9,15 +9,15 @@
         <mapping-file>META-INF/customer_orm.xml</mapping-file>
 
         <!-- converter -->
-        <class>jp.co.jaxrs.framework.data.converter.LocalDateToDateConverter</class>
-        <class>jp.co.jaxrs.framework.data.converter.LocalDateTimeToTimestampConverter</class>
+        <class>jp.co.sample.rest.framework.data.converter.LocalDateToDateConverter</class>
+        <class>jp.co.sample.rest.framework.data.converter.LocalDateTimeToTimestampConverter</class>
 
         <properties>
             <property name="jdbc.persistence.logging" value="true" />
             <property name="eclipselink.logging.level" value="FINE" />
             <property name="eclipselink.logging.level.sql" value="FINE" />
             <property name="eclipselink.logging.parameters" value="true" />
-            <property name="eclipselink.logging.logger" value="jp.co.jaxrs.framework.log.persistence.Slf4JLogger"/>
+            <property name="eclipselink.logging.logger" value="jp.co.sample.rest.framework.log.persistence.Slf4JLogger"/>
         </properties>
     </persistence-unit>
 </persistence>

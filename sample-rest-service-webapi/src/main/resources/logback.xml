@@ -52,7 +52,7 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="jp.co.jaxrs" additivity="false">
+    <logger name="jp.co.sample" additivity="false">
         <level value="DEBUG" />
         <appender-ref ref="DEBUG_LOG_APPENDER" />
     </logger>

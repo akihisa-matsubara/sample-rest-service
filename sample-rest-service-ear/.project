@@ -4,7 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>sample-rest-service-webapi</project>
-		<project>sample-rest-service-common</project>
+		<project>sample-rest-service-common-jar</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

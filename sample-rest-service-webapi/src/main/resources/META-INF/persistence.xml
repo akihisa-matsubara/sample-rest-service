@@ -9,8 +9,8 @@
         <mapping-file>META-INF/customer_orm.xml</mapping-file>
 
         <!-- converter -->
-        <class>jp.co.jaxrs.framework.data.converter.LocalDateToDateConverter</class>
-        <class>jp.co.jaxrs.framework.data.converter.LocalDateTimeToTimestampConverter</class>
+        <class>jp.co.sample.rest.framework.data.converter.LocalDateToDateConverter</class>
+        <class>jp.co.sample.rest.framework.data.converter.LocalDateTimeToTimestampConverter</class>
 
         <properties>
             <property name="jdbc.persistence.logging" value="true" />
