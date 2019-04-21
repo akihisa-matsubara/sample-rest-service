@@ -58,7 +58,6 @@ public class CustomerDto {
   private Date birthday;
 
   /** 郵便番号. */
-  // @JsonProperty("addressZip") // XXX 名称の変更も可能？？
   private String addressZip;
 
   /** 住所. */

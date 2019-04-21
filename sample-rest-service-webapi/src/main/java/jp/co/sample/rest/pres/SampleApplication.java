@@ -10,9 +10,10 @@ import javax.ws.rs.core.Application;
  * </PRE>
  * <table>
  * <tr><th>型</th><th>書式</th></tr>
- * <tr><td>Date</td><td>yyyy-MM-dd</td></tr>
- * <tr><td>TimeStamp</td><td>yyyy-MM-ddTHH:mm:ss.SSS</td></tr>
- * <tr><td>LocalDateTime</td><td>yyyy-MM-ddTHH:mm:ss.SSS</td></tr>
+ * <tr><td>{@code Date}</td><td>yyyy-MM-dd</td></tr>
+ * <tr><td>{@code TimeStamp}</td><td>yyyy-MM-dd'T'HH:mm:ss.SSS</td></tr>
+ * <tr><td>{@code LocalDate}</td><td>yyyy-MM-dd</td></tr>
+ * <tr><td>{@code LocalDateTime}</td><td>yyyy-MM-dd'T'HH:mm:ss.SSS</td></tr>
  * </table>
  */
 @ApplicationPath("/api/v1/sample")
