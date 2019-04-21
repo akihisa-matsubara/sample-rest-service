@@ -31,6 +31,7 @@
         <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
         <maven-war-plugin.version>3.2.2</maven-war-plugin.version>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+        <flyway-maven-plugin.version>5.2.4</flyway-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -131,6 +132,13 @@
             <scope>system</scope>
             <systemPath>${project.lib.path}/com.ibm.ws.prereq.beanvalidation.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>com.ibm.db2.jcc</groupId>
+            <artifactId>db2jcc4</artifactId>
+            <version>11.1</version>
+            <scope>system</scope>
+            <systemPath>${project.lib.path}/db2jcc4.jar</systemPath>
+        </dependency>
 
         <!-- test scope -->
         <dependency>
@@ -159,7 +167,32 @@
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>${maven-jar-plugin.version}</version>
                 </plugin>
+
+                <plugin>
+                    <groupId>org.flywaydb</groupId>
+                    <artifactId>flyway-maven-plugin</artifactId>
+                    <version>${flyway-maven-plugin.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <inherited>false</inherited>
+                <configuration>
+                    <url>jdbc:db2://localhost:50000/mydb:currentSchema=TEST;</url>
+                    <user>db2admin</user>
+                    <password>db2admin</password>
+                    <locations>
+                        <location>filesystem:src/main/resources/db/migrations</location>
+                    </locations>
+                    <placeholders>
+                        <schemaName>TEST</schemaName>
+                    </placeholders>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>
