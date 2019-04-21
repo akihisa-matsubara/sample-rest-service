@@ -1,6 +1,6 @@
 package jp.co.sample.rest.framework.util;
 
-import jp.co.sample.framework.util.AbstractSystemDateUtils;
+import jp.co.sample.common.util.AbstractSystemDateUtils;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import lombok.experimental.UtilityClass;
