@@ -1,5 +1,6 @@
 package jp.co.sample.rest.framework.code;
 
+import jp.co.sample.framework.code.CodeVo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

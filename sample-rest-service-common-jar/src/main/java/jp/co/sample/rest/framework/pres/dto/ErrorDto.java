@@ -25,7 +25,7 @@ public class ErrorDto implements Serializable {
    * デフォルトコンストラクター.
    *
    * @param messageId メッセージID
-   * @param params パラメータ－
+   * @param params パラメーター
    */
   public ErrorDto(MessageId messageId, String... params) {
     this.messageId = messageId;

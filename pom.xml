@@ -21,6 +21,8 @@
         <project.lib.path>${basedir}/lib</project.lib.path>
         <!-- version -->
         <javaee.version>7.0</javaee.version>
+        <sample-common-util.version>0.0.1-SNAPSHOT</sample-common-util.version>
+        <sample-test-util.version>0.0.1-SNAPSHOT</sample-test-util.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <logback.version>1.2.3</logback.version>
@@ -38,6 +40,17 @@
                 <groupId>javax</groupId>
                 <artifactId>javaee-api</artifactId>
                 <version>${javaee.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jp.co.sample</groupId>
+                <artifactId>sample-common-util-jar</artifactId>
+                <version>${sample-common-util.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jp.co.sample</groupId>
+                <artifactId>sample-test-util-jar</artifactId>
+                <version>${sample-test-util.version}</version>
             </dependency>
 
             <!-- OSS Library -->
@@ -65,11 +78,9 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- JavaEE7 -->
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <scope>provided</scope>
+            <groupId>jp.co.sample</groupId>
+            <artifactId>sample-common-util-jar</artifactId>
         </dependency>
 
         <!-- OSS Library -->
@@ -88,6 +99,11 @@
 
         <!-- provided scope -->
         <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
@@ -100,7 +116,7 @@
         <!-- <scope>provided</scope> -->
         <!-- </dependency> -->
 
-        <!-- System Scope -->
+        <!-- system scope -->
         <dependency>
             <groupId>com.ibm.ws.jpa-2.1</groupId>
             <artifactId>thinclient</artifactId>
@@ -116,6 +132,12 @@
             <systemPath>${project.lib.path}/com.ibm.ws.prereq.beanvalidation.jar</systemPath>
         </dependency>
 
+        <!-- test scope -->
+        <dependency>
+            <groupId>jp.co.sample</groupId>
+            <artifactId>sample-test-util-jar</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

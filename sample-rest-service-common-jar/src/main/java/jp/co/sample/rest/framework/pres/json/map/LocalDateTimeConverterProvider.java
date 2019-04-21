@@ -1,7 +1,7 @@
 package jp.co.sample.rest.framework.pres.json.map;
 
-import jp.co.sample.rest.framework.code.DateFormatVo;
-import jp.co.sample.rest.framework.util.LocalDateTimeFormatUtils;
+import jp.co.sample.framework.code.DateFormatVo;
+import jp.co.sample.framework.util.LocalDateTimeFormatUtils;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;

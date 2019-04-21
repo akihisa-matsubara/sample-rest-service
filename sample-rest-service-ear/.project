@@ -5,6 +5,7 @@
 	<projects>
 		<project>sample-rest-service-webapi</project>
 		<project>sample-rest-service-common-jar</project>
+		<project>sample-common-util-jar</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

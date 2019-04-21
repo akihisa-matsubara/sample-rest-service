@@ -8,5 +8,8 @@
         <dependent-module archiveName="sample-rest-service-common.jar" deploy-path="/lib" handle="module:/resource/sample-rest-service-common-jar/sample-rest-service-common-jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="sample-common-util-jar.jar" deploy-path="/lib" handle="module:/resource/sample-common-util-jar/sample-common-util-jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>
