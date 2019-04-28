@@ -1,32 +1,35 @@
 package jp.co.sample.rest.framework.util;
 
+import jp.co.sample.common.constant.SystemProperty;
 import jp.co.sample.rest.framework.message.MessageId;
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.MessageFormat;
-import java.util.Properties;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * メッセージ・ユーティリティー.
  */
 @UtilityClass
+@Slf4j
 public class MessageUtils {
 
-  /** メッセージプロパティ名. */
-  private static final String MESSAGE_PROPERTIES_NAME = "/messages_jp.properties";
+  /** メッセージ基底名. */
+  private static final String MESSAGE_BASE_NAME = "messages";
 
   /** メッセージプロパティ. */
-  private static Properties messages = null;
+  private static ResourceBundle messages = null;
 
   static {
-    messages = new Properties();
-    InputStream is = MessageUtils.class.getResourceAsStream(MESSAGE_PROPERTIES_NAME);
-
     try {
-      messages.load(is);
-    } catch (IOException ioe) {
-      throw new ExceptionInInitializerError("メッセージプロパティファイルの読み込みが失敗しました。");
+      // Localeは環境依存
+      messages = ResourceBundle.getBundle(MESSAGE_BASE_NAME);
+      log.info(MessageUtils.getMessage(MessageId.F0006I, SystemProperty.LANGUAGE));
+
+    } catch (MissingResourceException mre) {
+      throw new ExceptionInInitializerError("メッセージプロパティファイルの読み込みに失敗しました。");
+
     }
   }
 
@@ -38,7 +41,7 @@ public class MessageUtils {
    * @return メッセージ
    */
   public static String getMessage(MessageId messageId, String... params) {
-    return MessageFormat.format(messages.getProperty(messageId.getId()), (Object[])params);
+    return MessageFormat.format(messages.getString(messageId.name()), (Object[])params);
   }
 
 }
