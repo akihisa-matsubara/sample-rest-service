@@ -1,29 +1,11 @@
 <server description="sample">
+    <!-- locationは環境に合わせて[git-repository-path]を変更してください -->
+    <include location="[git-repository-path]\sample-rest-service\tools\was-liberty\server-template.xml" onConflict="REPLACE" />
 
-    <!-- Enable features -->
-    <featureManager>
-        <feature>javaee-7.0</feature>
-        <feature>adminCenter-1.0</feature>
-        <feature>localConnector-1.0</feature>
-    </featureManager>
+    <!-- PW:admin -->
+    <keyStore id="defaultKeyStore" password="{xor}PjsyNjE=" />
 
-    <basicRegistry id="basic" realm="BasicRealm" />
+    <applicationMonitor updateTrigger="mbean" />
 
-    <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint" />
-
-    <!-- Automatically expand WAR files and EAR files -->
-    <applicationManager autoExpand="true" />
-
-    <dataSource connectionSharing="MatchCurrentState" id="mydb" jdbcDriverRef="db2-driver" jndiName="jdbc/mydb" type="javax.sql.XADataSource">
-        <properties.db2.jcc currentLockTimeout="30s" currentSchema="MYSCHEMA" databaseName="MYDB" password="{xor}Oz1tPjsyNjE="
-            portNumber="50000" serverName="localhost" user="db2admin" />
-    </dataSource>
-    <jdbcDriver id="db2-driver" libraryRef="db2-library" />
-    <library id="db2-library">
-        <fileset dir="${shared.resource.dir}/db2" id="db2-fileset" />
-    </library>
-
-    <!-- EclipseLink SQL trace -->
-    <logging maxFiles="10" traceSpecification="eclipselink.sql=all" />
-
+    <webApplication id="sample-rest-service-webapi" location="sample-rest-service-webapi.war" name="sample-rest-service-webapi" />
 </server>
