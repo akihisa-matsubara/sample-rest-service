@@ -1,4 +1,4 @@
-package jp.co.sample.rest.framework.exception.mapper;
+package jp.co.sample.rest.framework.providers.exceptionmapper;
 
 import jp.co.sample.rest.framework.exception.ApplicationException;
 import jp.co.sample.rest.framework.util.MessageUtils;
@@ -28,8 +28,7 @@ public class ApplicationExceptionMapper extends BaseExceptionMapper<ApplicationE
    */
   @Override
   public List<String> getErrors(ApplicationException exception) {
-    return exception.getErrorList().stream().map(
-        error -> MessageUtils.getMessage(error.getMessageId(), error.getParams())).collect(Collectors.toList());
+    return exception.getErrorList().stream().map(MessageUtils::getErrorMessage).collect(Collectors.toList());
   }
 
   /**

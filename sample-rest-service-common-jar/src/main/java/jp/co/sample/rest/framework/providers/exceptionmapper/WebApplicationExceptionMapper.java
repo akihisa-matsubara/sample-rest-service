@@ -1,30 +1,32 @@
-package jp.co.sample.rest.framework.exception.mapper;
+package jp.co.sample.rest.framework.providers.exceptionmapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 /**
- * 想定外例外Mapper.
+ * JAX-RS の汎用基底例外Mapper.
  */
 @Provider
-public class IllegalExceptionMapper extends BaseExceptionMapper<IllegalExceptionMapper, Exception> implements ExceptionMapper<Exception> {
+public class WebApplicationExceptionMapper extends BaseExceptionMapper<WebApplicationExceptionMapper, WebApplicationException>
+    implements ExceptionMapper<WebApplicationException> {
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public Class<IllegalExceptionMapper> getClassType() {
-    return IllegalExceptionMapper.class;
+  public Class<WebApplicationExceptionMapper> getClassType() {
+    return WebApplicationExceptionMapper.class;
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public List<String> getErrors(Exception exception) {
+  public List<String> getErrors(WebApplicationException exception) {
     List<String> errors = new ArrayList<>();
     errors.add(exception.getMessage());
     return errors;

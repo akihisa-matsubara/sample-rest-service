@@ -19,6 +19,15 @@ public class SystemException extends RuntimeException {
    * デフォルトコンストラクター.
    *
    * @param cause 例外
+   */
+  public SystemException(Throwable cause) {
+    this(cause, null);
+  }
+
+  /**
+   * デフォルトコンストラクター.
+   *
+   * @param cause 例外
    * @param error エラーDto
    */
   public SystemException(Throwable cause, ErrorDto error) {

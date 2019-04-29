@@ -31,9 +31,9 @@ public class ConfigProducer {
   /** プロファイル別ファイル名. */
   private static final String PROFILE_FILE_NAME = "/application_" + REPLACE_PROFILE_STR + ".properties";
 
-  /** プロファイル. */
+  /** 有効なプロファイル. */
   @Inject
-  private Profile profile;
+  private ActiveProfile profile;
 
   /** プロファイル共通設定ファイル. */
   private Properties commonConfiguration;
@@ -47,7 +47,7 @@ public class ConfigProducer {
   @PostConstruct
   public void initialize() {
     commonConfiguration = load(DEFAULT_FILE_NAME);
-    profileConfiguration = load(PROFILE_FILE_NAME.replaceAll(REPLACE_PROFILE_STR, profile.getActiveProfile()));
+    profileConfiguration = load(PROFILE_FILE_NAME.replaceAll(REPLACE_PROFILE_STR, profile.getProfile()));
 
   }
 

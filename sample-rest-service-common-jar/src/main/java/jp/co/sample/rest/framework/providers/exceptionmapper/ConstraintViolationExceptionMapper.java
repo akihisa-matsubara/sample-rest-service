@@ -1,4 +1,4 @@
-package jp.co.sample.rest.framework.exception.mapper;
+package jp.co.sample.rest.framework.providers.exceptionmapper;
 
 import java.text.MessageFormat;
 import java.util.List;

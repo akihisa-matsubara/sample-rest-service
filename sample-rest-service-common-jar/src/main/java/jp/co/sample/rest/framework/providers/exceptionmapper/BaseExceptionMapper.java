@@ -1,4 +1,4 @@
-package jp.co.sample.rest.framework.exception.mapper;
+package jp.co.sample.rest.framework.providers.exceptionmapper;
 
 import jp.co.sample.rest.framework.code.LoggerVo;
 import jp.co.sample.rest.framework.code.ResultVo;
