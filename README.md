@@ -21,3 +21,16 @@ API詳細は `sample-rest-service-webapi-doc` を確認してください。
 1. DB2
     - DB名: MYDB
     - スキーマ名: MYSCHEMA
+
+DB構築手順は [sample-db](https://github.com/akihisa-matsubara/sample-db) を参照
+
+## 環境構築
+1. WASの任意のEditionとIBM Java8をインストールします  
+   ※IBM Java8はWAS関連製品(ex. WAS traditional, WAS liberty, etc...)と一緒にインストールできますがここでは割愛します  
+   ※以降はWAS Liberty Profile(以降WLP)前提の手順で記載しています  
+   https://developer.ibm.com/wasdev/downloads/#asset/runtimes-wlp-javaee7
+   
+1. WDT (IBM WebSphere Application Server Developer Tools) をEclipseにインストールします  
+   https://developer.ibm.com/wasdev/docs/websphere-developer-tools-releases/
+   
+1. `tools/was-liberty/*` をWLP解凍先に配布（template以外）
