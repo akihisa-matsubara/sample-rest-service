@@ -1,7 +1,7 @@
 package jp.co.sample.rest.framework.data.condition;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.Builder;
@@ -24,7 +24,7 @@ public class SearchConditionDo {
 
   /** クエリパラメータMap. */
   @Builder.Default
-  private Map<String, Object> queryParams = new HashMap<>();
+  private Map<String, Object> queryParams = new LinkedHashMap<>();
 
   /** 検索件数を取得するためのクエリ. */
   private String countQuery;

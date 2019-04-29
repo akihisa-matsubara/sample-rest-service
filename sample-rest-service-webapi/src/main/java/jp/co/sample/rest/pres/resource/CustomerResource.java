@@ -6,12 +6,10 @@ import jp.co.sample.rest.common.dto.CustomerDto;
 import jp.co.sample.rest.framework.code.ResultVo;
 import jp.co.sample.rest.framework.constant.CommonReqParam;
 import jp.co.sample.rest.framework.pres.dto.ResponseDto;
-import jp.co.sample.rest.framework.util.QueryBuilder;
+import jp.co.sample.rest.framework.util.SearchConditionBuilder;
 import jp.co.sample.rest.pres.SampleApplication;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
@@ -69,16 +67,15 @@ public class CustomerResource {
       @QueryParam(ReqParam.ADDRESS_ZIP) String addressZip,
       @QueryParam(ReqParam.ADDRESS) String address) {
 
-    // XXX 格納順番がそのままwhere節の出力順となる為、INDEXを考慮すること（ただし、多数の条件でOptimizerが正しい実行計画を選択するかは不明）
-    Map<String, Object> queryParams = new LinkedHashMap<>();
-    QueryBuilder.putParam(queryParams, ReqParam.NAME_KANJI, nameKanji);
-    QueryBuilder.putParam(queryParams, ReqParam.NAME_KANA, nameKana);
-    QueryBuilder.putParam(queryParams, ReqParam.GENDER, gender);
-    QueryBuilder.putParam(queryParams, ReqParam.BIRTHDAY, birthday);
-    QueryBuilder.putParam(queryParams, ReqParam.ADDRESS_ZIP, addressZip);
-    QueryBuilder.putParam(queryParams, ReqParam.ADDRESS, address);
+    SearchConditionBuilder builder = new SearchConditionBuilder(offset, limit, sort);
+    builder.putParam(ReqParam.NAME_KANJI, nameKanji)
+        .putParam(ReqParam.NAME_KANA, nameKana)
+        .putParam(ReqParam.GENDER, gender)
+        .putParam(ReqParam.BIRTHDAY, birthday)
+        .putParam(ReqParam.ADDRESS_ZIP, addressZip)
+        .putParam(ReqParam.ADDRESS, address);
 
-    List<CustomerDto> customers = customerService.getCustomers(QueryBuilder.createSearchCondition(offset, limit, sort, queryParams));
+    List<CustomerDto> customers = customerService.getCustomers(builder.build());
     return ResponseDto.builder()
         .result(ResultVo.SUCCESS.getDecode())
         .response(customers)

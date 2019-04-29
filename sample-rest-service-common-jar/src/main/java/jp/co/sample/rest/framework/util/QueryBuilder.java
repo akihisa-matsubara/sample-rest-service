@@ -1,9 +1,7 @@
 package jp.co.sample.rest.framework.util;
 
-import jp.co.sample.rest.framework.data.condition.FilterDo;
 import jp.co.sample.rest.framework.data.condition.SearchConditionDo;
 import jp.co.sample.rest.framework.data.condition.SortDo;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -15,40 +13,6 @@ import org.apache.commons.lang3.StringUtils;
  */
 @UtilityClass
 public class QueryBuilder {
-
-  /**
-   * クエリパラメータMapにパラメーターを格納する.
-   *
-   * @param queryParams クエリパラメータMap
-   * @param column 項目
-   * @param value 値
-   */
-  public static void putParam(Map<String, Object> queryParams, String column, Object value) {
-    if (value != null) {
-      queryParams.put(column, value);
-    }
-  }
-
-  /**
-   * 検索条件DOの作成.
-   *
-   * @param offset Offset
-   * @param limit 取得件数
-   * @param sort ソート条件
-   * @param queryParams クエリパラメータMap
-   * @return {@link SearchConditionDo} 検索条件DO
-   */
-  public static SearchConditionDo createSearchCondition(
-      int offset,
-      int limit,
-      String sort,
-      Map<String, Object> queryParams) {
-    return SearchConditionDo.builder()
-        .filter(FilterDo.builder().offset(offset).limit(limit).build())
-        .sortList(createSortDos(sort))
-        .queryParams(queryParams)
-        .build();
-  }
 
   /**
    * 検索件数取得クエリ、検索結果取得クエリを構築します.
@@ -80,35 +44,6 @@ public class QueryBuilder {
       searchQuery.append(orderBy);
     }
     searchCondition.setSearchQuery(searchQuery.toString());
-  }
-
-  /**
-   * ソート順DOの作成.
-   * fieldName[:asc or desc],fieldName...形式のソート文字列を分解し、ソート順DOを作成します.
-   *
-   * @param sortStr ソート文字列
-   * @return {@link SortDo}のリスト
-   */
-  private static List<SortDo> createSortDos(String sortStr) {
-    List<SortDo> sortDoList = new ArrayList<>();
-    sortStr = StringUtils.remove(sortStr, StringUtils.SPACE);
-
-    if (StringUtils.isEmpty(sortStr)) {
-      return sortDoList;
-    }
-
-    for (String sortPhrase : StringUtils.split(sortStr, ",")) {
-      String[] sortWords = StringUtils.split(sortPhrase, ":");
-      if (sortWords.length == 1) {
-        sortDoList.add(SortDo.builder().field(sortWords[0]).build());
-
-      } else {
-        sortDoList.add(SortDo.builder().field(sortWords[0]).asc(!"desc".equalsIgnoreCase(sortWords[1])).build());
-
-      }
-    }
-
-    return sortDoList;
   }
 
   /**
