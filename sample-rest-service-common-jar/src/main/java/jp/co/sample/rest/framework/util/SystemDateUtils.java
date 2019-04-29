@@ -1,6 +1,6 @@
 package jp.co.sample.rest.framework.util;
 
-import jp.co.sample.common.code.DateFormatVo;
+import jp.co.sample.common.code.DateFormat.DateFormatVo;
 import jp.co.sample.common.util.DateFormatUtilsExt;
 import jp.co.sample.common.util.LocalDateTimeFormatUtils;
 import jp.co.sample.rest.framework.message.MessageId;

@@ -6,6 +6,11 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
+			<name>org.eclipse.wst.common.project.facet.core.builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
 			<name>org.eclipse.m2e.core.maven2Builder</name>
 			<arguments>
 			</arguments>
@@ -13,10 +18,11 @@
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
+		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1552195962566</id>
+			<id>1555858521907</id>
 			<name></name>
 			<type>10</type>
 			<matcher>
