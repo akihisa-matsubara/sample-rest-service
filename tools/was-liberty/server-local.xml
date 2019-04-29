@@ -1,0 +1,11 @@
+<server description="sample">
+    <!-- locationは環境に合わせて[git-repository-path]を変更してください -->
+    <include location="[git-repository-path]\sample-rest-service\tools\was-liberty\server.xml" onConflict="REPLACE" />
+
+    <!-- PW:admin -->
+    <keyStore id="defaultKeyStore" password="{xor}PjsyNjE=" />
+
+    <applicationMonitor updateTrigger="mbean" />
+
+    <webApplication id="sample-rest-service-webapi" location="sample-rest-service-webapi.war" name="sample-rest-service-webapi" />
+</server>
