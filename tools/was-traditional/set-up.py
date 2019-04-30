@@ -1,50 +1,34 @@
 import socket,sys,java,os
+# ˆÈ‰º‚ÌƒIƒvƒVƒ‡ƒ“‚ğ•t‚¯‚ÄJython V2.1‚Æ‚µ‚ÄÀs‚µ‚Ä‚­‚¾‚³‚¢BV2.7‚É‚Í‘Î‰‚µ‚Ä‚¢‚Ü‚¹‚ñB
+# -conntype soap -usejython21 true -f
+# –{ƒc[ƒ‹ÀsŒã‚Í”O‚Ì‚½‚ßWAS‚ğÄ‹N“®‚µ‚Ä‚­‚¾‚³‚¢
+# Ä‹N“®‚µ‚È‚¢ê‡A‰ß‹‚ÌConnection‚ªc‚Á‚ÄƒeƒXƒgÚ‘±‚ª‚¤‚Ü‚­‚¢‚©‚È‚¢‰Â”\«‚ª‚ ‚è‚Ü‚·
+# JCA‚Ìó‘Ô‚ğŠm”F(ó‘Ô‚ÌŠm”F‚ğ‰Ÿ‰º)‚·‚ê‚ÎConnection‚ªc‚Á‚Ä‚¢‚é‚©Šm”F‰Â”\‚Å‚·
+
 # -----------------------------------------------------------------------
-# åˆæœŸåŒ–
+# ‰Šú‰»
 # -----------------------------------------------------------------------
-# ã‚µãƒ¼ãƒæƒ…å ±
+# ƒT[ƒo[î•ñ
 nodeName = AdminControl.getNode()
 cellName = AdminControl.getCell()
 server = AdminControl.queryNames('node=' + nodeName + ',type=Server,*')
 serverName = AdminControl.getAttribute(server, "name")
 scope = AdminConfig.getid("/Node:" + nodeName + "/Server:" + serverName + "/")
 
-# è¡ŒåŒºåˆ‡ã‚Š
+print "ƒm[ƒh–¼[" + nodeName + "]AƒT[ƒo[–¼[" + serverName + "]‚ğƒZƒbƒgƒAƒbƒv‚µ‚Ü‚·B"
+
+# s‹æØ‚è
 lineSep = java.lang.System.getProperty('line.separator')
 
-# JDBCé–¢é€£å®šç¾©
-jdbcProviderName = "jdbc-provider-db2"
-jndiName_sessions = "jdbc/Sessions"
-authDataName = "auth-db2"
-
-# DBæ¥ç¶šæƒ…å ±
-dbName = "dmtdb"
-dbuser = "db2user"
-dbpassword = "db2user"
-dbport = 50000
-
-# JVMãƒ’ãƒ¼ãƒ—ã‚µã‚¤ã‚º
+# JVMƒq[ƒvƒTƒCƒY
 jvmxms = 512
-jvmxmx = 2048
+jvmxmx = 1024
 
-# Spring Frameworkãƒ©ã‚¤ãƒ–ãƒ©ãƒªæ ¼ç´ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
-# springlibdir = mavenRepository + "\\org\\springframework\\spring-instrument\\4.2.3.RELEASE"
-springlibdir = ""
-
-# springframeworkãƒãƒ¼ã‚¸ãƒ§ãƒ³
-springVersion = "4.2.3.RELEASE"
-
-# ã‚µãƒ¼ãƒ“ã‚¹çµ±åˆãƒã‚¹å
-busName = "CveBus"
-
-# ã‚»ãƒƒã‚·ãƒ§ãƒ³ãƒ‘ãƒ¼ã‚·ã‚¹ã‚¿ãƒ³ã‚¹ç”¨ã‚¹ã‚­ãƒ¼ãƒ(ãƒ­ãƒ¼ã‚«ãƒ«è¨­å®šã§ã¯æœªä½¿ç”¨)
-schemaName = ""
-
-# DB2 Javaã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
+# DB2 JavaƒNƒ‰ƒCƒAƒ“ƒgƒ‰ƒCƒuƒ‰ƒŠƒCƒ“ƒXƒg[ƒ‹ƒfƒBƒŒƒNƒgƒŠ
 db2dir = ""
 db2dirList = []
-db2dirLiSt.append("C:\\IBM\\SQLLIB")
-db2dirList.append("C:\\Program Files\\IBM\\SQLLIB")
+db2dirList.append("C:/IBM/SQLLIB")
+db2dirList.append("C:/Program Files/IBM/SQLLIB")
 for dir in db2dirList:
     if (os.path.exists(dir)):
         db2dir = dir
@@ -54,19 +38,18 @@ for dir in db2dirList:
     #endIf
 #next
 if (db2dir == ""):
-    print "Error : DB2 Javaã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã®ãƒ‘ã‚¹ãŒå‚ç…§ã§ãã¾ã›ã‚“ã€ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’ä¸­æ­¢ã—ã¾ã™ã€‚"
-    sys.exit()
+    print "Error : DB2 JavaƒNƒ‰ƒCƒAƒ“ƒg‚ÌƒpƒX‚ªQÆ‚Å‚«‚Ü‚¹‚ñBƒXƒNƒŠƒvƒg‚ğI—¹‚µ‚Ü‚·B"
+    os._exit(1)
 else:
-    print ("ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª[" + db2dir + "]ã‚’DB2 Javaã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆãƒ‘ã‚¹ã¨ã—ã¦é©ç”¨ã—ã¾ã™ã€‚")
+    print "ƒfƒBƒŒƒNƒgƒŠ[" + db2dir + "]‚ğDB2 JavaƒNƒ‰ƒCƒAƒ“ƒgƒpƒX‚Æ‚µ‚Ä“K—p‚µ‚Ü‚·B"
     pass
 #endIf
 
-# JPAãƒ©ã‚¤ãƒ–ãƒ©ãƒªæ ¼ç´ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªæƒ…å ±
+# JPAƒ‰ƒCƒuƒ‰ƒŠŠi”[ƒfƒBƒŒƒNƒgƒŠî•ñ
 jpalibdir = ""
 jpadirList = []
-jpadirList.append("C:\\IBM\\WebSphere\\AppServerD\\plugins")
-jpadirList.append("C:\\IBM\\WebSphere\\AppServer\\plugins")
-jpadirList.append("C:\\IBM\\WebSphere\\AppServer_D8551\\plugins")
+jpadirList.append("C:/IBM/WebSphere/AppServer/plugins")
+jpadirList.append("C:/Program Files/IBM/WebSphere/AppServer/plugins")
 for dir in jpadirList:
     if (os.path.exists(dir)):
         jpalibdir = dir
@@ -76,20 +59,13 @@ for dir in jpadirList:
     #endIf
 #next
 if (jpalibdir == ""):
-    print "Error : WebSphereã®ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ãƒ‘ã‚¹ãŒå‚ç…§ã§ãã¾ã›ã‚“ã€ã‚¹ã‚¯ãƒªãƒ–ãƒˆã‚’ä¸­æ­¢ã—ã¾ã™ã€‚"
-    sys.exit()
+    print "Error : WebSphere‚Ìƒvƒ‰ƒOƒCƒ“ƒpƒX‚ªQÆ‚Å‚«‚Ü‚¹‚ñAƒXƒNƒŠƒuƒg‚ğ’†~‚µ‚Ü‚·B"
+    os._exit(1)
 else:
-    print ("ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª[" + jpalibdir + "]ã‚’WebSphereãƒ—ãƒ©ã‚°ã‚¤ãƒ³ãƒ‘ã‚¹ã¨ã—ã¦é©ç”¨ã—ã¾ã™ã€‚")
+    print "ƒfƒBƒŒƒNƒgƒŠ[" + jpalibdir + "]‚ğWebSphereƒvƒ‰ƒOƒCƒ“ƒpƒX‚Æ‚µ‚Ä“K—p‚µ‚Ü‚·B"
     pass
 #endIf
 
-print "DBåã«[" + dbName + "ã‚’é©ç”¨ã—ã¾ã™ã€‚"
-print "DB2ã®ãƒ¦ãƒ¼ã‚¶åã«[" + dbuser + "]ã€ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã«[" + dbpassword + "]ã‚’é©ç”¨ã—ã¾ã™ã€‚"
-
-# dbName = getInput("ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹åã‚’å…¥åŠ›ã—ã¦ä¸‹ã•ã„ã€‚ä½•ã‚‚å…¥åŠ›ã—ãªã„å ´åˆã¯[MDPDB]ãŒé©ç”¨ã•ã‚Œã¾ã™ã€‚", "dmtdb")
-# dbuser = getInput("DB2ãƒ¦ãƒ¼ã‚¶åã‚’å…¥åŠ›ã—ã¦ä¸‹ã•ã„ã€‚ä½•ã‚‚å…¥åŠ›ã—ãªã„å ´åˆã¯[db2user]ãŒé©ç”¨ã•ã‚Œã¾ã™ã€‚", "db2user")
-# dbpassword = getInput("DB2ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚’å…¥åŠ›ã—ã¦ä¸‹ã•ã„ã€‚ä½•ã‚‚å…¥åŠ›ã—ãªã„å ´åˆã¯[db2user]ãŒé©ç”¨ã•ã‚Œã¾ã™ã€‚", "db2user")
-# schemaName = getInput("ã‚¹ã‚­ãƒ¼ãƒåã‚’å…¥åŠ›ã—ã¦ä¸‹ã•ã„ã€‚ä½•ã‚‚å…¥åŠ›ã—ãªã„å ´åˆã¯[MDP]ãŒé©ç”¨ã•ã‚Œã¾ã™ã€‚", "MDP")
 
 # -----------------------------------------------------------------------
 # fuction getInput
@@ -121,48 +97,49 @@ def wsadminToList(inStr):
 #endDef
 
 # -----------------------------------------------------------------------
-# fuctiOn createAuthDataEntry
+# fuction createAuthDataEntry
 # -----------------------------------------------------------------------
-def createAuthDataEntry(authDataName,dbuser,dbpassword):
-
+def createAuthDataEntry(dbName, dbuser, dbpassword):
+    authDataName = "auth-" + dbName
     # -----------------------------------------------------------------------
-    # J2Cèªè¨¼ãƒ‡ãƒ¼ã‚¿ã®å­˜åœ¨ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã„ã€æ—¢ã«å­˜åœ¨ã™ã‚‹å ´åˆã¯å‰Šé™¤ã™ã‚‹
+    # J2C”FØƒf[ƒ^‚Ì‘¶İƒ`ƒFƒbƒN‚ğs‚¢AŠù‚É‘¶İ‚·‚éê‡‚Ííœ‚·‚é
     # -----------------------------------------------------------------------
     parms = ["-alias", nodeName + "/" + authDataName]
     try:
         authDataEntry = AdminTask.getAuthDataEntry(parms)
-        print "ä½œæˆæ¸ˆã¿ã®JAAS - J2C èªè¨¼ãƒ‡ãƒ¼ã‚¿[" + authDataName + "]ã‚’å‰Šé™¤ã—ã¾ã™"
+        print "ì¬Ï‚İ‚ÌJAAS - J2C ”FØƒf[ƒ^[" + authDataName + "]‚ğíœ‚µ‚Ü‚·"
         AdminTask.deleteAuthDataEntry(parms)
     except:
         parms = []
     #endTry
 
     # -----------------------------------------------------------------------
-    # J2Cèªè¨¼ãƒ‡ãƒ¼ã‚¿ã‚’ä½œæˆã™ã‚‹
+    # J2C”FØƒf[ƒ^‚ğì¬‚·‚é
     # -----------------------------------------------------------------------
     try:
-        parms = ["-alias", authDataName, "-user", dbuser, "-password", dbpasswOrd, "-description"]
+        parms = ["-alias", authDataName, "-user", dbuser, "-password", dbpassword, "-description"]
         AdminTask.createAuthDataEntry(parms)
-        print "JAAS - J2C èªè¨¼ãƒ‡ãƒ¼ã‚¿[" + authDataName + "]ã‚’ä½œæˆã—ã¾ã™"
+        print "JAAS - J2C ”FØƒf[ƒ^[" + authDataName + "]‚ğì¬‚µ‚Ü‚·"
         AdminConfig.save()
     except:
-        print "Error : JAAS - J2C èªè¨¼ãƒ‡ãƒ¼ã‚¿[" + authDataName + "]ã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ"
+        print "Error : JAAS - J2C ”FØƒf[ƒ^[" + authDataName + "]‚Ìì¬‚É¸”s‚µ‚Ü‚µ‚½"
     #endTry
 #endDef
 
 # -----------------------------------------------------------------------
 # fuction createJDBCProvider
 # -----------------------------------------------------------------------
-def createJDBCProvider():
+def createJDBCProvider(dbName):
+    jdbcProviderName = "jdbc-provider-" + dbName
     jdbc = AdminConfig.getid("/Node:" + nodeName + "/Server:" + serverName + "/JDBCProvider:" + jdbcProviderName + "/")
     if (len(jdbc) == 0):
-        print "JDBCãƒ—ãƒ­ãƒã‚¤ãƒ€" + jdbcProviderName + "ã‚’ä½œæˆã—ã¾ã™"
+        print "JDBCƒvƒƒoƒCƒ_[[" + jdbcProviderName + "]‚ğì¬‚µ‚Ü‚·"
         classpath = ["${DB2_JCC_DRIVER_PATH}/db2jcc.jar", "${UNIVERSAL_JDBC_DRIVER_PATH}/db2jcc_license_cu.jar", "${DB2_JCC_DRIVER_PATH}/db2jcc_license_cisuz.jar", "${PUREQUERY_PATH}/pdq.jar", "${PUREQUERY_PATH}/pdqmgmt.jar"]
         nativepath = ["${DB2_JCC_DRIVER_NATIVEPATH}"]
 
         parms = ["-scope", "Node=" + nodeName + ",Server=" + serverName]
         parms.extend(["-databaseType", "DB2", "-providerType", "DB2 Universal JDBC Driver Provider"])
-        parms.extend(["-implementationType", "XA ãƒ‡ãƒ¼ã‚¿ãƒ»ã‚½ãƒ¼ã‚¹", "-implementationClassName", "com.ibm.db2.jcc.DB2XADataSource"])
+        parms.extend(["-implementationType", "XA ƒf[ƒ^Eƒ\[ƒX", "-implementationClassName", "com.ibm.db2.jcc.DB2XADataSource"])
         parms.extend(["-name", jdbcProviderName, "-description", ""])
         parms.extend(["-classpath", classpath, "-nativePath", nativepath])
         AdminTask.createJDBCProvider(parms)
@@ -171,26 +148,26 @@ def createJDBCProvider():
         # -----------------------------------------------------------------------
         # createVariableSubstitutionEntry
         # -----------------------------------------------------------------------
-        varSubstitutions = AdminConfig.list(" VariableSubstitutionEntry", scope).split(lineSep)
+        varSubstitutions = AdminConfig.list("VariableSubstitutionEntry", scope).split(lineSep)
 
         for varSubst in varSubstitutions:
             getVarName = AdminConfig.showAttribute(varSubst, "symbolicName")
             if (getVarName == "DB2_JCC_DRIVER_PATH"):
-                print "WebSphereå¤‰æ•° DB2_JCC_DRIVER_PATHã‚’å‰Šé™¤ã—ã¾ã™"
+                print "WebSphere•Ï” DB2_JCC_DRIVER_PATH‚ğíœ‚µ‚Ü‚·"
                 AdminConfig.remove(varSubst)
                 AdminConfig.save()
             #endIf
         #endFor
 
-        print "WebSphereå¤‰æ•° DB2_JCC_DRIVER_PATHã‚’ä½œæˆã—ã¾ã™"
+        print "WebSphere•Ï” DB2_JCC_DRIVER_PATH‚ğì¬‚µ‚Ü‚·"
         varName = "(cells/" + cellName + "/nodes/" + nodeName + "/servers/" + serverName + "|variables.xml#VariableMap_1)"
-        db2lib = db2dir + "\java"
-        varValue = [["symbolicName", "DB2_JCC_DRIVER_PATH"], ["description", ""], ["value", db2lib.replace('\\', '/')]]
+        db2lib = db2dir + "/java"
+        varValue = [["symbolicName", "DB2_JCC_DRIVER_PATH"], ["description", ""], ["value", db2lib]]
         AdminConfig.create('VariableSubstitutionEntry', varName, varValue)
         AdminConfig.save()
 
     else:
-        print "JDBCãƒ—ãƒ­ãƒã‚¤ãƒ€" + jdbcProviderName + "ã¯ä½œæˆæ¸ˆã§ã™"
+        print "JDBCƒvƒƒoƒCƒ_[[" + jdbcProviderName + "]‚Íì¬Ï‚Å‚·"
     #endIf
     print AdminTask.listJDBCProviders()
 #endDef
@@ -198,40 +175,34 @@ def createJDBCProvider():
 # -----------------------------------------------------------------------
 # fuction createDataSource
 # -----------------------------------------------------------------------
-def createDataSource(dName, jName, authDataName, dbName, schemaName, dbServer, dbport):
-    datasourceName = dName
-    jndiName = "jdbc/" + jName
+def createDataSource(dbName, schemaName, dbServer, dbport):
+    authDataName = "auth-" + dbName
+    jdbcProviderName = "jdbc-provider-" + dbName
+    datasourceName = dbName
+    jndiName = "jdbc/" + dbName
     templateId = "DB2 Universal JDBC Driver DataSource (templates/system|jdbc-resource-provider-templates.xml#DataSource_DB2_UNI_1)"
 
     # -----------------------------------------------------------------------
-    # ãƒ‡ãƒ¼ã‚¿ã‚½ãƒ¼ã‚¹ã®å­˜åœ¨ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã„ã€æ—¢ã«å­˜åœ¨ã™ã‚‹å ´åˆã¯å‰Šé™¤ã™ã‚‹
+    # ƒf[ƒ^ƒ\[ƒX‚Ì‘¶İƒ`ƒFƒbƒN‚ğs‚¢AŠù‚É‘¶İ‚·‚éê‡‚Ííœ‚·‚é
     # -----------------------------------------------------------------------
     datasource = AdminConfig.getid("/Node:" + nodeName + "/Server:" + serverName + "/JDBCProvider:" + jdbcProviderName + "/DataSource:" + datasourceName + "/")
     if (len(datasource) != 0):
         datasourceId = datasource[datasource.find("(")+1:datasource.find(")")]
         AdminTask.deleteDatasource("DB2 Universal JDBC Driver Provider (XA)(" + datasourceId + ")")
-        print "æ—¢å­˜ã®ãƒ‡ãƒ¼ã‚¿ã‚½ãƒ¼ã‚¹[" + datasourceId + "]ã‚’å‰Šé™¤ã—ã¾ã—ãŸ"
+        print "Šù‘¶‚Ìƒf[ƒ^ƒ\[ƒX[" + datasourceId + "]‚ğíœ‚µ‚Ü‚µ‚½"
     else:
         pass
     #endIf
 
     # -----------------------------------------------------------------------
-    # ãƒ‡ãƒ¼ã‚¿ã‚½ãƒ¼ã‚¹ã‚’ä½œæˆã™ã‚‹
+    # ƒf[ƒ^ƒ\[ƒX‚ğì¬‚·‚é
     # -----------------------------------------------------------------------
-    print "ãƒ‡ãƒ¼ã‚¿ã‚½ãƒ¼ã‚¹[" + jndiName + "]ã‚’ä½œæˆã—ã¾ã™"
+    print "ƒf[ƒ^ƒ\[ƒX[" + jndiName + "]‚ğì¬‚µ‚Ü‚·"
     resProplist = [[["name", "databaseName"], ["type", "java.lang.String"], ["value" , dbName]]]
     resProplist.append([["name", "driverType"], ["type", "java.lang.Integer"], ["value", 4]])
     resProplist.append([["name", "serverName"], ["type", "java.lang.String"], ["value", dbServer]])
     resProplist.append([["name", "portNumber"], ["type", "java.lang.Integer"], ["value", dbport]])
     resProplist.append([["name", "currentSchema"], ["type", "java.lang.String"], ["value", schemaName.upper()], ["required", "false"], ["supportsDynamicUpdates", "false"]])
-
-    if (dbName == "DMTDB" or dbName == "DMTDB1"):
-        resProplist.append([["name", "resultSetHoldability"], ["type", "java.lang.Integer"], ["value", 1]])
-        resProplist.append([["name", "allowNextOnExhaustedResultSet"], ["type", "java.lang.Integer"], ["value", 1]])
-        resProplist.append([["name", "downgradeHoldCursorsUnderXa"], ["type", "java.lang.Boolean"], ["value", "true"]])
-    else:
-        pass
-    #endlf
 
     attributes = [["jndiName", jndiName], ["authDataAlias", nodeName + "/" + authDataName], ["authMechanismPreference", "BASIC_PASSWORD"]]
     attributes.append(["propertySet", [["resourceProperties", resProplist]]])
@@ -240,16 +211,6 @@ def createDataSource(dName, jName, authDataName, dbName, schemaName, dbServer, d
     attributes.append(["connectionPool", [["connectionTimeout", "10"], ["maxConnections", "20"], ["minConnections", "5"], ["purgePolicy", "EntirePool"]]])
     AdminJDBC.createDataSourceUsingTemplate(nodeName, serverName, jdbcProviderName, templateId, datasourceName, attributes)
     AdminConfig.save()
-#endDef
-
-# -----------------------------------------------------------------------
-# fuction setJVMProperties
-# -----------------------------------------------------------------------
-def setJVMProperties():
-    print ""
-    print "javaagentã‚’è¨­å®šã—ã¾ã™"
-    AdminTask.setJVMProperties("[-nodeName " + nodeName + " -serverName " + serverName + " -genericJvmArguments " + "\"-Xquickstart -Dcom.ibm.xml.xlxp.jaxb.opti.level=3 -javaagent:" + jpalibdir + "\com.ibm.ws.jpa.jar" + " -javaagent:" + springlibdir * "\spring-instrument-" springVersion + ".jar" + " \" ]")
-    AdminCOnfig.save()
 #endDef
 
 # -----------------------------------------------------------------------
@@ -266,16 +227,16 @@ def createSessionTable():
     varSubstitutions = AdminConfig.list("Property", wc).split(lineSep)
 
     if varSubstitutions == ['']:
-        print "session tableã‚’ä½œæˆã—ã¾ã™"
+        print "session table‚ğì¬‚µ‚Ü‚·"
         AdminConfig.create('Property', wc, wcAttrs)
     else:
         for varSubst in varSubstitutions:
-            getVarName = AdminCOnfigo showAttribute(varsubst, "name")
+            getVarName = AdminConfig.showAttribute(varsubst, "name")
             if (getVarName != sessionTableName):
-                print "session tableã‚’ä½œæˆã—ã¾ã™"
+                print "session table‚ğì¬‚µ‚Ü‚·"
                 AdminConfig.create('Property', wc, wcAttrs)
             else:
-                print "session tableã¯ä½œæˆæ¸ˆã§ã™"
+                print "session table‚Íì¬Ï‚Å‚·"
             #endlf
         #endFor
     #endlf
@@ -285,43 +246,46 @@ def createSessionTable():
 # -----------------------------------------------------------------------
 # createDataSourceForSessionDB
 # -----------------------------------------------------------------------
-def createDataSourceForSessionDB():
-    datasourceName_sessions = "Sessions"
-    datasourceSessions = AdminConfig.getid("/Node:" + nodeName + "/Server:" + serverName + "/JDBCProvider:" + jdbcProviderName + "/DataSource:" + datasourceName_sessions + "/")
+def createDataSourceForSessionDB(dbName, dbport, datasourceName):
+    authDataName = "auth-" + dbName
+    jndiName = "jdbc/" + datasourceName
+    jdbcProviderName = "jdbc-provider-" + dbName
+    datasourceSessions = AdminConfig.getid("/Node:" + nodeName + "/Server:" + serverName + "/JDBCProvider:" + jdbcProviderName + "/DataSource:" + datasourceName + "/")
     if (len(datasourceSessions) == 0):
-        print "ãƒ‡ãƒ¼ã‚¿ã‚½ãƒ¼ã‚¹" + datasourceName_sessions + "ã‚’ä½œæˆã—ã¾ã™"
+        print "ƒf[ƒ^ƒ\[ƒX" + datasourceName + "‚ğì¬‚µ‚Ü‚·"
         dataStoreHelperClassName = "com.ibm.websphere.rsadapter.DB2UniversalDataStoreHelper"
         alias = nodeName + "/" + authDataName
         otherAttributesList = [['containerManagedPersistence', 'true'], ['xaRecoveryAuthAlias', alias], ['componentManagedAuthenticationAlias', alias]]
         resourceAttributesList = [['serverName', 'localhost'], ['driverType', 4], ['portNumber', dbport]]
-        ds_id = AdminJDBC.createDataSourceAtScope(scope, jdbcProviderName, datasourceName_sessions, jndiName_sessions, dataStoreHelperClassName, dbName, otherAttributesList, resourceAttributesList)
+        ds_id = AdminJDBC.createDataSourceAtScope(scope, jdbcProviderName, datasourceName, jndiName, dataStoreHelperClassName, dbName, otherAttributesList, resourceAttributesList)
 
-        print "ã‚³ãƒ³ãƒ†ãƒŠãƒ¼ç®¡ç†èªè¨¼åˆ¥åã‚’è¨­å®šã—ã¾ã™"
+        print "ƒRƒ“ƒeƒi[ŠÇ—”FØ•Ê–¼‚ğİ’è‚µ‚Ü‚·"
         map_att_1 = ['authDataAlias', alias]
         map_att_2 = ['mappingConfigAlias', '']
         mapAttrs = [map_att_1, map_att_2]
 
         AdminConfig.create('MappingModule', ds_id, mapAttrs)
         AdminConfig.save()
-        print "ãƒ‡ãƒ¼ã‚¿ã‚½ãƒ¼ã‚¹" + datasourceName_sessions + "ã‚’ä½œæˆã—ã¾ã—ãŸ"
+        print "ƒf[ƒ^ƒ\[ƒX" + datasourceName + "‚ğì¬‚µ‚Ü‚µ‚½"
 
     else:
-        print "ãƒ‡ãƒ¼ã‚¿ã‚½ãƒ¼ã‚¹" + datasourceName_sessions + "ã¯ä½œæˆæ¸ˆã§ã™"
+        print "ƒf[ƒ^ƒ\[ƒX" + datasourceName + "‚Íì¬Ï‚Å‚·"
     #endlf
 #endDef
 
 # -----------------------------------------------------------------------
 # fuctlon setSesslonPerslstence
 # -----------------------------------------------------------------------
-def setSessionPersistence():
-    print "SessionDatabasePersistenceã‚’è¨­å®šã—ã¾ã™"
+def setSessionPersistence(dbuser, dbpassword, datasourceName):
+    jndiName = "jdbc/" + datasourceName
+    print "SessionDatabasePersistence‚ğİ’è‚µ‚Ü‚·"
     AdminConfig.modify(AdminConfig.list('SessionManager', scope), '[[sessionPersistenceMode "DATABASE"]]')
 
     sdbp = AdminConfig.list('SessionDatabasePersistence', scope)
     sdbp_att_password = ['password', dbpassword]
     sdbp_att_userId = ['userId', dbuser]
     sdbp_att_tableSpaceName = ['tableSpaceName', ""]
-    sdbp_att_jndiName = ['datasourceJNDIName', jndiName_sessions]
+    sdbp_att_jndiName = ['datasourceJNDIName', jndiName]
     sdbp_att_db2RowSize = ['db2RowSize', "ROW_SIZE_4KB"]
     sdbpAttrs = [sdbp_att_password, sdbp_att_userId, sdbp_att_tableSpaceName, sdbp_att_jndiName, sdbp_att_db2RowSize]
 
@@ -349,12 +313,12 @@ def createJvmCustomProperty(node, server, propName, value):
     #endFor
 
     if (propertyName == ""):
-        print "JVMã‚«ã‚¹ã‚¿ãƒ ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£[" + propName + "]ã‚’è¨­å®šã—ã¾ã™"
+        print "JVMƒJƒXƒ^ƒ€ƒvƒƒpƒeƒB[" + propName + "]‚ğİ’è‚µ‚Ü‚·"
         parms = [["name", propName], ["value", value], ["required", "false"]]
         attrList = AdminConfig.create("Property" ,jvm, parms)
         AdminConfig.save()
     else:
-        print "JVMã‚«ã‚¹ã‚¿ãƒ ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£[" + propName + "]ã¯è¨­å®šæ¸ˆã§ã™"
+        print "JVMƒJƒXƒ^ƒ€ƒvƒƒpƒeƒB[" + propName + "]‚Íİ’èÏ‚Å‚·"
     #endlf
 #endDef
 
@@ -365,13 +329,13 @@ def createDefaultJTADataSourceJNDIName():
     serverl = AdminConfig.getid("/Node:" + nodeName + "/Server:" + serverName)
     servl = AdminConfig.list('JavaPersistenceAPIService', serverl)
     if (len(servl) == 0):
-        print "æ–°è¦â€defaultJTADataSourceJNDIName"
+        print "V‹K]defaultJTADataSourceJNDIName"
         #varName = "(cells/" + cellName + "/nodes/" + nodeName + "/servers/" + serverName + "|server.xml#ApplicationServer_%)"
         varName = AdminConfig.list('ApplicationServer', serverl)
         varValue = [["defaultJTADataSourceJNDIName", ""], ["defaultNonJTADataSourceJNDIName", ""], ["defaultPersistenceProvider", "org.apache.openjpa.persistence.PersistenceProviderImpl"], ["enable", "true"], ["properties", ""]]
         AdminConfig.create('JavaPersistenceAPIService', varName, varValue)
     else:
-        print "æ›´æ–° - defaultJTADataSourceJNDIName"
+        print "XV - defaultJTADataSourceJNDIName"
         print AdminConfig.showall(servl)
         AdminConfig.modify(servl, [['defaultPersistenceProvider', 'org.apache.openjpa.persistence.PersistenceProviderlmpl']])
     #endIf
@@ -389,36 +353,32 @@ def updateHeapSize():
     AdminConfig.modify(serv2, [['initialHeapSize', jvmxms]])
     AdminConfig.modify(serv2, [['maximumHeapSize', jvmxmx]])
     AdminConfig.save()
-    print "Heapè¨­å®šæ¸ˆã¿"
+    print "Heapİ’èÏ‚İ"
 #endDef
 
 # -----------------------------------------------------------------------
-# invOke fuct10ns
+# Main ˆ—
 # -----------------------------------------------------------------------
-# JAAS - J2C èªè¨¼ãƒ‡ãƒ¼ã‚¿ä½œæˆ(authDataName, dbuser, dbpassword)
-createAuthDataEntry("auth-db2", "db2user", "db2user")
+# JAAS - J2C ”FØƒf[ƒ^ì¬(dbName, dbuser, dbpassword)
+createAuthDataEntry("mydb", "db2admin", "db2admin")
 
-# JDBCãƒ—ãƒ­ãƒã‚¤ãƒ€ä½œæˆ
-createJDBCProvider()
+# JDBCƒvƒƒoƒCƒ_[ì¬
+createJDBCProvider("mydb")
 
-# ãƒ‡ãƒ¼ã‚¿ã‚½ãƒ¼ã‚¹ä½œæˆ(datasourceName, jndiName, authDataName, dbName, schemaName, dbServer, dbport)
-createDataSource("mydb", "mydb", "auth-db2", "mydb", "MYSCHEMA", "localhost", "50000")
+# ƒf[ƒ^ƒ\[ƒXì¬(dbName, schemaName, dbServer, dbport)
+createDataSource("mydb", "MYSCHEMA", "localhost", "50000")
 
-createDefaultJTADataSourceJNDIName()
+# createDefaultJTADataSourceJNDIName()
 updateHeapSize()
 
-# javaagentè¨­å®š
+# javaagentİ’è
 # setJVMProperties()
 
-# ã‚»ãƒƒã‚·ãƒ§ãƒ³ãƒãƒ¼ã‚·ã‚¹ã‚¿ãƒ³ã‚¹ä½œæˆ
+# ƒZƒbƒVƒ‡ƒ“ƒo[ƒVƒXƒ^ƒ“ƒXì¬
 # createSessionTable()
-# createDataSourceForSessionDB()
-# setSessionPersistence()
+# createDataSourceForSessionDB("mydb", "50000", "Sessions")
+# setSessionPersistence("db2admin", "db2admin", "Sessions")
 
-# JVMã‚«ã‚¹ã‚¿ãƒ ãƒ—ãƒ­ãƒãƒ†ã‚£è¨­å®š
-createJvmCustomProperty(nodeName, serverName, "java.net.preferIPv4Stack", "true")
-createJvmCustomProperty(nodeName, serverName, "db2.jcc.ccsid943Mapping", "2")
-
-# æœ¬ãƒ„ãƒ¼ãƒ«å®Ÿè¡Œå¾Œã¯å¿µã®ãŸã‚WASã‚’å†èµ·å‹•ã—ã¦ãã ã•ã„
-# å†èµ·å‹•ã—ãªã„å ´åˆã€éå»ã®ConnectionãŒæ®‹ã£ã¦ãƒ†ã‚¹ãƒˆæ¥ç¶šãŒã†ã¾ãã„ã‹ãªã„å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™
-# JCAã®çŠ¶æ…‹ã‚’ç¢ºèª(çŠ¶æ…‹ã®ç¢ºèªã‚’æŠ¼ä¸‹)ã™ã‚Œã°ConnectionãŒæ®‹ã£ã¦ã„ã‚‹ã‹ç¢ºèªå¯èƒ½ã§ã™
+# JVMƒJƒXƒ^ƒ€ƒvƒƒoƒeƒBİ’è
+# createJvmCustomProperty(nodeName, serverName, "java.net.preferIPv4Stack", "true")
+# createJvmCustomProperty(nodeName, serverName, "db2.jcc.ccsid943Mapping", "2")
