@@ -8,7 +8,7 @@ import jp.co.sample.rest.framework.constant.CommonReqParam;
 import jp.co.sample.rest.framework.pres.dto.ResponseDto;
 import jp.co.sample.rest.framework.util.SearchConditionBuilder;
 import jp.co.sample.rest.pres.SampleApplication;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -63,7 +63,7 @@ public class CustomerResource {
       @QueryParam(ReqParam.NAME_KANJI) String nameKanji,
       @QueryParam(ReqParam.NAME_KANA) String nameKana,
       @QueryParam(ReqParam.GENDER) String gender,
-      @QueryParam(ReqParam.BIRTHDAY) Date birthday,
+      @QueryParam(ReqParam.BIRTHDAY) LocalDate birthday,
       @QueryParam(ReqParam.ADDRESS_ZIP) String addressZip,
       @QueryParam(ReqParam.ADDRESS) String address) {
 

@@ -1,4 +1,4 @@
-package jp.co.sample.rest.framework.providers.exceptionmapper;
+package jp.co.sample.rest.framework.provider.exceptionmapper;
 
 import java.util.ArrayList;
 import java.util.List;

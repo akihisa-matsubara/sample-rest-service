@@ -1,12 +1,14 @@
-package jp.co.sample.rest.framework.providers.filter;
+package jp.co.sample.rest.framework.provider.filter;
 
+import jp.co.sample.common.code.EncodingVo;
 import jp.co.sample.rest.framework.code.LoggerVo;
-import jp.co.sample.rest.framework.exception.SystemException;
+import jp.co.sample.rest.framework.pres.dto.ResponseDto;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -46,15 +48,15 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
   /**
    * リクエスト受付時にアクセス履歴とリクエストに関する情報をログ出力します.
    *
-   * @param requestContext ContainerRequestContext
+   * @param context ContainerRequestContext
    */
   @Override
-  public void filter(ContainerRequestContext requestContext) throws IOException {
+  public void filter(ContainerRequestContext context) throws IOException {
     MDC.put(START_TIME, String.valueOf(System.currentTimeMillis()));
 
-    ACCESS_LOGGER.debug("Resource : /{}, Method Type : {}, Method Name : {}", requestContext.getUriInfo().getPath(),
-        requestContext.getMethod(), resourceInfo.getResourceMethod().getName());
-    logRequest(requestContext);
+    ACCESS_LOGGER.debug("Resource:/{}, Method-Type:{}, Method-Name:{}", context.getUriInfo().getPath(),
+        context.getMethod(), resourceInfo.getResourceMethod().getName());
+    logRequest(context);
   }
 
   /**
@@ -74,48 +76,44 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
   /**
    * メッセージボディーをログ出力します.
    *
-   * @param writerInterceptorContext WriterInterceptorContext
+   * @param context WriterInterceptorContext
    */
   @Override
-  public void aroundWriteTo(WriterInterceptorContext writerInterceptorContext) throws IOException {
-    logResponseBody(writerInterceptorContext);
+  public void aroundWriteTo(WriterInterceptorContext context) throws IOException {
+    logResponseBody(context);
 
   }
 
   /**
    * リクエスト情報をログ出力します.
    *
-   * @param requestContext ContainerRequestContext
+   * @param context ContainerRequestContext
    */
-  private void logRequest(ContainerRequestContext requestContext) {
+  private void logRequest(ContainerRequestContext context) {
     StringBuilder builder = new StringBuilder();
     builder.append("\n----- HTTP REQUEST ---------------------\n");
-    builder.append(String.format(DUMP_TEMPLATE, "Request URL", requestContext.getUriInfo().getAbsolutePath()));
-    builder.append(String.format(DUMP_TEMPLATE, "Request Method", requestContext.getMethod()));
+    builder.append(String.format(DUMP_TEMPLATE, "Request URL", context.getUriInfo().getAbsolutePath()));
+    builder.append(String.format(DUMP_TEMPLATE, "Request Method", context.getMethod()));
     builder.append(String.format(DUMP_TEMPLATE, "Resource Method", resourceInfo.getResourceMethod().getName()));
     builder.append(String.format(DUMP_TEMPLATE, "Class", resourceInfo.getResourceClass().getCanonicalName()));
 
+    builder.append("----- PATH PARAMETER -------------------\n");
+    builder.append(dumpParameters(context.getUriInfo().getPathParameters()));
+
     builder.append("----- QUERY PARAMETER ------------------\n");
-    for (String name : requestContext.getUriInfo().getPathParameters().keySet()) {
-      List<String> obj = requestContext.getUriInfo().getPathParameters().get(name);
-      String value = null;
-      if (obj != null && !obj.isEmpty()) {
-        value = obj.get(0);
-      }
-      builder.append(String.format(DUMP_TEMPLATE, name, value));
-    }
+    builder.append(dumpParameters(context.getUriInfo().getQueryParameters()));
 
     builder.append("----- HTTP REQUEST HEADER --------------\n");
-    for (String headerName : requestContext.getHeaders().keySet()) {
-      builder.append(String.format(DUMP_TEMPLATE, headerName, requestContext.getHeaderString(headerName)));
+    for (String headerName : context.getHeaders().keySet()) {
+      builder.append(String.format(DUMP_TEMPLATE, headerName, context.getHeaderString(headerName)));
     }
 
     builder.append("----- HTTP REQUEST BODY ----------------\n");
-    try (Scanner sc = new Scanner(requestContext.getEntityStream())) {
+    try (Scanner sc = new Scanner(context.getEntityStream())) {
       sc.useDelimiter("\\A");
       if (sc.hasNext()) {
         String body = sc.next();
-        requestContext.setEntityStream(new ByteArrayInputStream(body.getBytes()));
+        context.setEntityStream(new ByteArrayInputStream(body.getBytes()));
         builder.append(body);
       }
     }
@@ -126,16 +124,16 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
   /**
    * レスポンス情報をログ出力します.
    *
-   * @param responseContext ContainerResponseContext
+   * @param context ContainerResponseContext
    */
-  private void logResponse(ContainerResponseContext responseContext) {
+  private void logResponse(ContainerResponseContext context) {
     StringBuilder builder = new StringBuilder();
     builder.append("\n----- HTTP RESPONSE --------------------\n");
-    builder.append(String.format(DUMP_TEMPLATE, "Status", responseContext.getStatus()));
+    builder.append(String.format(DUMP_TEMPLATE, "Status", context.getStatus()));
 
     builder.append("----- HTTP RESPONSE HEADER -------------\n");
-    for (String headerName : responseContext.getHeaders().keySet()) {
-      builder.append(String.format(DUMP_TEMPLATE, headerName, responseContext.getHeaderString(headerName)));
+    for (String headerName : context.getHeaders().keySet()) {
+      builder.append(String.format(DUMP_TEMPLATE, headerName, context.getHeaderString(headerName)));
     }
 
     log.debug(builder.toString());
@@ -144,21 +142,27 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
   /**
    * レスポンスボディーをログ出力します.
    *
-   * @param writerInterceptorContext WriterInterceptorContext
+   * @param context WriterInterceptorContext
+   * @throws IOException IO例外
    */
-  private void logResponseBody(WriterInterceptorContext writerInterceptorContext) {
-    StringBuilder builder = new StringBuilder();
-    OutputStream originalStream = writerInterceptorContext.getOutputStream();
-    try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
-      writerInterceptorContext.setOutputStream(byteArrayOutputStream);
-      writerInterceptorContext.proceed();
-      builder.append("\n----- HTTP RESPONSE BODY ---------------\n");
-      builder.append(byteArrayOutputStream.toString("UTF-8"));
-      byteArrayOutputStream.writeTo(originalStream);
-      writerInterceptorContext.setOutputStream(originalStream);
+  private void logResponseBody(WriterInterceptorContext context) throws IOException {
+    ResponseDto response = (ResponseDto) context.getEntity();
+    if (response == null || response.getResponse() == null) {
+      return;
+    }
 
-    } catch (IOException ioe) {
-      throw new SystemException(ioe);
+    StringBuilder builder = new StringBuilder();
+    OutputStream originalStream = context.getOutputStream();
+    try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
+      context.setOutputStream(byteArrayOutputStream);
+      context.proceed();
+      builder.append("\n----- HTTP RESPONSE BODY ---------------\n");
+      builder.append(byteArrayOutputStream.toString(EncodingVo.UTF8.getCode()));
+      byteArrayOutputStream.writeTo(originalStream);
+
+    } finally {
+      context.setOutputStream(originalStream);
+
     }
 
     log.debug(builder.toString());
@@ -167,17 +171,36 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
   /**
    * 性能情報をログ出力します.
    *
-   * @param requestContext ContainerRequestContext
+   * @param context ContainerRequestContext
    */
-  private void logPerformance(ContainerRequestContext requestContext) {
+  private void logPerformance(ContainerRequestContext context) {
     String startTime = MDC.get(START_TIME);
     if (startTime == null || startTime.isEmpty()) {
       return;
     }
     long executionTime = System.currentTimeMillis() - Long.parseLong(startTime);
 
-    PERFORMANCE_LOGGER.debug("Total request execution time : {} milliseconds, Resource: /{}, Method Type : {}, Method Name : {}", executionTime,
-        requestContext.getUriInfo().getPath(), requestContext.getMethod(), resourceInfo.getResourceMethod().getName());
+    PERFORMANCE_LOGGER.debug("Total time: {} milliseconds, Resource: /{}, Method-Type: {}, Method-Name: {}", executionTime,
+        context.getUriInfo().getPath(), context.getMethod(), resourceInfo.getResourceMethod().getName());
+  }
+
+  /**
+   * パラメーター情報をダンプします.
+   *
+   * @param paramters パラメーター
+   * @return パラメーターのダンプ
+   */
+  private StringBuilder dumpParameters(Map<String, List<String>> paramters) {
+    StringBuilder dump = new StringBuilder();
+    for (Map.Entry<String, List<String>> entry : paramters.entrySet()) {
+      List<String> obj = entry.getValue();
+      String value = null;
+      if (obj != null && !obj.isEmpty()) {
+        value = obj.get(0);
+      }
+      dump.append(String.format(DUMP_TEMPLATE, entry.getKey(), value));
+    }
+    return dump;
   }
 
 }

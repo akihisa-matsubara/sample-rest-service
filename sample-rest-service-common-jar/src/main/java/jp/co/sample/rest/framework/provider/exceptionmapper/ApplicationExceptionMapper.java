@@ -1,4 +1,4 @@
-package jp.co.sample.rest.framework.providers.exceptionmapper;
+package jp.co.sample.rest.framework.provider.exceptionmapper;
 
 import jp.co.sample.rest.framework.exception.ApplicationException;
 import jp.co.sample.rest.framework.util.MessageUtils;

@@ -1,13 +1,11 @@
 package jp.co.sample.rest.common.data.entity;
 
 import jp.co.sample.rest.framework.data.entity.DbBaseEntity;
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -48,8 +46,7 @@ public class CustomerEntity extends DbBaseEntity {
 
   /** 生年月日. */
   @Column(name = "BIRTHDAY")
-  @Temporal(TemporalType.DATE)
-  private Date birthday;
+  private LocalDate birthday;
 
   /** 郵便番号. */
   @Column(name = "ADDRESS_ZIP")
