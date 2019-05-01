@@ -11,7 +11,7 @@ public interface ExternalCustomerService {
   /**
    * 顧客情報を取得します.
    *
-   * @return 顧客情報({@link CustomerDto})のリスト、存在しない場合は空のリスト
+   * @return 顧客情報({@link CustomerDto})のリスト、存在しない・エラーが発生した場合は空のリスト
    */
   List<CustomerDto> getCustomers();
 
