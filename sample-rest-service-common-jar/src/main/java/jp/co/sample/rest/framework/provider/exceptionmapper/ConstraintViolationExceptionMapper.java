@@ -7,7 +7,6 @@ import javax.validation.ConstraintViolationException;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
-import org.apache.bval.jsr.util.PathImpl;
 
 /**
  * 制約違反例外Mapper.
@@ -17,7 +16,7 @@ public class ConstraintViolationExceptionMapper extends BaseExceptionMapper<Cons
     implements ExceptionMapper<ConstraintViolationException> {
 
   /** メッセージフォーマット. */
-  private static final String MESSAGE_FORMAT = "{0}[{1}]: {2}";
+  private static final String MESSAGE_FORMAT = "[{0}]: {1}";
 
   /**
    * {@inheritDoc}
@@ -33,7 +32,7 @@ public class ConstraintViolationExceptionMapper extends BaseExceptionMapper<Cons
   @Override
   public List<String> getErrors(ConstraintViolationException exception) {
     return exception.getConstraintViolations().stream()
-        .map(cv -> MessageFormat.format(MESSAGE_FORMAT, ((PathImpl) cv.getPropertyPath()).getLeafNode().getName(), cv.getInvalidValue(), cv.getMessage()))
+        .map(cv -> MessageFormat.format(MESSAGE_FORMAT, cv.getInvalidValue(), cv.getMessage()))
         .collect(Collectors.toList());
   }
 

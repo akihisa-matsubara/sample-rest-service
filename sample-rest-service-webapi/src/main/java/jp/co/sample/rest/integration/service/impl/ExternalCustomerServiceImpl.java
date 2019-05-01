@@ -14,7 +14,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.cxf.jaxrs.utils.ExceptionUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
  * 外部顧客サービス実装.
