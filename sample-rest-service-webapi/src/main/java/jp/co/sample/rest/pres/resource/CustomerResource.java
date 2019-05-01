@@ -41,6 +41,7 @@ public class CustomerResource {
 
   /**
    * 顧客情報を取得します.
+   * 本APIのみ併せて外部サービスから顧客情報を取得します.
    * オプションのフィルターでは、"="演算子のみ対応していますが、"<"や">"といたった範囲の指定やLIKEによるあいまい検索には対応していません.
    *
    * @param offset Offset
@@ -56,7 +57,7 @@ public class CustomerResource {
    */
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public ResponseDto getCustomers(
+  public ResponseDto<List<CustomerDto>> getCustomers(
       @DefaultValue("0") @QueryParam(CommonReqParam.OFFSET) int offset,
       @DefaultValue("100") @QueryParam(CommonReqParam.LIMIT) int limit,
       @QueryParam(CommonReqParam.SORT) String sort,
@@ -76,7 +77,7 @@ public class CustomerResource {
         .putParam(ReqParam.ADDRESS, address);
 
     List<CustomerDto> customers = customerService.getCustomers(builder.build());
-    return ResponseDto.builder()
+    return ResponseDto.<List<CustomerDto>>builder()
         .result(ResultVo.SUCCESS.getDecode())
         .response(customers)
         .build();
@@ -91,9 +92,9 @@ public class CustomerResource {
   @Path("/{" + ReqParam.CUSTOMER_NO + "}")
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public ResponseDto getCustomer(@PathParam(ReqParam.CUSTOMER_NO) @Size(min = 8, max = 8) String customerNo) {
+  public ResponseDto<CustomerDto> getCustomer(@PathParam(ReqParam.CUSTOMER_NO) @Size(min = 8, max = 8) String customerNo) {
     CustomerDto customer = customerService.getCustomer(customerNo);
-    return ResponseDto.builder()
+    return ResponseDto.<CustomerDto>builder()
         .result(ResultVo.SUCCESS.getDecode())
         .response(customer)
         .build();
@@ -108,7 +109,7 @@ public class CustomerResource {
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  public ResponseDto createCustomer(@Valid List<CustomerDto> formList) {
+  public ResponseDto<Object> createCustomer(@Valid List<CustomerDto> formList) {
     formList.forEach(customerService::createCustomer);
     return ResponseDto.builder()
         .result(ResultVo.SUCCESS.getDecode())
@@ -124,9 +125,9 @@ public class CustomerResource {
   @PUT
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  public ResponseDto updateCustomer(@Valid List<CustomerDto> formList) {
+  public ResponseDto<Integer> updateCustomer(@Valid List<CustomerDto> formList) {
     int updateCount = formList.stream().mapToInt(customerService::updateCustomer).sum();
-    return ResponseDto.builder()
+    return ResponseDto.<Integer>builder()
         .result(ResultVo.SUCCESS.getDecode())
         .response(updateCount)
         .build();
@@ -141,9 +142,9 @@ public class CustomerResource {
   @Path("/{" + ReqParam.CUSTOMER_NO + "}")
   @DELETE
   @Produces(MediaType.APPLICATION_JSON)
-  public ResponseDto deleteCustomer(@PathParam(ReqParam.CUSTOMER_NO) @Size(min = 8, max = 8) String customerNo) {
+  public ResponseDto<Integer> deleteCustomer(@PathParam(ReqParam.CUSTOMER_NO) @Size(min = 8, max = 8) String customerNo) {
     int deleteCount = customerService.deleteCustomer(customerNo);
-    return ResponseDto.builder()
+    return ResponseDto.<Integer>builder()
         .result(ResultVo.SUCCESS.getDecode())
         .response(deleteCount)
         .build();

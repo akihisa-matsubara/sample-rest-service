@@ -9,19 +9,21 @@ import lombok.Setter;
 
 /**
  * Response Dto.
+ *
+ * @param <T> Responseの型
  */
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class ResponseDto {
+public class ResponseDto<T> {
 
   /** 結果. */
   private String result;
 
   /** 実行結果. */
-  private Object response;
+  private T response;
 
   /** エラー情報. */
   private List<String> errors;

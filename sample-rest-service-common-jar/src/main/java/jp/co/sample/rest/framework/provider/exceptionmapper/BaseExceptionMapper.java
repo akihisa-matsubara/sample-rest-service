@@ -33,7 +33,7 @@ public abstract class BaseExceptionMapper<EM, E extends Exception> {
     log.error(ExceptionUtils.getStackTrace(exception));
     ERROR_LOGGER.error(ExceptionUtils.getStackTrace(exception));
 
-    ResponseDto responseDto = ResponseDto.builder()
+    ResponseDto<Object> responseDto = ResponseDto.builder()
         .result(ResultVo.FAILURE.getDecode())
         .errors(getErrors(exception))
         .build();

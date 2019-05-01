@@ -7,6 +7,7 @@ import jp.co.sample.rest.common.data.entity.CustomerEntity;
 import jp.co.sample.rest.common.dto.CustomerDto;
 import jp.co.sample.rest.common.util.SampleBeanUtils;
 import jp.co.sample.rest.framework.data.condition.SearchConditionDo;
+import jp.co.sample.rest.integration.service.ExternalCustomerService;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
@@ -29,13 +30,22 @@ public class CustomerServiceImpl implements CustomerService {
   @Inject
   private SequenceGenerateDao sequenceDao;
 
+  @Inject
+  private ExternalCustomerService externalService;
+
   /**
    * {@inheritDoc}
    */
   @Override
   public List<CustomerDto> getCustomers(SearchConditionDo searchCondition) {
     List<CustomerEntity> entities = dao.search(searchCondition);
-    return entities.stream().map(entity -> SampleBeanUtils.copyProperties(CustomerDto.class, entity)).collect(Collectors.toList());
+    List<CustomerDto> customers = entities.stream().map(entity -> SampleBeanUtils.copyProperties(CustomerDto.class, entity)).collect(Collectors.toList());
+
+    // 外部サービス呼び出し
+    List<CustomerDto> externalCustomers = externalService.getCustomers();
+    customers.addAll(externalCustomers);
+
+    return customers;
   }
 
   /**

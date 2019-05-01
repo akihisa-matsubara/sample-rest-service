@@ -29,7 +29,7 @@ public class ConfigProducer {
   private static final String REPLACE_PROFILE_STR = "profile";
 
   /** プロファイル別ファイル名. */
-  private static final String PROFILE_FILE_NAME = "/application_" + REPLACE_PROFILE_STR + ".properties";
+  private static final String PROFILE_FILE_NAME = "/application-" + REPLACE_PROFILE_STR + ".properties";
 
   /** 有効なプロファイル. */
   @Inject

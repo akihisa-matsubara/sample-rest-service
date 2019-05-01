@@ -28,7 +28,7 @@ public class ActiveProfile {
    * 初期化.
    */
   @PostConstruct
-  public void initialized() {
+  public void initialize() {
     log.info(MessageUtils.getMessage(MessageId.F0004I, profile));
     restrict();
 
