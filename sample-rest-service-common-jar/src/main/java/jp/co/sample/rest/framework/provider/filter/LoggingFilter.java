@@ -146,8 +146,8 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
    * @throws IOException IO例外
    */
   private void logResponseBody(WriterInterceptorContext context) throws IOException {
-    ResponseDto response = (ResponseDto) context.getEntity();
-    if (response == null || response.getResponse() == null) {
+    if (!(context.getEntity() instanceof ResponseDto)) {
+      context.proceed();
       return;
     }
 
