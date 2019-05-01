@@ -9,7 +9,7 @@ API詳細は `sample-rest-service-webapi-doc` を確認してください。
 | -------- | ------- | ------- |
 | IBM WebSphere Application Server | 9.0.0.9 | traditional |
 | IBM WebSphere Application Server | 18.0.0.3 | Liberty |
-| Java | 1.8.0_181 | |
+| IBM Java | 1.8.0_181 | |
 | DB2 | 11.1.4.4 | |
 
 ## 利用技術
