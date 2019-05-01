@@ -7,15 +7,17 @@ API詳細は `sample-rest-service-webapi-doc` を確認してください。
 ## 動作確認環境
 | Platform | Version | Edition |
 | -------- | ------- | ------- |
-| IBM WebSphere Application Server | 9.0 | traditional |
+| IBM WebSphere Application Server | 9.0.0.9 | traditional |
 | IBM WebSphere Application Server | 18.0.0.3 | Liberty |
-| Java | 8 | |
-| DB2 | 11.1 | |
+| Java | 1.8.0_181 | |
+| DB2 | 11.1.4.4 | |
 
 ## 利用技術
 | FW/OSS | Version |
 | ------ | ------- |
 | JavaEE | 7 |
+| Jackson | 2.9.8 |
+| logback | 1.2.3 |
 
 ## 環境情報
 1. DB2
