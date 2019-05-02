@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.util.Objects;
 import java.util.Properties;
 import javax.annotation.PostConstruct;
-import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
@@ -18,7 +17,6 @@ import org.apache.commons.lang3.StringUtils;
  * 限定子 {@code @Config(key)} で指定されたキー値をインジェクションするプロデューサクラス.
  */
 @ApplicationScoped
-@Startup
 @Slf4j
 public class ConfigProducer {
 
