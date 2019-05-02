@@ -14,7 +14,7 @@ import lombok.Data;
  */
 @Data
 @MappedSuperclass
-public abstract class DbBaseEntity implements Serializable {
+public abstract class DbEntityBase implements Serializable {
 
   /** serialVersionUID. */
   private static final long serialVersionUID = -486137350490161455L;

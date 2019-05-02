@@ -4,15 +4,19 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.ConstraintViolationException;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
  * 制約違反例外Mapper.
  */
 @Provider
-public class ConstraintViolationExceptionMapper extends BaseExceptionMapper<ConstraintViolationExceptionMapper, ConstraintViolationException>
+@Slf4j
+public class ConstraintViolationExceptionMapper extends ExceptionMapperBase<ConstraintViolationExceptionMapper, ConstraintViolationException>
     implements ExceptionMapper<ConstraintViolationException> {
 
   /** メッセージフォーマット. */
@@ -22,7 +26,18 @@ public class ConstraintViolationExceptionMapper extends BaseExceptionMapper<Cons
    * {@inheritDoc}
    */
   @Override
-  public Class<ConstraintViolationExceptionMapper> getClassType() {
+  public Response toResponse(ConstraintViolationException exception) {
+    log.error(ExceptionUtils.getStackTrace(exception));
+    ERROR_LOGGER.error(ExceptionUtils.getStackTrace(exception));
+
+    return super.toResponse(exception);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  protected Class<ConstraintViolationExceptionMapper> getClassType() {
     return ConstraintViolationExceptionMapper.class;
   }
 
@@ -30,7 +45,7 @@ public class ConstraintViolationExceptionMapper extends BaseExceptionMapper<Cons
    * {@inheritDoc}
    */
   @Override
-  public List<String> getErrors(ConstraintViolationException exception) {
+  protected List<String> getErrors(ConstraintViolationException exception) {
     return exception.getConstraintViolations().stream()
         .map(cv -> MessageFormat.format(MESSAGE_FORMAT, cv.getInvalidValue(), cv.getMessage()))
         .collect(Collectors.toList());
@@ -40,8 +55,8 @@ public class ConstraintViolationExceptionMapper extends BaseExceptionMapper<Cons
    * {@inheritDoc}
    */
   @Override
-  public Status getStatus() {
-    return Status.BAD_REQUEST;
+  protected int getStatusCode(ConstraintViolationException exception) {
+    return Status.BAD_REQUEST.getStatusCode();
   }
 
 }

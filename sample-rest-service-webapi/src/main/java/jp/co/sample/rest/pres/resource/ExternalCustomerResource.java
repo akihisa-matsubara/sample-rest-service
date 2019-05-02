@@ -5,9 +5,9 @@ import jp.co.sample.common.code.GenderVo;
 import jp.co.sample.common.util.LocalDateFormatUtils;
 import jp.co.sample.rest.common.constant.ReqParam;
 import jp.co.sample.rest.common.dto.CustomerDto;
-import jp.co.sample.rest.framework.code.ResultVo;
 import jp.co.sample.rest.framework.constant.CommonReqParam;
 import jp.co.sample.rest.framework.pres.dto.ResponseDto;
+import jp.co.sample.rest.framework.pres.resource.ResourceBase;
 import jp.co.sample.rest.pres.SampleApplication;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,8 +26,9 @@ import javax.ws.rs.core.MediaType;
  * {@link SampleApplication}参照してください.
  * </PRE>
  */
+@SuppressWarnings("unchecked")
 @Path("/external/customers")
-public class ExternalCustomerResource {
+public class ExternalCustomerResource implements ResourceBase {
 
   /**
    * 顧客情報を取得します.
@@ -69,10 +70,8 @@ public class ExternalCustomerResource {
     List<CustomerDto> customers = new ArrayList<>();
     customers.add(externalCustomer);
 
-    return ResponseDto.<List<CustomerDto>>builder()
-        .result(ResultVo.SUCCESS.getDecode())
-        .response(customers)
-        .build();
+    return ResourceBase.createResponse(customers);
+
   }
 
 }

@@ -13,7 +13,7 @@
             <charset>${DEFAULT_CHARSET}</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_DIR}/debug.%d{yyyy-MM-dd}.log.tar.gz</fileNamePattern>
+            <fileNamePattern>${LOG_DIR}/debug.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
             <maxHistory>7</maxHistory>
             <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
@@ -26,7 +26,7 @@
             <charset>${DEFAULT_CHARSET}</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_DIR}/performance.%d{yyyy-MM-dd}.log.tar.gz</fileNamePattern>
+            <fileNamePattern>${LOG_DIR}/performance.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
             <maxHistory>7</maxHistory>
             <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
@@ -39,7 +39,7 @@
             <charset>${DEFAULT_CHARSET}</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_DIR}/access.%d{yyyy-MM-dd}.log.tar.gz</fileNamePattern>
+            <fileNamePattern>${LOG_DIR}/access.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
             <maxHistory>7</maxHistory>
             <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
@@ -52,7 +52,7 @@
             <charset>${DEFAULT_CHARSET}</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_DIR}/error.%d{yyyy-MM-dd}.log.tar.gz</fileNamePattern>
+            <fileNamePattern>${LOG_DIR}/error.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
             <maxHistory>7</maxHistory>
         </rollingPolicy>
     </appender>

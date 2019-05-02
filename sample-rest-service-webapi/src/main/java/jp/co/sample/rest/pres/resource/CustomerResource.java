@@ -3,11 +3,10 @@ package jp.co.sample.rest.pres.resource;
 import jp.co.sample.rest.biz.logic.CustomerService;
 import jp.co.sample.rest.common.constant.ReqParam;
 import jp.co.sample.rest.common.dto.CustomerDto;
-import jp.co.sample.rest.framework.code.ResultVo;
 import jp.co.sample.rest.framework.constant.CommonReqParam;
 import jp.co.sample.rest.framework.pres.dto.ResponseDto;
+import jp.co.sample.rest.framework.pres.resource.ResourceBase;
 import jp.co.sample.rest.framework.util.SearchConditionBuilder;
-import jp.co.sample.rest.pres.SampleApplication;
 import java.time.LocalDate;
 import java.util.List;
 import javax.inject.Inject;
@@ -26,14 +25,11 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
- * <PRE>
  * 顧客リソース.
- * APIのURLベースパスやAPI内で指定する書式フォーマットについては、
- * {@link SampleApplication}参照してください.
- * </PRE>
  */
+@SuppressWarnings("unchecked")
 @Path("/customers")
-public class CustomerResource {
+public class CustomerResource implements ResourceBase {
 
   /** 顧客サービス. */
   @Inject
@@ -77,10 +73,7 @@ public class CustomerResource {
         .putParam(ReqParam.ADDRESS, address);
 
     List<CustomerDto> customers = customerService.getCustomers(builder.build());
-    return ResponseDto.<List<CustomerDto>>builder()
-        .result(ResultVo.SUCCESS.getDecode())
-        .response(customers)
-        .build();
+    return ResourceBase.createResponse(customers);
   }
 
   /**
@@ -94,10 +87,7 @@ public class CustomerResource {
   @Produces(MediaType.APPLICATION_JSON)
   public ResponseDto<CustomerDto> getCustomer(@PathParam(ReqParam.CUSTOMER_NO) @Size(min = 8, max = 8) String customerNo) {
     CustomerDto customer = customerService.getCustomer(customerNo);
-    return ResponseDto.<CustomerDto>builder()
-        .result(ResultVo.SUCCESS.getDecode())
-        .response(customer)
-        .build();
+    return ResourceBase.createResponse(customer);
   }
 
   /**
@@ -111,9 +101,7 @@ public class CustomerResource {
   @Produces(MediaType.APPLICATION_JSON)
   public ResponseDto<Object> createCustomer(@Valid List<CustomerDto> formList) {
     formList.forEach(customerService::createCustomer);
-    return ResponseDto.builder()
-        .result(ResultVo.SUCCESS.getDecode())
-        .build();
+    return ResourceBase.createResponse(null);
   }
 
   /**
@@ -127,10 +115,7 @@ public class CustomerResource {
   @Produces(MediaType.APPLICATION_JSON)
   public ResponseDto<Integer> updateCustomer(@Valid List<CustomerDto> formList) {
     int updateCount = formList.stream().mapToInt(customerService::updateCustomer).sum();
-    return ResponseDto.<Integer>builder()
-        .result(ResultVo.SUCCESS.getDecode())
-        .response(updateCount)
-        .build();
+    return ResourceBase.createResponse(updateCount);
   }
 
   /**
@@ -144,10 +129,7 @@ public class CustomerResource {
   @Produces(MediaType.APPLICATION_JSON)
   public ResponseDto<Integer> deleteCustomer(@PathParam(ReqParam.CUSTOMER_NO) @Size(min = 8, max = 8) String customerNo) {
     int deleteCount = customerService.deleteCustomer(customerNo);
-    return ResponseDto.<Integer>builder()
-        .result(ResultVo.SUCCESS.getDecode())
-        .response(deleteCount)
-        .build();
+    return ResourceBase.createResponse(deleteCount);
   }
 
 }

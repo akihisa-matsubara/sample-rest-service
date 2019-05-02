@@ -2,6 +2,7 @@ package jp.co.sample.rest.framework.provider.filter;
 
 import jp.co.sample.common.code.EncodingVo;
 import jp.co.sample.rest.framework.code.LoggerVo;
+import jp.co.sample.rest.framework.constant.PrioritiesExt;
 import jp.co.sample.rest.framework.pres.dto.ResponseDto;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -10,6 +11,7 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import javax.annotation.Priority;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseContext;
@@ -28,6 +30,7 @@ import org.slf4j.MDC;
  * ログ出力フィルター.
  */
 @Provider
+@Priority(PrioritiesExt.FRAMEWORK)
 @Slf4j
 public class LoggingFilter implements ContainerRequestFilter, ContainerResponseFilter, WriterInterceptor {
   /** MDC Key - start time. */
@@ -47,16 +50,16 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
 
   /**
    * リクエスト受付時にアクセス履歴とリクエストに関する情報をログ出力します.
+   * XXX BADリクエスト(4XX)次第でSkipされてしまう
    *
    * @param context ContainerRequestContext
    */
   @Override
   public void filter(ContainerRequestContext context) throws IOException {
     MDC.put(START_TIME, String.valueOf(System.currentTimeMillis()));
-
-    ACCESS_LOGGER.debug("Resource:/{}, Method-Type:{}, Method-Name:{}", context.getUriInfo().getPath(),
-        context.getMethod(), resourceInfo.getResourceMethod().getName());
+    logAccess(context);
     logRequest(context);
+    logRequestBody(context);
   }
 
   /**
@@ -67,7 +70,17 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
    */
   @Override
   public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
-    logPerformance(requestContext);
+    // エラー時はContainerRequest.filterを通らないので、レスポンス時に出力
+    String startTime = MDC.get(START_TIME);
+    if (startTime == null || startTime.isEmpty()) {
+      logAccess(requestContext);
+      logRequest(requestContext);
+
+    } else {
+      logPerformance(requestContext);
+
+    }
+
     logResponse(responseContext);
     // clear the context on exit
     MDC.clear();
@@ -94,8 +107,10 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
     builder.append("\n----- HTTP REQUEST ---------------------\n");
     builder.append(String.format(DUMP_TEMPLATE, "Request URL", context.getUriInfo().getAbsolutePath()));
     builder.append(String.format(DUMP_TEMPLATE, "Request Method", context.getMethod()));
-    builder.append(String.format(DUMP_TEMPLATE, "Resource Method", resourceInfo.getResourceMethod().getName()));
-    builder.append(String.format(DUMP_TEMPLATE, "Class", resourceInfo.getResourceClass().getCanonicalName()));
+    builder.append(String.format(DUMP_TEMPLATE, "Resource Method",
+        resourceInfo.getResourceMethod() == null ? "-" : resourceInfo.getResourceMethod().getName()));
+    builder.append(String.format(DUMP_TEMPLATE, "Class",
+        resourceInfo.getResourceClass() == null ? "-" : resourceInfo.getResourceClass().getCanonicalName()));
 
     builder.append("----- PATH PARAMETER -------------------\n");
     builder.append(dumpParameters(context.getUriInfo().getPathParameters()));
@@ -108,7 +123,18 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
       builder.append(String.format(DUMP_TEMPLATE, headerName, context.getHeaderString(headerName)));
     }
 
-    builder.append("----- HTTP REQUEST BODY ----------------\n");
+    log.debug(builder.toString());
+  }
+
+  /**
+   * リクエストボディーをログ出力します.
+   *
+   * @param context ContainerRequestContext
+   */
+  private void logRequestBody(ContainerRequestContext context) {
+    StringBuilder builder = new StringBuilder();
+
+    builder.append("\n----- HTTP REQUEST BODY ----------------\n");
     try (Scanner sc = new Scanner(context.getEntityStream())) {
       sc.useDelimiter("\\A");
       if (sc.hasNext()) {
@@ -169,15 +195,22 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
   }
 
   /**
+   * アクセス履歴をログ出力します.
+   *
+   * @param context ContainerRequestContext
+   */
+  private void logAccess(ContainerRequestContext context) {
+    ACCESS_LOGGER.debug("Resource:/{}, Method-Type:{}, Method-Name:{}", context.getUriInfo().getPath(),
+        context.getMethod(), resourceInfo.getResourceMethod() == null ? "-" : resourceInfo.getResourceMethod().getName());
+  }
+
+  /**
    * 性能情報をログ出力します.
    *
    * @param context ContainerRequestContext
    */
   private void logPerformance(ContainerRequestContext context) {
     String startTime = MDC.get(START_TIME);
-    if (startTime == null || startTime.isEmpty()) {
-      return;
-    }
     long executionTime = System.currentTimeMillis() - Long.parseLong(startTime);
 
     PERFORMANCE_LOGGER.debug("Total time: {} milliseconds, Resource: /{}, Method-Type: {}, Method-Name: {}", executionTime,

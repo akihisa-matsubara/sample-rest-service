@@ -5,6 +5,8 @@ package jp.co.sample.rest.framework.message;
  */
 public enum MessageId {
 
+  /** 未定義. */
+  UNDEFINED,
   // F～ FRAMEWORK
   /** Beanの変換({0} -> {1})に失敗しました。. */
   F0001E,
@@ -21,6 +23,9 @@ public enum MessageId {
   // C～ COMMON
   // B～ BUSINESS LOGIC
   // P～ PRESENTATION
+  // U～ 利用統計ログ
+  /** 外部顧客サービスを呼び出しました。. */
+  U0001I,
   ;
 
 }

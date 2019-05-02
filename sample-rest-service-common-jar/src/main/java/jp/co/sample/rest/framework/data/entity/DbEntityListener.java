@@ -11,7 +11,7 @@ import javax.persistence.PreUpdate;
  * DB基底EntityListener.
  * 共通項目を設定します.
  */
-public class DbBaseEntityListener {
+public class DbEntityListener {
 
   /** Principal. */
   @Inject
@@ -22,7 +22,7 @@ public class DbBaseEntityListener {
    * @param entity DB基底Entity
    */
   @PrePersist
-  public void prePersist(DbBaseEntity entity) {
+  public void prePersist(DbEntityBase entity) {
     preUpdate(entity);
     entity.setCreationDate(entity.getUpdatedDate());
     entity.setCreationUserId(entity.getUpdatedUserId());
@@ -33,7 +33,7 @@ public class DbBaseEntityListener {
    * @param entity DB基底Entity
    */
   @PreUpdate
-  public void preUpdate(DbBaseEntity entity) {
+  public void preUpdate(DbEntityBase entity) {
     entity.setUpdatedDate(LocalDateTime.now(Clock.systemDefaultZone()));
     entity.setUpdatedUserId(principal.getName());
   }
