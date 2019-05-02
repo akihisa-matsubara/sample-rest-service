@@ -36,7 +36,6 @@ public class JsonProvider extends JacksonJsonProvider {
     mapper.setDateFormat(new SimpleDateFormat(DateFormatVo.YYYYMMDD.getCode()));
 
     // DeserializationFeature
-    mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
     mapper.disable(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS);
 
