@@ -1,4 +1,4 @@
-package jp.co.sample.rest.framework.pres.dto;
+package jp.co.sample.rest.framework.exception.dto;
 
 import jp.co.sample.rest.framework.message.MessageId;
 import java.io.Serializable;

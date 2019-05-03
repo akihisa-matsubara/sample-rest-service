@@ -1,7 +1,7 @@
 package jp.co.sample.rest.framework.pres.resource;
 
 import jp.co.sample.rest.framework.code.ResultVo;
-import jp.co.sample.rest.framework.pres.dto.ResponseDto;
+import jp.co.sample.rest.framework.pres.dto.ResponseBaseDto;
 
 /**
  * <PRE>
@@ -20,8 +20,8 @@ public interface ResourceBase {
    * @return ResponseDto
    */
   @SuppressWarnings("rawtypes")
-  public static <T> ResponseDto createResponse(T response) {
-    return ResponseDto.<T>builder()
+  public static <T> ResponseBaseDto createResponse(T response) {
+    return ResponseBaseDto.<T>builder()
         .result(ResultVo.SUCCESS.getDecode())
         .response(response)
         .build();

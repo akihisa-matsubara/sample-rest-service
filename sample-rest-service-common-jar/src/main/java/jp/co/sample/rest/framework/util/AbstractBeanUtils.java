@@ -1,8 +1,8 @@
 package jp.co.sample.rest.framework.util;
 
 import jp.co.sample.rest.framework.exception.ApplicationException;
+import jp.co.sample.rest.framework.exception.dto.ErrorDto;
 import jp.co.sample.rest.framework.message.MessageId;
-import jp.co.sample.rest.framework.pres.dto.ErrorDto;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;

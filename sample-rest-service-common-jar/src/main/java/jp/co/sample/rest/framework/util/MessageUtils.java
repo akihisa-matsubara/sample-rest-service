@@ -1,8 +1,8 @@
 package jp.co.sample.rest.framework.util;
 
 import jp.co.sample.common.constant.SystemProperty;
+import jp.co.sample.rest.framework.exception.dto.ErrorDto;
 import jp.co.sample.rest.framework.message.MessageId;
-import jp.co.sample.rest.framework.pres.dto.ErrorDto;
 import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;

@@ -1,6 +1,6 @@
 package jp.co.sample.rest.framework.exception;
 
-import jp.co.sample.rest.framework.pres.dto.ErrorDto;
+import jp.co.sample.rest.framework.exception.dto.ErrorDto;
 import lombok.Getter;
 
 /**

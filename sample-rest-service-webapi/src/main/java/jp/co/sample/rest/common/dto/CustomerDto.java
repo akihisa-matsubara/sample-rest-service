@@ -1,5 +1,6 @@
 package jp.co.sample.rest.common.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import javax.validation.constraints.Size;
 import lombok.Getter;
@@ -10,7 +11,10 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class CustomerDto {
+public class CustomerDto implements Serializable {
+
+  /** serialVersionUID. */
+  private static final long serialVersionUID = 8473313641114716747L;
 
   /** 顧客番号. */
   @Size(min = 8, max = 8)

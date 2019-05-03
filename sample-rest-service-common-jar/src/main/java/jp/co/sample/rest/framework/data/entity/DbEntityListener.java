@@ -22,7 +22,7 @@ public class DbEntityListener {
    * @param entity DB基底Entity
    */
   @PrePersist
-  public void prePersist(DbEntityBase entity) {
+  public void prePersist(DbBaseEntity entity) {
     preUpdate(entity);
     entity.setCreationDate(entity.getUpdatedDate());
     entity.setCreationUserId(entity.getUpdatedUserId());
@@ -33,7 +33,7 @@ public class DbEntityListener {
    * @param entity DB基底Entity
    */
   @PreUpdate
-  public void preUpdate(DbEntityBase entity) {
+  public void preUpdate(DbBaseEntity entity) {
     entity.setUpdatedDate(LocalDateTime.now(Clock.systemDefaultZone()));
     entity.setUpdatedUserId(principal.getName());
   }

@@ -61,7 +61,7 @@ for dir in jpadirList:
     #endIf
 #next
 if (jpalibdir == ""):
-    print "Error : WebSphereのプラグインパスが参照できません、スクリブトを中止します。"
+    print "Error : WebSphereのプラグインパスが参照できません、スクリプトを中止します。"
     os._exit(1)
 else:
     print "ディレクトリ[" + jpalibdir + "]をWebSphereプラグインパスとして適用します。"
@@ -376,11 +376,11 @@ updateHeapSize()
 # javaagent設定
 # setJVMProperties()
 
-# セッションバーシスタンス作成
+# セッションパーシスタンス作成
 # createSessionTable()
 # createDataSourceForSessionDB("mydb", "50000", "Sessions")
 # setSessionPersistence("db2admin", "db2admin", "Sessions")
 
-# JVMカスタムプロバティ設定
+# JVMカスタムプロパティ設定
 # createJvmCustomProperty(nodeName, serverName, "java.net.preferIPv4Stack", "true")
 # createJvmCustomProperty(nodeName, serverName, "db2.jcc.ccsid943Mapping", "2")

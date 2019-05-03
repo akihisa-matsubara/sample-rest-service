@@ -3,7 +3,7 @@ package jp.co.sample.rest.framework.provider.filter;
 import jp.co.sample.common.code.EncodingVo;
 import jp.co.sample.rest.framework.code.LoggerVo;
 import jp.co.sample.rest.framework.constant.PrioritiesExt;
-import jp.co.sample.rest.framework.pres.dto.ResponseDto;
+import jp.co.sample.rest.framework.pres.dto.ResponseBaseDto;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -172,7 +172,7 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
    * @throws IOException IO例外
    */
   private void logResponseBody(WriterInterceptorContext context) throws IOException {
-    if (!(context.getEntity() instanceof ResponseDto)) {
+    if (!(context.getEntity() instanceof ResponseBaseDto)) {
       context.proceed();
       return;
     }

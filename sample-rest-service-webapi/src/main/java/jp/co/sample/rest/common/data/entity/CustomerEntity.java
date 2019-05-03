@@ -1,6 +1,6 @@
 package jp.co.sample.rest.common.data.entity;
 
-import jp.co.sample.rest.framework.data.entity.DbEntityBase;
+import jp.co.sample.rest.framework.data.entity.DbBaseEntity;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
 @Table(name = "T_CUSTOMER")
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CustomerEntity extends DbEntityBase {
+public class CustomerEntity extends DbBaseEntity {
 
   /** serialVersionUID. */
   private static final long serialVersionUID = 7997404289024567972L;

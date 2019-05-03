@@ -6,9 +6,8 @@ import jp.co.sample.common.util.LocalDateFormatUtils;
 import jp.co.sample.rest.common.constant.ReqParam;
 import jp.co.sample.rest.common.dto.CustomerDto;
 import jp.co.sample.rest.framework.constant.CommonReqParam;
-import jp.co.sample.rest.framework.pres.dto.ResponseDto;
+import jp.co.sample.rest.framework.pres.dto.ResponseBaseDto;
 import jp.co.sample.rest.framework.pres.resource.ResourceBase;
-import jp.co.sample.rest.pres.SampleApplication;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +19,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
- * <PRE>
  * 顧客リソース(外部システム想定).
- * APIのURLベースパスやAPI内で指定する書式フォーマットについては、
- * {@link SampleApplication}参照してください.
- * </PRE>
  */
 @SuppressWarnings("unchecked")
 @Path("/external/customers")
@@ -32,7 +27,7 @@ public class ExternalCustomerResource implements ResourceBase {
 
   /**
    * 顧客情報を取得します.
-   * オプションのフィルターでは、"="演算子のみ対応していますが、"<"や">"といたった範囲の指定やLIKEによるあいまい検索には対応していません.
+   * オプションのフィルターでは、"="演算子のみ対応していますが、"<"や">"といった範囲の指定やLIKEによるあいまい検索には対応していません.
    *
    * @param offset Offset
    * @param limit 取得件数
@@ -43,11 +38,11 @@ public class ExternalCustomerResource implements ResourceBase {
    * @param birthday 生年月日
    * @param addressZip 郵便番号
    * @param address 住所
-   * @return {@link ResponseDto} Response Dto(顧客情報)
+   * @return {@link ResponseBaseDto} Response Dto(顧客情報)
    */
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public ResponseDto<List<CustomerDto>> getCustomers(
+  public ResponseBaseDto<List<CustomerDto>> getCustomers(
       @DefaultValue("0") @QueryParam(CommonReqParam.OFFSET) int offset,
       @DefaultValue("100") @QueryParam(CommonReqParam.LIMIT) int limit,
       @QueryParam(CommonReqParam.SORT) String sort,

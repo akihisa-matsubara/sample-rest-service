@@ -2,7 +2,7 @@ package jp.co.sample.rest.framework.provider.exceptionmapper;
 
 import jp.co.sample.rest.framework.code.LoggerVo;
 import jp.co.sample.rest.framework.code.ResultVo;
-import jp.co.sample.rest.framework.pres.dto.ResponseDto;
+import jp.co.sample.rest.framework.pres.dto.ResponseBaseDto;
 import java.util.List;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -28,7 +28,7 @@ public abstract class ExceptionMapperBase<EM, E extends Exception> {
    */
   protected Response toResponse(E exception) {
     // implements先でログ出力
-    ResponseDto<Object> responseDto = ResponseDto.builder()
+    ResponseBaseDto<Object> responseDto = ResponseBaseDto.builder()
         .result(ResultVo.FAILURE.getDecode())
         .errors(getErrors(exception))
         .build();

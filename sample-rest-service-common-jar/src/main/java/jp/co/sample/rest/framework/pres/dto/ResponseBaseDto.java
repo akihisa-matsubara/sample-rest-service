@@ -3,21 +3,19 @@ package jp.co.sample.rest.framework.pres.dto;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
- * Response Dto.
+ * Response 基底Dto.
  *
  * @param <T> Responseの型
  */
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-public class ResponseDto<T> {
+@Builder
+@Data
+public class ResponseBaseDto<T> {
 
   /** 結果. */
   private String result;
