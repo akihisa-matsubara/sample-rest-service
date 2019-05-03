@@ -39,6 +39,20 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
+                <configuration>
+                    <packages>
+                        <param>jp.co.sample.rest.common.data.entity</param>
+                        <param>jp.co.sample.rest.common.dto</param>
+                        <param>jp.co.sample.rest.integration.dto</param>
+                    </packages>
+                    <targetDir>${basedir}/src/test/assertions</targetDir>
+                    <cleanTargetDir>true</cleanTargetDir>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

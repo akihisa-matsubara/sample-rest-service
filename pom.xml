@@ -29,6 +29,9 @@
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <logback.version>1.2.3</logback.version>
         <lombok.version>1.18.6</lombok.version>
+        <junit-jupiter.version>5.3.2</junit-jupiter.version>
+        <assertj.version>3.11.1</assertj.version>
+        <assertj-assertions-generator.version>2.2.0</assertj-assertions-generator.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
         <maven-war-plugin.version>3.2.2</maven-war-plugin.version>
@@ -48,11 +51,6 @@
                 <groupId>jp.co.sample</groupId>
                 <artifactId>sample-common-util-jar</artifactId>
                 <version>${sample-common-util.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>jp.co.sample</groupId>
-                <artifactId>sample-test-util-jar</artifactId>
-                <version>${sample-test-util.version}</version>
             </dependency>
 
             <!-- OSS Library -->
@@ -95,6 +93,25 @@
                 <artifactId>java-specs</artifactId>
                 <version>${was-liberty-javaspecs.version}</version>
                 <type>pom</type>
+            </dependency>
+
+            <!-- Test Library -->
+            <dependency>
+                <groupId>jp.co.sample</groupId>
+                <artifactId>sample-test-util-jar</artifactId>
+                <version>${sample-test-util.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit-jupiter.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -182,11 +199,36 @@
             <artifactId>sample-test-util-jar</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.assertj</groupId>
+                    <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
+                    <version>${assertj-assertions-generator.version}</version>
+                </plugin>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
@@ -205,5 +247,29 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+
+        <plugins>
+            <!-- m2eのLife Cycle Mappingでエラーが出る場合、[generate-assertions]を無視に設定してください -->
+            <plugin>
+                <!-- Generate assertions at every build -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate-assertions</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <param>.*Abstract.*</param>
+                        <param>.*Base.*</param>
+                        <param>.*Listener.*</param>
+                    </excludes>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>
