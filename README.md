@@ -7,10 +7,12 @@ API詳細は `sample-rest-service-webapi-doc` を確認してください。
 ## 動作確認環境
 | Platform | Version | Edition |
 | -------- | ------- | ------- |
-| IBM WebSphere Application Server | 9.0.0.9 | traditional |
+| ~~IBM WebSphere Application Server~~ | 9.0.0.9 | traditional |
 | IBM WebSphere Application Server | 18.0.0.3 | Liberty |
 | IBM Java | 1.8.0_181 | |
 | DB2 | 11.1.4.4 | |
+
+[issues#15](https://github.com/akihisa-matsubara/sample-rest-service/issues/15)のため現在 traditional で動かない
 
 ## 利用技術
 | FW/OSS | Version |
