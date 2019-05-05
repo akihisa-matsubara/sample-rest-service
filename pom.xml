@@ -18,6 +18,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.lib.path>${basedir}/lib</project.lib.path>
+        <project.tools.path>${basedir}/tools</project.tools.path>
+        <test.server.http.port>9080</test.server.http.port>
+        <test.server.https.port>9443</test.server.https.port>
         <!-- version -->
         <javaee.version>7.0</javaee.version>
         <was-liberty.version>18.0.0.3</was-liberty.version>
@@ -29,13 +32,24 @@
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <logback.version>1.2.3</logback.version>
         <lombok.version>1.18.6</lombok.version>
+        <arquillian.version>1.4.1.Final</arquillian.version>
+        <openliberty-arquillian.version>1.0.6</openliberty-arquillian.version>
+        <openliberty-arquillian-junit.version>1.1.6</openliberty-arquillian-junit.version>
+        <apache-cxf.version>3.3.1</apache-cxf.version>
+        <jboss-javaee.version>1.1.1.Final</jboss-javaee.version>
         <junit-jupiter.version>5.3.2</junit-jupiter.version>
+        <junit.version>4.12</junit.version>
         <assertj.version>3.11.1</assertj.version>
         <assertj-assertions-generator.version>2.2.0</assertj-assertions-generator.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
         <maven-war-plugin.version>3.2.2</maven-war-plugin.version>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+        <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
+        <maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
+        <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.0.0-M3</maven-failsafe-plugin.version>
+        <liberty-maven-plugin.version>2.6.4</liberty-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -101,6 +115,7 @@
                 <artifactId>sample-test-util-jar</artifactId>
                 <version>${sample-test-util.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
@@ -112,6 +127,38 @@
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>${assertj.version}</version>
+            </dependency>
+
+            <!-- Arquillian -->
+            <dependency>
+                <groupId>io.openliberty.features</groupId>
+                <artifactId>features-bom</artifactId>
+                <version>${was-liberty.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>${arquillian.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.openliberty.arquillian</groupId>
+                <artifactId>arquillian-liberty-managed-junit</artifactId>
+                <version>${openliberty-arquillian-junit.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-client</artifactId>
+                <version>${apache-cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-extension-providers</artifactId>
+                <version>${apache-cxf.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -225,51 +272,237 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.assertj</groupId>
-                    <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
-                    <version>${assertj-assertions-generator.version}</version>
-                </plugin>
-                <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-source-plugin</artifactId>
                     <version>${maven-source-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>${maven-war-plugin.version}</version>
+                    <configuration>
+                        <failOnMissingWebXml>false</failOnMissingWebXml>
+                        <packagingExcludes>pom.xml</packagingExcludes>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>${maven-jar-plugin.version}</version>
                 </plugin>
+                <plugin>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${maven-dependency-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <excludes>
+                            <exclude>it/**/*.java</exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>${maven-antrun-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <phase>pre-integration-test</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                            <configuration>
+                                <target>
+                                    <echo>Copying db2 jdbc driver</echo>
+                                    <mkdir dir="${project.build.directory}/liberty/wlp/usr/shared/resources/db2" />
+                                    <copy todir="${project.build.directory}/liberty/wlp/usr/shared/resources/db2" overwrite="false">
+                                        <fileset dir="${project.tools.path}/was-liberty/shared/resources/db2">
+                                            <include name="**.jar" />
+                                        </fileset>
+                                    </copy>
+                                </target>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven-failsafe-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>failsafe-integration-test</id>
+                            <phase>integration-test</phase>
+                            <goals>
+                                <goal>integration-test</goal>
+                            </goals>
+                            <configuration>
+                                <includes>
+                                    <include>**/it/**/*.java</include>
+                                </includes>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>failsafe-verify</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <summaryFile>
+                            ${project.build.directory}/test-reports/it/failsafe-summary.xml
+                        </summaryFile>
+                        <reportsDirectory>
+                            ${project.build.directory}/test-reports/it
+                        </reportsDirectory>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.assertj</groupId>
+                    <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
+                    <version>${assertj-assertions-generator.version}</version>
+                    <executions>
+                        <execution>
+                            <id>generate-assertions-test-sources</id>
+                            <phase>generate-test-sources</phase>
+                            <goals>
+                                <goal>generate-assertions</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <targetDir>${basedir}/src/test/assertions</targetDir>
+                        <cleanTargetDir>true</cleanTargetDir>
+                        <excludes>
+                            <param>.*Abstract.*</param>
+                            <param>.*Base.*</param>
+                            <param>.*Listener.*</param>
+                        </excludes>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>junit</groupId>
+                            <artifactId>junit</artifactId>
+                            <version>${junit.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>net.wasdev.wlp.maven.plugins</groupId>
+                    <artifactId>liberty-maven-plugin</artifactId>
+                    <version>${liberty-maven-plugin.version}</version>
+                    <configuration>
+                        <assemblyArtifact>
+                            <groupId>com.ibm.websphere.appserver.runtime</groupId>
+                            <artifactId>wlp-javaee7</artifactId>
+                            <version>${was-liberty.version}</version>
+                            <type>zip</type>
+                        </assemblyArtifact>
+                        <serverName>ArquillianManagedServer</serverName>
+                        <wlpHome>${project.build.directory}/liberty/wlp/</wlpHome>
+                        <configFile>src/test/resources/was-liberty/server.xml</configFile>
+                        <jvmOptionsFile>${project.tools.path}/was-liberty/jvm.options</jvmOptionsFile>
+                        <serverEnv>${project.tools.path}/was-liberty/server.env</serverEnv>
+                        <bootstrapProperties>
+                            <default.http.port>${test.server.http.port}</default.http.port>
+                            <default.https.port>${test.server.https.port}</default.https.port>
+                        </bootstrapProperties>
+                        <looseApplication>true</looseApplication>
+                        <installAppPackages>project</installAppPackages>
+                        <skipTestServer>true</skipTestServer>
+                        <skipLibertyPackage>true</skipLibertyPackage>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>stop-server-before-clean</id>
+                            <phase>pre-clean</phase>
+                            <goals>
+                                <goal>stop-server</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>create-server</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>install-server</goal>
+                                <goal>create-server</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>install-feature</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>install-feature</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${project.build.directory}/liberty-alt-output-dir</outputDirectory>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>install-apps</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>install-apps</goal>
+                            </goals>
+                            <configuration>
+                                <looseApplication>true</looseApplication>
+                                <stripVersion>true</stripVersion>
+                                <installAppPackages>project</installAppPackages>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>package-server</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>package-server</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${project.build.directory}/liberty-alt-output-dir</outputDirectory>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>package-app</id>
+                            <configuration>
+                                <outputDirectory>target/wlp-package</outputDirectory>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>configure-arquillian-xml</id>
+                            <phase>pre-integration-test</phase>
+                            <goals>
+                                <goal>configure-arquillian</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>test-start-server</id>
+                            <phase>pre-integration-test</phase>
+                            <goals>
+                                <goal>test-start-server</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>test-stop-server</id>
+                            <phase>post-integration-test</phase>
+                            <goals>
+                                <goal>test-stop-server</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
-
-        <plugins>
-            <!-- m2eのLife Cycle Mappingでエラーが出る場合、[generate-assertions]を無視に設定してください -->
-            <plugin>
-                <!-- Generate assertions at every build -->
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate-assertions</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <groupId>org.assertj</groupId>
-                <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <param>.*Abstract.*</param>
-                        <param>.*Base.*</param>
-                        <param>.*Listener.*</param>
-                    </excludes>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
+
 </project>

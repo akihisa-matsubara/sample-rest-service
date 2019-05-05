@@ -17,6 +17,7 @@
     <properties>
         <!-- override -->
         <project.lib.path>${basedir}/../lib</project.lib.path>
+        <project.tools.path>${basedir}/../tools</project.tools.path>
     </properties>
 
     <build>
@@ -27,15 +28,6 @@
             </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -47,9 +39,6 @@
                     <packages>
                         <param>jp.co.sample.rest.framework.exception.dto</param>
                     </packages>
-                    <targetDir>${basedir}/src/test/assertions</targetDir>
-                    <cleanTargetDir>true</cleanTargetDir>
-                    <skip>false</skip>
                 </configuration>
             </plugin>
         </plugins>

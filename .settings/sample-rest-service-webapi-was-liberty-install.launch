@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><launchConfiguration type="org.eclipse.m2e.Maven2LaunchConfigurationType">
 <booleanAttribute key="M2_DEBUG_OUTPUT" value="false"/>
-<stringAttribute key="M2_GOALS" value="clean install -DskipLibertyPackage=true"/>
+<stringAttribute key="M2_GOALS" value="package liberty:install-apps -DskipLibertyPackage=true"/>
 <booleanAttribute key="M2_NON_RECURSIVE" value="false"/>
 <booleanAttribute key="M2_OFFLINE" value="false"/>
 <stringAttribute key="M2_PROFILES" value=""/>
@@ -14,5 +14,5 @@
 <stringAttribute key="org.eclipse.debug.ui.ATTR_CONSOLE_ENCODING" value="MS932"/>
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_CLASSPATH_ONLY_JAR" value="false"/>
 <stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-<stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${workspace_loc:/sample-rest-service-parent}"/>
+<stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="C:\development\gitrepo-dev\sample-rest-service\sample-rest-service-webapi"/>
 </launchConfiguration>

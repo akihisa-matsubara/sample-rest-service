@@ -12,6 +12,7 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    <!-- 本Web.xmlは開発環境用のためdev固定 -->
     <env-entry>
         <description>Active Profile</description>
         <env-entry-name>active-profile</env-entry-name>
