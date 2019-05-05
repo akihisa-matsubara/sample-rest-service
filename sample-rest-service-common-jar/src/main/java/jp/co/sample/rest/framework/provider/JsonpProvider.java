@@ -21,17 +21,17 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
 /**
- * Jsonプロバイダー.
+ * Jsonpプロバイダー.
  */
 @Provider
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class JsonProvider extends JacksonJsonProvider {
+public class JsonpProvider extends JacksonJsonProvider {
 
   /**
    * デフォルトコンストラクタ.
    */
-  public JsonProvider() {
+  public JsonpProvider() {
     ObjectMapper mapper = new ObjectMapper();
     mapper.setDateFormat(new SimpleDateFormat(DateFormatVo.YYYYMMDD.getCode()));
 
