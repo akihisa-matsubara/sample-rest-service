@@ -12,7 +12,7 @@ API詳細は `sample-rest-service-webapi-doc` を確認してください。
 | IBM Java | 1.8.0_181 | |
 | DB2 | 11.1.4.4 | |
 
-[issues#15](https://github.com/akihisa-matsubara/sample-rest-service/issues/15)のため現在 traditional で動かない
+[issues#15](https://github.com/akihisa-matsubara/sample-rest-service/issues/15)のため現在は traditional で動きません
 
 ## 利用技術
 | FW/OSS | Version |
@@ -20,6 +20,9 @@ API詳細は `sample-rest-service-webapi-doc` を確認してください。
 | JavaEE | 7 |
 | Jackson | 2.9.8 |
 | logback | 1.2.3 |
+| Arquillian | 1.4.1.Final |
+| Liberty Arquillian | 1.0.6 |
+
 
 ## 環境情報
 1. DB2
@@ -38,3 +41,7 @@ DB構築手順は [sample-db](https://github.com/akihisa-matsubara/sample-db) �
    https://developer.ibm.com/wasdev/docs/websphere-developer-tools-releases/
    
 1. `tools/was-liberty/*` をWLP解凍先に配布（template以外）
+
+## テスト環境構築
+1. `sample-rest-service-webapi-was-liberty-install` を実行し、Libertyをtarget下にインストール  
+   ※実行しなくても、PRE-IT実行時に自動で構築されます
