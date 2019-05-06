@@ -16,6 +16,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
  * Client Wrapper.
+ * Singletonから変更する場合は、破棄するタイミングでインスタンス内のClientをcloseしてください.
  */
 @UtilityClass
 @Slf4j
@@ -31,6 +32,7 @@ public class ClientWrapper {
 
   /**
    * Getリクエスト（with Path Parameter）を送信します.
+   * 取得したResponseは呼び出し元で適切にcloseしてください.
    *
    * @param uri Web Resource URI
    * @param path Path Parameter
@@ -52,11 +54,12 @@ public class ClientWrapper {
   @SuppressWarnings("rawtypes")
   public static <T extends ResponseBaseDto> T getWithPath(String uri, String path, Class<T> responseType) {
     Response response = getWithPath(uri, path);
-    return response == null ? null : response.readEntity(responseType);
+    return readAndCloseEntity(response, responseType);
   }
 
   /**
    * Getリクエスト（with Query Parameters）を送信します.
+   * 取得したResponseは呼び出し元で適切にcloseしてください.
    *
    * @param uri Web Resource URI
    * @param queryParams クエリパラメーター
@@ -82,11 +85,12 @@ public class ClientWrapper {
   @SuppressWarnings("rawtypes")
   public static <T extends ResponseBaseDto> T getWithQueryParams(String uri, Map<String, Object[]> queryParams, Class<T> responseType) {
     Response response = getWithQueryParams(uri, queryParams);
-    return response == null ? null : response.readEntity(responseType);
+    return readAndCloseEntity(response, responseType);
   }
 
   /**
    * Getリクエストを送信します.
+   * 取得したResponseは呼び出し元で適切にcloseしてください.
    *
    * @param uri Web Resource URI
    * @return {@link Response} Response 実行前にエラーが発生した場合はnull
@@ -106,7 +110,8 @@ public class ClientWrapper {
   @SuppressWarnings("rawtypes")
   public static <T extends ResponseBaseDto> T get(String uri, Class<T> responseType) {
     Response response = get(uri);
-    return response == null ? null : response.readEntity(responseType);
+    return readAndCloseEntity(response, responseType);
+
   }
 
   /**
@@ -144,6 +149,25 @@ public class ClientWrapper {
    */
   private static WebTarget target(String uri) {
     return client.target(uri);
+  }
+
+  /**
+   * ResponseからEntityを取得し、Responseをクローズします.
+   *
+   * @param <T> Entity
+   * @param response {@link Response}
+   * @param entityType Entity Type
+   * @return entity Responseがnullの場合はnull
+   */
+  public static <T> T readAndCloseEntity(Response response, Class<T> entityType) {
+    if (response == null) {
+      return null;
+    }
+
+    T entity = response.readEntity(entityType);
+    response.close();
+    return entity;
+
   }
 
 }
