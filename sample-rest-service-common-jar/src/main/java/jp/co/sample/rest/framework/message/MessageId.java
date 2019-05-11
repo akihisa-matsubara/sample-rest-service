@@ -20,6 +20,8 @@ public enum MessageId {
   F0005I,
   /** メッセージプロパティ[language:{0}]を読み込みました。. */
   F0006I,
+  /** キー[{0}]が設定ファイルに存在しません。. */
+  F0007E,
   // C～ COMMON
   // B～ BUSINESS LOGIC
   // P～ PRESENTATION

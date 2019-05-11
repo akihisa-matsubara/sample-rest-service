@@ -37,6 +37,7 @@
     <ssl id="DefaultSSLSettings" keyStoreRef="defaultKeyStore" trustStoreRef="defaultTrustStore" />
 
     <keyStore id="defaultKeyStore" password="{xor}bm1sa2pp" />
+    <keyStore id="defaultTrustStore" location="key.jks" password="{xor}bm1sa2pp" />
 
     <applicationMonitor updateTrigger="mbean" />
 

@@ -101,7 +101,7 @@ public class CustomerResource implements ResourceBase {
   @Produces(MediaType.APPLICATION_JSON)
   public ResponseBaseDto<Object> createCustomer(@Valid List<CustomerDto> formList) {
     formList.forEach(customerService::createCustomer);
-    return ResourceBase.createResponse(null);
+    return ResourceBase.createResponse();
   }
 
   /**

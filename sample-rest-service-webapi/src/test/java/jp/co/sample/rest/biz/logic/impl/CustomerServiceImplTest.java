@@ -11,7 +11,7 @@ import jp.co.sample.rest.integration.service.impl.ExternalCustomerServiceImpl;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -34,7 +34,6 @@ public class CustomerServiceImplTest {
 
   @Mock
   @Produces
-  @Dependent
   private ExternalCustomerServiceImpl externalService;
 
   @Inject
@@ -45,7 +44,7 @@ public class CustomerServiceImplTest {
 
   @Produces
   @MyDb
-  @Dependent
+  @RequestScoped
   EntityManager createUtEm() {
     return emf.createEntityManager();
   }

@@ -129,6 +129,10 @@ public class ConfigProducer {
       value = commonConfiguration.getProperty(key);
     }
 
+    if (value == null) {
+      throw new IllegalArgumentException(MessageUtils.getMessage(MessageId.F0007E, key));
+    }
+
     return value;
 
   }

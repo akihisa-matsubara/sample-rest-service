@@ -380,6 +380,13 @@
                                             <include name="**.jar" />
                                         </fileset>
                                     </copy>
+                                    <echo>Copying key resources</echo>
+                                    <mkdir dir="${project.build.directory}/liberty/wlp/usr/servers/ArquillianManagedServer/resources/security" />
+                                    <copy todir="${project.build.directory}/liberty/wlp/usr/servers/ArquillianManagedServer/resources/security" overwrite="false">
+                                        <fileset dir="${project.tools.path}/was-liberty/resources/security">
+                                            <include name="**.*" />
+                                        </fileset>
+                                    </copy>
                                 </target>
                             </configuration>
                         </execution>
