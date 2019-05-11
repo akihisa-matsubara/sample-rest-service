@@ -42,7 +42,7 @@ public class WebApplicationExceptionMapper extends ExceptionMapperBase<WebApplic
   @Override
   protected List<String> getErrors(WebApplicationException exception) {
     List<String> errors = new ArrayList<>();
-    errors.add(exception.getMessage());
+    errors.add(ExceptionUtils.getRootCauseMessage(exception));
     return errors;
   }
 

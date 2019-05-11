@@ -1,9 +1,10 @@
 package jp.co.sample.rest.common.data.dao;
 
 import jp.co.sample.rest.framework.data.dao.GenericDao;
+import jp.co.sample.rest.framework.data.entitymanager.MyDb;
 import java.io.Serializable;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import lombok.Getter;
 
 /**
@@ -15,8 +16,8 @@ import lombok.Getter;
 @Getter
 public abstract class MyDbDao<E, PK extends Serializable> extends GenericDao<E, PK> {
 
-  /** EntityManager. */
-  @PersistenceContext(unitName = "mydb")
+  @Inject
+  @MyDb
   private EntityManager entityManager;
 
 }

@@ -47,7 +47,7 @@ public class SystemExceptionMapper extends ExceptionMapperBase<SystemExceptionMa
     if (exception.getErrorDto() != null) {
       errors.add(MessageUtils.getErrorMessage(exception.getErrorDto()));
     } else {
-      errors.add(exception.getCause().getMessage());
+      errors.add(ExceptionUtils.getRootCauseMessage(exception));
     }
     return errors;
   }

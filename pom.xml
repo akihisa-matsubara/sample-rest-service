@@ -8,6 +8,7 @@
 
     <modules>
         <module>sample-rest-service-common-jar</module>
+        <module>sample-rest-service-test-util-jar</module>
         <module>sample-rest-service-webapi</module>
     </modules>
 
@@ -41,6 +42,10 @@
         <junit.version>4.12</junit.version>
         <assertj.version>3.11.1</assertj.version>
         <assertj-assertions-generator.version>2.2.0</assertj-assertions-generator.version>
+        <mockito.version>2.27.0</mockito.version>
+        <cdi-unit.version>4.1.0</cdi-unit.version>
+        <weld.version>2.4.8.Final</weld.version>
+        <eclipselink.version>2.6.6</eclipselink.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
         <maven-war-plugin.version>3.2.2</maven-war-plugin.version>
@@ -127,6 +132,30 @@
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>${assertj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jglue.cdi-unit</groupId>
+                <artifactId>cdi-unit</artifactId>
+                <version>${cdi-unit.version}</version>
+            </dependency>
+
+            <!-- cdi-unit (CDI 1.2 is 2.2 ～ 2.X) -->
+            <dependency>
+                <groupId>org.jboss.weld.se</groupId>
+                <artifactId>weld-se-core</artifactId>
+                <version>${weld.version}</version>
+            </dependency>
+            <!-- eclipselink (JPA2.1 is 2.6.x) -->
+            <dependency>
+                <groupId>org.eclipse.persistence</groupId>
+                <artifactId>org.eclipse.persistence.jpa</artifactId>
+                <version>${eclipselink.version}</version>
             </dependency>
 
             <!-- Arquillian -->
@@ -264,6 +293,26 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jglue.cdi-unit</groupId>
+            <artifactId>cdi-unit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

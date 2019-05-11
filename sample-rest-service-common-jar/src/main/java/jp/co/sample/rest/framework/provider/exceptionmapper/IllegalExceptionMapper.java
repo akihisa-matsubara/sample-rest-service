@@ -41,7 +41,7 @@ public class IllegalExceptionMapper extends ExceptionMapperBase<IllegalException
   @Override
   protected List<String> getErrors(Exception exception) {
     List<String> errors = new ArrayList<>();
-    errors.add(exception.getMessage());
+    errors.add(ExceptionUtils.getRootCauseMessage(exception));
     return errors;
   }
 

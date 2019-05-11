@@ -38,13 +38,18 @@ public class ActiveProfile {
    * 本番環境制限を初期化します.
    */
   private void restrict() {
+    if (profile == null) {
+      restriction = true;
+      return;
+    }
     switch (profile) {
-      case Profile.PROD:
-      case Profile.ST:
-        restriction = true;
+      case Profile.IT:
+      case Profile.DEV:
+      case Profile.TEST:
+        restriction = false;
         break;
       default:
-        restriction = false;
+        restriction = true;
         break;
     }
   }

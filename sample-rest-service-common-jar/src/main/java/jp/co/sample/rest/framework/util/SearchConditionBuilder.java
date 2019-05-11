@@ -7,37 +7,28 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
 /**
  * 検索条件DOビルダー.
  */
+@NoArgsConstructor
+@AllArgsConstructor
 public class SearchConditionBuilder {
 
-  /** Offset. */
-  private int offset;
+  /** Offset(default: 0). */
+  private int offset = 0;
 
-  /** 取得件数. */
-  private int limit;
+  /** 取得件数(default: 100). */
+  private int limit = 100;
 
-  /** ソート条件. */
-  private String sort;
+  /** ソート条件((default: empty string)). */
+  private String sort = StringUtils.EMPTY;
 
   /** クエリパラメータMap. */
-  private Map<String, Object> queryParams = new LinkedHashMap<>();
-
-  /**
-   * デフォルトコンストラクタ.
-   *
-   * @param offset Offset
-   * @param limit 取得件数
-   * @param sort ソート条件
-   */
-  public SearchConditionBuilder(int offset, int limit, String sort) {
-    this.offset = offset;
-    this.limit = limit;
-    this.sort = sort;
-  }
+  private final Map<String, Object> queryParams = new LinkedHashMap<>();
 
   /**
    * クエリパラメータMapにパラメーターを格納する.

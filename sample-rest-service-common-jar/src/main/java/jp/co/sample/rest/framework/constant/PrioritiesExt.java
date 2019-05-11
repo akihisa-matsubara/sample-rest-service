@@ -8,7 +8,7 @@ import javax.ws.rs.Priorities;
  */
 public final class PrioritiesExt {
 
-  public static final int FRAMEWORK = 100;
+  public static final int FRAMEWORK = 900;
 
   /**
    * デフォルトコンストラクター.

@@ -7,14 +7,16 @@ import java.util.Objects;
 import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 /**
- * 限定子 {@code @Config(key)} で指定されたキー値をインジェクションするプロデューサクラス.
+ * 限定子 {@code @Config(key)} で指定されたキー値をインジェクションするプロデューサークラス.
  */
 @ApplicationScoped
 @Slf4j
@@ -28,6 +30,9 @@ public class ConfigProducer {
 
   /** プロファイル別ファイル名. */
   private static final String PROFILE_FILE_NAME = "/application-" + REPLACE_PROFILE_STR + ".properties";
+
+  /** 設定値が存在しない場合のint型デフォルト値. */
+  private static final int UNDEFINED = -1;
 
   /** 有効なプロファイル. */
   @Inject
@@ -45,8 +50,9 @@ public class ConfigProducer {
   @PostConstruct
   public void initialize() {
     commonConfiguration = load(DEFAULT_FILE_NAME);
-    profileConfiguration = load(PROFILE_FILE_NAME.replaceAll(REPLACE_PROFILE_STR, profile.getProfile()));
-
+    if (StringUtils.isNotEmpty(profile.getProfile())) {
+      profileConfiguration = load(PROFILE_FILE_NAME.replaceAll(REPLACE_PROFILE_STR, profile.getProfile()));
+    }
   }
 
   /**
@@ -78,10 +84,27 @@ public class ConfigProducer {
    * value属性に値が指定されていない場合、フィールド名をキーに設定します.
    *
    * @param ip インジェクションポイント
-   * @return 設定値
+   * @return 設定値、設定値が存在しない場合は-1
    */
   @Produces
   @Config
+  @Dependent
+  public int getInteger(InjectionPoint ip) {
+    String strValue = getString(ip);
+    return NumberUtils.toInt(strValue, UNDEFINED);
+
+  }
+
+  /**
+   * 指定されたキーに対応した設定値を取得します.
+   * value属性に値が指定されていない場合、フィールド名をキーに設定します.
+   *
+   * @param ip インジェクションポイント
+   * @return 設定値、設定値が存在しない場合はnull
+   */
+  @Produces
+  @Config
+  @Dependent
   public String getString(InjectionPoint ip) {
     String key = ip.getAnnotated().getAnnotation(Config.class).value();
     if (StringUtils.isEmpty(key)) {
@@ -96,7 +119,7 @@ public class ConfigProducer {
    * プロファイル別設定ファイルに設定値が存在しない場合は、プロファイル共通設定ファイルから取得します.
    *
    * @param key キー
-   * @return 設定値
+   * @return 設定値、設定値がいずれも存在しない場合はnull
    */
   public String getValue(String key) {
     String value = null;

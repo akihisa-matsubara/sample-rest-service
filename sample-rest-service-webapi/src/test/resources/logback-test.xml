@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration>
+    <property scope="system" name="LOG_DIR" value="C:/development/log/sample-rest-service" />
+    <property scope="system" name="DETAIL_FORMAT" value="%d{yy/MM/dd HH:mm:ss.SSS} ${HOSTNAME} [%thread] %-5level %logger{36} - %msg%n" />
+    <property scope="system" name="SIMPLE_FORMAT" value="%d{yy/MM/dd HH:mm:ss.SSS} ${HOSTNAME} [%thread] %.-1level - %msg%n" />
+    <property scope="system" name="DEFAULT_CHARSET" value="MS932" />
+
+    <appender name="DEBUG_LOG_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/ut-debug.log</file>
+        <encoder>
+            <pattern>${DETAIL_FORMAT}</pattern>
+            <charset>${DEFAULT_CHARSET}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/ut-debug.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="PERFORMANCE_LOG_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/ut-performance.log</file>
+        <encoder>
+            <pattern>${SIMPLE_FORMAT}</pattern>
+            <charset>${DEFAULT_CHARSET}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/ut-performance.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="ACCESS_LOG_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/ut-access.log</file>
+        <encoder>
+            <pattern>${SIMPLE_FORMAT}</pattern>
+            <charset>${DEFAULT_CHARSET}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/ut-access.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="ERROR_LOG_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/ut-error.log</file>
+        <encoder>
+            <pattern>${SIMPLE_FORMAT}</pattern>
+            <charset>${DEFAULT_CHARSET}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/ut-error.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="jp.co.sample" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="DEBUG_LOG_APPENDER" />
+    </logger>
+
+    <logger name="PERFORMANCE_LOGGER" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="PERFORMANCE_LOG_APPENDER" />
+    </logger>
+
+    <logger name="ACCESS_LOGGER" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="ACCESS_LOG_APPENDER" />
+    </logger>
+
+    <logger name="ERROR_LOGGER" additivity="false">
+        <level value="WARN" />
+        <appender-ref ref="ERROR_LOG_APPENDER" />
+    </logger>
+
+    <root level="DEBUG">
+        <appender-ref ref="DEBUG_LOG_APPENDER" />
+    </root>
+</configuration>

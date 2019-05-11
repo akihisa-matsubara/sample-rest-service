@@ -1,6 +1,6 @@
 package jp.co.sample.rest.framework.provider.filter;
 
-import jp.co.sample.common.code.EncodingVo;
+import jp.co.sample.common.constant.Encoding;
 import jp.co.sample.rest.framework.code.LoggerVo;
 import jp.co.sample.rest.framework.constant.PrioritiesExt;
 import jp.co.sample.rest.framework.pres.dto.ResponseBaseDto;
@@ -183,7 +183,7 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
       context.setOutputStream(byteArrayOutputStream);
       context.proceed();
       builder.append("\n----- HTTP RESPONSE BODY ---------------\n");
-      builder.append(byteArrayOutputStream.toString(EncodingVo.UTF8.getCode()));
+      builder.append(byteArrayOutputStream.toString(Encoding.UTF8));
       byteArrayOutputStream.writeTo(originalStream);
 
     } finally {

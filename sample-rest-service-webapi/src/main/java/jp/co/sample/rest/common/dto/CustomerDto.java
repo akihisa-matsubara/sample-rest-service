@@ -3,14 +3,12 @@ package jp.co.sample.rest.common.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 import javax.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 顧客Dto.
  */
-@Getter
-@Setter
+@Data
 public class CustomerDto implements Serializable {
 
   /** serialVersionUID. */
