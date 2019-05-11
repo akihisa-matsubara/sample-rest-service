@@ -28,6 +28,13 @@
         <!-- test scope -->
         <!-- Arquillian -->
         <dependency>
+            <groupId>jp.co.sample</groupId>
+            <artifactId>sample-rest-service-test-util-jar</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-rs-client</artifactId>
             <scope>test</scope>

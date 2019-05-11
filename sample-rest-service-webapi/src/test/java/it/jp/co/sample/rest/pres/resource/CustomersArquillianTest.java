@@ -28,7 +28,7 @@ public class CustomersArquillianTest {
 
   @Deployment(testable = true)
   public static WebArchive createDeployment() {
-    return ArquillianTestUtils.createDeployment(CustomersArquillianTest.class);
+    return ArquillianTestUtils.createWebArchive(CustomersArquillianTest.class);
   }
 
   @Test
