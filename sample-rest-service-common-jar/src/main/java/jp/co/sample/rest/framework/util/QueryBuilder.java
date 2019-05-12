@@ -26,23 +26,21 @@ public class QueryBuilder {
     String where = buildWhere(searchCondition.getQueryParams());
 
     // 検索件数取得クエリ構築
-    StringBuilder countQuery = new StringBuilder();
-    countQuery.append("SELECT COUNT(e) FROM ").append(entityName).append(" e ");
-    if (!StringUtils.isEmpty(where)) {
-      countQuery.append(" WHERE ").append(where);
-    }
-    searchCondition.setCountQuery(countQuery.toString());
-
+    StringBuilder countQuery = new StringBuilder().append("SELECT COUNT(e) FROM ").append(entityName).append(" e ");
     // 検索結果取得クエリ構築
-    StringBuilder searchQuery = new StringBuilder();
-    searchQuery.append("SELECT e FROM ").append(entityName).append(" e ");
+    StringBuilder searchQuery = new StringBuilder().append("SELECT e FROM ").append(entityName).append(" e ");
+
     if (!StringUtils.isEmpty(where)) {
-      searchQuery.append(" WHERE ").append(where);
+      countQuery.append("WHERE ").append(where);
+      searchQuery.append("WHERE ").append(where);
     }
+
     String orderBy = buildOrderBy(searchCondition.getSortList());
     if (!StringUtils.isEmpty(orderBy)) {
       searchQuery.append(orderBy);
     }
+
+    searchCondition.setCountQuery(countQuery.toString());
     searchCondition.setSearchQuery(searchQuery.toString());
   }
 
@@ -83,7 +81,7 @@ public class QueryBuilder {
       }
       orderBy.append("e").append(".").append(sort.getField()).append(sort.isAsc() ? StringUtils.EMPTY : " DESC");
     });
-    return orderBy.insert(0, " ORDER BY ").toString();
+    return orderBy.insert(0, "ORDER BY ").toString();
   }
 
 }

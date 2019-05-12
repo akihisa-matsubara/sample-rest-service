@@ -35,7 +35,7 @@ public class CustomersArquillianTest {
   @RunAsClient
   @InSequence(1)
   public void testCustomersEndpoints() throws Exception {
-    // --- setup   ---
+    // --- setup -----
     Client client = ClientBuilder.newClient();
     client.register(JsrJsonpProvider.class);
 
@@ -43,9 +43,9 @@ public class CustomersArquillianTest {
     // Cutomers API [GET] /cutomers
     Response response = client.target(BASE_URL + CUSTOMERS_API).request(MediaType.APPLICATION_JSON_TYPE).get();
     System.out.println("response:" + response.readEntity(String.class));
-//    JsonObject jsonResponse = response.readEntity(JsonObject.class);
+    // JsonObject jsonResponse = response.readEntity(JsonObject.class);
 
-    // --- verify  ---
+    // --- verify ----
     assertThat(response.getStatus()).as("HTTPステータスコードが200であること").isEqualTo(200);
   }
 

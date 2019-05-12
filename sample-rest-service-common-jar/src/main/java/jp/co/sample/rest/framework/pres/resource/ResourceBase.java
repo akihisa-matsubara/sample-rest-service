@@ -15,12 +15,11 @@ public interface ResourceBase {
   /**
    * ResponseDtoを作成します.
    *
-   * @param <T> response
    * @return ResponseDto
    */
   @SuppressWarnings("rawtypes")
-  public static <T> ResponseBaseDto createResponse() {
-    return createResponse();
+  public static ResponseBaseDto createResponse() {
+    return createResponse(null);
   }
 
   /**

@@ -19,13 +19,15 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.jglue.cdiunit.CdiRunner;
 import org.jglue.cdiunit.InRequestScope;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+/**
+ * CustomerService 実装 テストクラス.
+ */
 @RunWith(CdiRunner.class)
 public class CustomerServiceImplTest {
 
@@ -60,21 +62,18 @@ public class CustomerServiceImplTest {
     MockitoAnnotations.initMocks(this);
   }
 
-  @After
-  @InRequestScope
-  public void tearDown() {
-  }
-
   @Test
   @InRequestScope
   public void test_normal_getCustomers() {
+    // --- setup -----
     when(externalService.getCustomers()).thenReturn(Collections.emptyList());
-
     SearchConditionDo searchCondition = new SearchConditionBuilder().build();
+
+    // --- execute ---
     List<CustomerDto> customers = testClass.getCustomers(searchCondition);
 
-    System.out.println("customers:" + customers);
-    assertThat(customers).isNotEmpty();
+    // --- verify ----
+    assertThat(customers).as("取得結果が1件以上であること").isNotEmpty();
   }
 
 }

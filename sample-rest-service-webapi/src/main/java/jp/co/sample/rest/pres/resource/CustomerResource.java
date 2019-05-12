@@ -64,8 +64,8 @@ public class CustomerResource implements ResourceBase {
       @QueryParam(ReqParam.ADDRESS_ZIP) String addressZip,
       @QueryParam(ReqParam.ADDRESS) String address) {
 
-    SearchConditionBuilder builder = new SearchConditionBuilder(offset, limit, sort);
-    builder.putParam(ReqParam.NAME_KANJI, nameKanji)
+    SearchConditionBuilder builder = new SearchConditionBuilder(offset, limit, sort)
+        .putParam(ReqParam.NAME_KANJI, nameKanji)
         .putParam(ReqParam.NAME_KANA, nameKana)
         .putParam(ReqParam.GENDER, gender)
         .putParam(ReqParam.BIRTHDAY, birthday)

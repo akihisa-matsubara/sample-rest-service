@@ -24,6 +24,9 @@ public class MessageUtils {
 
   static {
     try {
+      // JVMにキャッシュされるのでクリア
+      ResourceBundle.clearCache(MessageUtils.class.getClassLoader());
+
       // Localeは環境依存
       messages = ResourceBundle.getBundle(MESSAGE_BASE_NAME);
       log.info(MessageUtils.getMessage(MessageId.F0006I, SystemProperty.LANGUAGE));
