@@ -14,8 +14,8 @@
 
     <properties>
         <!-- override -->
-        <project.lib.path>${basedir}/../lib</project.lib.path>
-        <project.tools.path>${basedir}/../tools</project.tools.path>
+        <project.lib.path>${project.basedir}/../lib</project.lib.path>
+        <project.tools.path>${project.basedir}/../tools</project.tools.path>
     </properties>
 
     <dependencies>
