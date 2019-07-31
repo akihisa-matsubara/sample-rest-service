@@ -4,7 +4,6 @@
     <featureManager>
         <feature>javaee-7.0</feature>
         <feature>localConnector-1.0</feature>
-        <feature>cdi-1.2</feature>
         <feature>ssl-1.0</feature>
         <feature>j2eeManagement-1.1</feature>
         <!-- <feature>usr:arquillian-support-1.0</feature> -->

@@ -2,3 +2,4 @@
 -Xms512m
 -Dconsole.encoding=UTF-8
 -Dfile.encoding=UTF-8
+-Dclient.encoding.override=UTF-8

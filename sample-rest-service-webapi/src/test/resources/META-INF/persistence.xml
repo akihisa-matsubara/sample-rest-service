@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<persistence version="2.1"
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
     <persistence-unit name="mydb-test" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
@@ -10,12 +12,10 @@
         <class>jp.co.sample.rest.framework.data.converter.LocalDateToDateConverter</class>
         <class>jp.co.sample.rest.framework.data.converter.LocalDateTimeToTimestampConverter</class>
 
-        <properties>
-            <property name="javax.persistence.jdbc.driver" value="com.ibm.db2.jcc.DB2Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:db2://localhost:50000/mydb:currentSchema=MYSCHEMA;" />
-            <property name="javax.persistence.jdbc.user" value="db2admin" />
-            <property name="javax.persistence.jdbc.password" value="db2admin" />
+        <!-- L2 Cache -->
+        <shared-cache-mode>NONE</shared-cache-mode>
 
+        <properties>
             <property name="jdbc.persistence.logging" value="true" />
             <property name="eclipselink.logging.level" value="FINE" />
             <property name="eclipselink.logging.level.sql" value="FINE" />
@@ -24,6 +24,11 @@
             <!-- <property name="eclipselink.logging.logger" value="jp.co.sample.rest.framework.log.persistence.Slf4JLogger"/> -->
             <!-- for liberty -->
             <property name="eclipselink.logging.logger" value="ServerLogger" />
+
+            <property name="javax.persistence.jdbc.driver" value="com.ibm.db2.jcc.DB2Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:db2://localhost:50000/mydb:currentSchema=MYSCHEMA;" />
+            <property name="javax.persistence.jdbc.user" value="db2admin" />
+            <property name="javax.persistence.jdbc.password" value="db2admin" />
         </properties>
     </persistence-unit>
 </persistence>

@@ -12,14 +12,14 @@
         <class>jp.co.sample.rest.framework.data.converter.LocalDateToDateConverter</class>
         <class>jp.co.sample.rest.framework.data.converter.LocalDateTimeToTimestampConverter</class>
 
+        <!-- L2 Cache -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+
         <properties>
             <property name="jdbc.persistence.logging" value="true" />
             <property name="eclipselink.logging.level" value="FINE" />
             <property name="eclipselink.logging.level.sql" value="FINE" />
             <property name="eclipselink.logging.parameters" value="true" />
-            <!-- for traditional -->
-            <!-- <property name="eclipselink.logging.logger" value="jp.co.sample.rest.framework.log.persistence.Slf4JLogger"/> -->
-            <!-- for liberty -->
             <property name="eclipselink.logging.logger" value="ServerLogger" />
         </properties>
     </persistence-unit>
