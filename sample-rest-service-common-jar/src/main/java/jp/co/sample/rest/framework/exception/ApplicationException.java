@@ -1,13 +1,15 @@
 package jp.co.sample.rest.framework.exception;
 
-import jp.co.sample.rest.framework.exception.dto.ErrorDto;
+import jp.co.sample.rest.framework.exception.dto.ErrorMessage;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
  * アプリケーション基底例外.
  */
+@AllArgsConstructor
 @Getter
 public class ApplicationException extends RuntimeException {
 
@@ -15,7 +17,7 @@ public class ApplicationException extends RuntimeException {
   private static final long serialVersionUID = -3783009899660935057L;
 
   /** エラーDto. */
-  private final List<ErrorDto> errorList;
+  private final List<ErrorMessage> errorList;
 
   /**
    * デフォルトコンストラクター.
@@ -23,7 +25,7 @@ public class ApplicationException extends RuntimeException {
    * @param cause 例外
    * @param error エラーDto
    */
-  public ApplicationException(Throwable cause, ErrorDto error) {
+  public ApplicationException(Throwable cause, ErrorMessage error) {
     super(cause);
     errorList = new ArrayList<>();
     errorList.add(error);
@@ -35,7 +37,7 @@ public class ApplicationException extends RuntimeException {
    * @param cause 例外
    * @param errorList エラーDtoのリスト
    */
-  public ApplicationException(Throwable cause, List<ErrorDto> errorList) {
+  public ApplicationException(Throwable cause, List<ErrorMessage> errorList) {
     super(cause);
     this.errorList = errorList;
   }

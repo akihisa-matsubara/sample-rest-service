@@ -21,9 +21,6 @@ public class CustomerEntity extends DbBaseEntity {
   /** serialVersionUID. */
   private static final long serialVersionUID = 7997404289024567972L;
 
-  /** 全件取得Query. */
-  public static final String FIND_ALL = "Customer.findAll";
-
   /** 主キー削除Query. */
   public static final String DELETE_BY_ID = "Customer.deleteById";
 

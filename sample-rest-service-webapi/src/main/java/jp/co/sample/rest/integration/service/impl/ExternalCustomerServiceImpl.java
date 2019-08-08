@@ -1,10 +1,10 @@
 package jp.co.sample.rest.integration.service.impl;
 
+import jp.co.sample.rest.common.constant.StatisticsProcess;
 import jp.co.sample.rest.common.dto.CustomerDto;
 import jp.co.sample.rest.framework.code.ResultVo;
 import jp.co.sample.rest.framework.config.Config;
 import jp.co.sample.rest.framework.interceptor.UsageStatistics;
-import jp.co.sample.rest.framework.message.MessageId;
 import jp.co.sample.rest.framework.util.ClientWrapper;
 import jp.co.sample.rest.integration.dto.CustomersResponseDto;
 import jp.co.sample.rest.integration.service.ExternalCustomerService;
@@ -32,7 +32,7 @@ public class ExternalCustomerServiceImpl implements ExternalCustomerService {
   /**
    * {@inheritDoc}
    */
-  @UsageStatistics(messageId = MessageId.U0001I, params = "/sample/external/customers")
+  @UsageStatistics(processName = StatisticsProcess.EXTENAL_CUSTOMER_SERVICE)
   @Override
   public List<CustomerDto> getCustomers() {
     CustomersResponseDto responseDto = ClientWrapper.getWithPath(externalServiceBaseUrl, customersApi, CustomersResponseDto.class);

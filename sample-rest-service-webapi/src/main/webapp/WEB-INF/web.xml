@@ -11,12 +11,4 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
-    <!-- 本Web.xmlは開発環境用のためdev固定 -->
-    <env-entry>
-        <description>Active Profile</description>
-        <env-entry-name>active-profile</env-entry-name>
-        <env-entry-type>java.lang.String</env-entry-type>
-        <env-entry-value>dev</env-entry-value>
-    </env-entry>
 </web-app>

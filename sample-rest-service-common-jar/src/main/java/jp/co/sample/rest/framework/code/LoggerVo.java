@@ -15,6 +15,8 @@ public enum LoggerVo implements CodeVo {
   PERFORMANCE_LOGGER("PERFORMANCE_LOGGER", "Performance Logger"),
   /** アクセスロガー. */
   ACCESS_LOGGER("ACCESS_LOGGER", "Access Logger"),
+  /** 利用統計ロガー. */
+  STATISTICS_LOGGER("STATISTICS_LOGGER", "Statistics Logger"),
   /** エラーロガー. */
   ERROR_LOGGER("ERROR_LOGGER", "Error Logger"),
   ;

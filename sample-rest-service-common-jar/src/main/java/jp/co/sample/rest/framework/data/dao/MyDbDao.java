@@ -1,6 +1,5 @@
-package jp.co.sample.rest.common.data.dao;
+package jp.co.sample.rest.framework.data.dao;
 
-import jp.co.sample.rest.framework.data.dao.GenericDao;
 import jp.co.sample.rest.framework.data.entitymanager.MyDb;
 import java.io.Serializable;
 import javax.inject.Inject;

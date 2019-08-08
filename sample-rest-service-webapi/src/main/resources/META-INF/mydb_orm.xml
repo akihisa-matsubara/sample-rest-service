@@ -19,5 +19,10 @@
                 cst.customerNo = :customerNo
         ]]></query>
     </named-query>
+    <named-native-query name="SequenceGenerator.customerNo">
+        <query><![CDATA[
+            SELECT NEXT VALUE FOR SEQ_CUSTOMER_NO FROM SYSIBM.DUAL
+        ]]></query>
+    </named-native-query>
     <entity class="jp.co.sample.rest.common.data.entity.CustomerEntity" />
 </entity-mappings>

@@ -1,6 +1,5 @@
 package jp.co.sample.rest.framework.interceptor;
 
-import jp.co.sample.rest.framework.message.MessageId;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
@@ -19,19 +18,19 @@ import javax.interceptor.InterceptorBinding;
 public @interface UsageStatistics {
 
   /**
-   * メッセージID.
+   * ログ出力タイミング.
    *
-   * @return メッセージID
+   * @return ログ出力タイミング
    */
   @Nonbinding
-  MessageId messageId() default MessageId.UNDEFINED;
+  OutputTiming outputTiming() default OutputTiming.BOTH;
 
   /**
-   * パラメーター.
+   * 処理名.
    *
-   * @return パラメーター
+   * @return 処理名
    */
   @Nonbinding
-  String[] params() default {};
+  String processName() default "";
 
 }

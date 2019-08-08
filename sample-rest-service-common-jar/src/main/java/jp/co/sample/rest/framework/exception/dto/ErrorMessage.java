@@ -6,11 +6,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * エラーDto.
+ * エラーメッセージ.
  */
 @Getter
 @Setter
-public class ErrorDto implements Serializable {
+public class ErrorMessage implements Serializable {
 
   /** serialVersionUID. */
   private static final long serialVersionUID = -5529239137876367074L;
@@ -27,7 +27,7 @@ public class ErrorDto implements Serializable {
    * @param messageId メッセージID
    * @param params パラメーター
    */
-  public ErrorDto(MessageId messageId, String... params) {
+  public ErrorMessage(MessageId messageId, String... params) {
     this.messageId = messageId;
     this.params = params;
   }

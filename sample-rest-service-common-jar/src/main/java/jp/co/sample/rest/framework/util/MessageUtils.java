@@ -1,7 +1,7 @@
 package jp.co.sample.rest.framework.util;
 
 import jp.co.sample.common.constant.SystemProperty;
-import jp.co.sample.rest.framework.exception.dto.ErrorDto;
+import jp.co.sample.rest.framework.exception.dto.ErrorMessage;
 import jp.co.sample.rest.framework.message.MessageId;
 import java.text.MessageFormat;
 import java.util.MissingResourceException;
@@ -54,7 +54,7 @@ public class MessageUtils {
    * @param errorDto エラーDto
    * @return メッセージ
    */
-  public static String getErrorMessage(ErrorDto errorDto) {
+  public static String getErrorMessage(ErrorMessage errorDto) {
     return getMessage(errorDto.getMessageId(), errorDto.getParams());
   }
 

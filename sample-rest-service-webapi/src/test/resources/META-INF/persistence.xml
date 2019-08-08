@@ -6,6 +6,7 @@
     <persistence-unit name="mydb-test" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <!-- orm -->
+        <mapping-file>META-INF/core_orm.xml</mapping-file>
         <mapping-file>META-INF/customer_orm.xml</mapping-file>
 
         <!-- converter -->
@@ -20,11 +21,9 @@
             <property name="eclipselink.logging.level" value="FINE" />
             <property name="eclipselink.logging.level.sql" value="FINE" />
             <property name="eclipselink.logging.parameters" value="true" />
-            <!-- for traditional -->
-            <!-- <property name="eclipselink.logging.logger" value="jp.co.sample.rest.framework.log.persistence.Slf4JLogger"/> -->
-            <!-- for liberty -->
-            <property name="eclipselink.logging.logger" value="ServerLogger" />
+            <property name="eclipselink.logging.logger" value="jp.co.sample.rest.framework.log.persistence.Slf4JLogger"/>
 
+            <!-- 単体テスト環境用設定 -->
             <property name="javax.persistence.jdbc.driver" value="com.ibm.db2.jcc.DB2Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:db2://localhost:50000/mydb:currentSchema=MYSCHEMA;" />
             <property name="javax.persistence.jdbc.user" value="db2admin" />

@@ -6,7 +6,8 @@
     <persistence-unit name="mydb" transaction-type="JTA">
         <jta-data-source>jdbc/mydb</jta-data-source>
         <!-- orm -->
-        <mapping-file>META-INF/customer_orm.xml</mapping-file>
+        <mapping-file>META-INF/core_orm.xml</mapping-file>
+        <mapping-file>META-INF/mydb_orm.xml</mapping-file>
 
         <!-- converter -->
         <class>jp.co.sample.rest.framework.data.converter.LocalDateToDateConverter</class>
@@ -20,7 +21,7 @@
             <property name="eclipselink.logging.level" value="FINE" />
             <property name="eclipselink.logging.level.sql" value="FINE" />
             <property name="eclipselink.logging.parameters" value="true" />
-            <property name="eclipselink.logging.logger" value="ServerLogger" />
+            <property name="eclipselink.logging.logger" value="jp.co.sample.rest.framework.log.persistence.Slf4JLogger"/>
         </properties>
     </persistence-unit>
 </persistence>

@@ -2,8 +2,7 @@ package jp.co.sample.rest.framework.config;
 
 import jp.co.sample.rest.framework.message.MessageId;
 import jp.co.sample.rest.framework.util.MessageUtils;
-import java.io.InputStream;
-import java.util.Objects;
+import jp.co.sample.rest.framework.util.PropertiesUtils;
 import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -11,7 +10,6 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -19,7 +17,6 @@ import org.apache.commons.lang3.math.NumberUtils;
  * 限定子 {@code @Config(key)} で指定されたキー値をインジェクションするプロデューサークラス.
  */
 @ApplicationScoped
-@Slf4j
 public class ConfigProducer {
 
   /** デフォルトファイル名. */
@@ -49,34 +46,10 @@ public class ConfigProducer {
    */
   @PostConstruct
   public void initialize() {
-    commonConfiguration = load(DEFAULT_FILE_NAME);
+    commonConfiguration = PropertiesUtils.get(DEFAULT_FILE_NAME);
     if (StringUtils.isNotEmpty(profile.getProfile())) {
-      profileConfiguration = load(PROFILE_FILE_NAME.replaceAll(REPLACE_PROFILE_STR, profile.getProfile()));
+      profileConfiguration = PropertiesUtils.get(PROFILE_FILE_NAME.replaceAll(REPLACE_PROFILE_STR, profile.getProfile()));
     }
-  }
-
-  /**
-   * 設定ファイルにロードします.
-   *
-   * @param resName リソース名
-   * @return 設定ファイル
-   */
-  private Properties load(String resName) {
-    try (InputStream is = this.getClass().getResourceAsStream(resName)) {
-
-      Objects.requireNonNull(is);
-      Properties property = new Properties();
-      property.load(is);
-      log.info(MessageUtils.getMessage(MessageId.F0002I, resName));
-
-      return property;
-
-    } catch (Exception e) {
-      log.warn(MessageUtils.getMessage(MessageId.F0003W, resName));
-      return null;
-
-    }
-
   }
 
   /**

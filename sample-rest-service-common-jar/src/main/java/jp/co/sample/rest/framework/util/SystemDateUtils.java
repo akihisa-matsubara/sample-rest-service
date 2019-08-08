@@ -1,21 +1,28 @@
 package jp.co.sample.rest.framework.util;
 
 import jp.co.sample.common.code.DateFormat.DateFormatVo;
-import jp.co.sample.common.util.DateFormatUtilsExt;
-import jp.co.sample.common.util.LocalDateTimeFormatUtils;
+import jp.co.sample.common.util.LocalDateFormatUtils;
+import jp.co.sample.rest.framework.data.dao.SystemDateDao;
 import jp.co.sample.rest.framework.message.MessageId;
-import java.io.IOException;
-import java.io.InputStream;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalTime;
+import java.util.Optional;
 import java.util.Properties;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 /**
+ * <PRE>
  * システム日付ユーティリティー.
- * システム日付を変更したい場合は、{@code systemDate.properties} に {@code systemDate=yyyyMMdd} で設定してください.
+ * システム日付（みなし日付）を変更したい場合は、以下の方法で設定が可能です.
+ * どちらも設定されていた場合、システム日付プロパティの値が優先されます.
+ * </PRE>
+ * <ul>
+ * <li>システム日付プロパティ（{@code systemDate.properties}）</li>
+ * <li>システム日付マスタ（{@code M_SYSTEM_DATE}）</li>
+ * </ul>
  */
 @UtilityClass
 @Slf4j
@@ -27,53 +34,60 @@ public class SystemDateUtils {
   /** Key値. */
   private static final String KEY_VALUE = "systemDate";
 
-  /** システム日付（みなし日付）. */
-  private static String systemDate;
+  /** システム日付（みなし日付）（プロパティ設定値）. */
+  private static Optional<LocalDate> propertyDateOpt = Optional.empty();
 
   /** プロパティ読み込み. */
   static {
-    loadProperty();
+    init();
   }
 
   /**
-   * 現在の日付文字列(yyyyMMdd)を取得します.
-   * システム日付プロパティに値が設定されている場合、その値を優先します.
+   * 現在の日付を文字列形式(yyyyMMdd)で取得します.
+   * システム日付（みなし日付）に値が設定されている場合、その値を優先します.
    *
    * @return 現在の日付文字列(yyyyMMdd)
    */
-  public static String getNowDateString() {
-    return StringUtils.isEmpty(systemDate) ? DateFormatUtilsExt.format(new Date(), DateFormatVo.YYYYMMDD_NO_DELIMITER) : systemDate;
+  public static String getNowDateAsString() {
+    return LocalDateFormatUtils.format(createDate(), DateFormatVo.YYYYMMDD_NO_DELIMITER);
   }
 
   /**
    * 現在のLocalDateTimeを取得します.
-   * システム日付プロパティに値が設定されている場合、その値を優先します.
+   * システム日付（みなし日付）に値が設定されている場合、その値を優先します.
    *
    * @return 現在のLocalDateTime
    */
-  public static LocalDateTime getNowLocalDateTime() {
-    return LocalDateTimeFormatUtils.parse(getNowDateString() + DateFormatUtilsExt.format(new Date(), DateFormatVo.HHMMSSSSS_NO_DELIMITER),
-        DateFormatVo.YYYYMMDDHHMMSSSSS_NO_DELIMITER);
+  public static LocalDateTime getNowDateTime() {
+    return LocalTime.now().atDate(createDate());
   }
 
   /**
-   * プロパティを読み込みます.
+   * システム日付（みなし日付）を初期化します.
    */
-  private static void loadProperty() {
-    try (InputStream is = SystemDateUtils.class.getResourceAsStream(SYSTEM_DATE_PROPERTIES_NAME)) {
-      Properties property = new Properties();
-      property.load(is);
+  private static void init() {
+    Properties property = PropertiesUtils.get(SYSTEM_DATE_PROPERTIES_NAME);
 
-      String value = property.getProperty(KEY_VALUE);
-      if (!StringUtils.isEmpty(value)) {
-        systemDate = value;
+    if (property != null) {
+      String deemedDate = property.getProperty(KEY_VALUE);
+      if (StringUtils.isNotEmpty(deemedDate)) {
+        propertyDateOpt = Optional.of(LocalDateFormatUtils.parse(deemedDate, DateFormatVo.YYYYMMDD_NO_DELIMITER));
+        log.info(MessageUtils.getMessage(MessageId.F0005I, deemedDate));
       }
-      log.info(MessageUtils.getMessage(MessageId.F0005I, systemDate));
-
-    } catch (IOException ioe) {
-      log.warn(MessageUtils.getMessage(MessageId.F0003W, SYSTEM_DATE_PROPERTIES_NAME));
-
     }
+  }
+
+  /**
+   * システム日付（みなし日付）を作成します.
+   * プロパティ／DBともにみなし日付の設定がない場合は、実際の現在日付を返します.
+   *
+   * @return システム日付（みなし日付）
+   */
+  private static LocalDate createDate() {
+    return propertyDateOpt.orElseGet(() -> {
+      LocalDate deemedDate = CdiUtils.getBean(SystemDateDao.class).find().getSystemDate();
+      return deemedDate != null ? deemedDate : LocalDate.now();
+    });
   }
 
 }

@@ -40,6 +40,9 @@
 
     <applicationMonitor updateTrigger="mbean" />
 
-    <webApplication id="sample-rest-service-webapi" location="sample-rest-service-webapi.war" name="sample-rest-service-webapi" />
+    <executor />
 
+    <webApplication id="sample-rest-service-webapi" location="sample-rest-service-webapi.war" name="sample-rest-service-webapi">
+        <classloader apiTypeVisibility="spec,ibm-api,api,third-party" />
+    </webApplication>
 </server>

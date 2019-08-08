@@ -1,11 +1,15 @@
 package jp.co.sample.rest.framework.exception;
 
-import jp.co.sample.rest.framework.exception.dto.ErrorDto;
+import jp.co.sample.rest.framework.exception.dto.ErrorMessage;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
  * システム基底例外.
+ * 必須のパラメータが設定されていないなど、処理継続不可能な場合に送出する例外.
+ * 主にアプリケーションの不具合に起因して発生する.
  */
+@AllArgsConstructor
 @Getter
 public class SystemException extends RuntimeException {
 
@@ -13,7 +17,7 @@ public class SystemException extends RuntimeException {
   private static final long serialVersionUID = -3994899668033929545L;
 
   /** エラーDto. */
-  private final ErrorDto errorDto;
+  private final ErrorMessage errorDto;
 
   /**
    * デフォルトコンストラクター.
@@ -30,7 +34,7 @@ public class SystemException extends RuntimeException {
    * @param cause 例外
    * @param error エラーDto
    */
-  public SystemException(Throwable cause, ErrorDto error) {
+  public SystemException(Throwable cause, ErrorMessage error) {
     super(cause);
     this.errorDto = error;
   }

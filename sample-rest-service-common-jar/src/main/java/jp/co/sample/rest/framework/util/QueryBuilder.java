@@ -30,13 +30,13 @@ public class QueryBuilder {
     // 検索結果取得クエリ構築
     StringBuilder searchQuery = new StringBuilder().append("SELECT e FROM ").append(entityName).append(" e ");
 
-    if (!StringUtils.isEmpty(where)) {
+    if (StringUtils.isNotEmpty(where)) {
       countQuery.append("WHERE ").append(where);
       searchQuery.append("WHERE ").append(where);
     }
 
     String orderBy = buildOrderBy(searchCondition.getSortList());
-    if (!StringUtils.isEmpty(orderBy)) {
+    if (StringUtils.isNotEmpty(orderBy)) {
       searchQuery.append(orderBy);
     }
 

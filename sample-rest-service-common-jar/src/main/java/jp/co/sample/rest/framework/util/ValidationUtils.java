@@ -20,7 +20,7 @@ public class ValidationUtils {
    * @return 制約違反のSet、検証OKの場合は空のSet
    */
   public static <T> Set<ConstraintViolation<T>> valid(T bean, Class<?>... groups) {
-    Validator validator = (Validator) CdiUtils.getBean(Validator.class);
+    Validator validator = CdiUtils.getBean(Validator.class);
     return validator.validate(bean, groups);
   }
 

@@ -1,7 +1,7 @@
 package jp.co.sample.rest.framework.util;
 
 import jp.co.sample.rest.framework.exception.ApplicationException;
-import jp.co.sample.rest.framework.exception.dto.ErrorDto;
+import jp.co.sample.rest.framework.exception.dto.ErrorMessage;
 import jp.co.sample.rest.framework.message.MessageId;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
@@ -52,7 +52,7 @@ public abstract class AbstractBeanUtils {
       return dest;
     } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
         | SecurityException e) {
-      throw new ApplicationException(e, new ErrorDto(MessageId.F0001E, type.getSimpleName(), orig.getClass().getSimpleName()));
+      throw new ApplicationException(e, new ErrorMessage(MessageId.F0001E, type.getSimpleName(), orig.getClass().getSimpleName()));
     }
   }
 
@@ -66,7 +66,7 @@ public abstract class AbstractBeanUtils {
     try {
       BeanUtils.copyProperties(dest, orig);
     } catch (IllegalAccessException | InvocationTargetException e) {
-      throw new ApplicationException(e, new ErrorDto(MessageId.F0001E, dest.getClass().getSimpleName(), orig.getClass().getSimpleName()));
+      throw new ApplicationException(e, new ErrorMessage(MessageId.F0001E, dest.getClass().getSimpleName(), orig.getClass().getSimpleName()));
     }
   }
 
