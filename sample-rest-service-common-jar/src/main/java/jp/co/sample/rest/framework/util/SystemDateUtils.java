@@ -37,6 +37,9 @@ public class SystemDateUtils {
   /** システム日付（みなし日付）（プロパティ設定値）. */
   private static Optional<LocalDate> propertyDateOpt = Optional.empty();
 
+  /** 利用制限. */
+  private static boolean restriction;
+
   /** プロパティ読み込み. */
   static {
     init();
@@ -74,16 +77,26 @@ public class SystemDateUtils {
         propertyDateOpt = Optional.of(LocalDateFormatUtils.parse(deemedDate, DateFormatVo.YYYYMMDD_NO_DELIMITER));
         log.info(MessageUtils.getMessage(MessageId.F0005I, deemedDate));
       }
+
+    } else {
+      // システム日付プロパティがない場合は本番環境とみなし利用を制限する
+      restriction = true;
     }
   }
 
   /**
    * システム日付（みなし日付）を作成します.
+   * 利用制限がある場合は実際の現在日付を返します.
    * プロパティ／DBともにみなし日付の設定がない場合は、実際の現在日付を返します.
    *
    * @return システム日付（みなし日付）
    */
   private static LocalDate createDate() {
+    // 利用制限がある場合は実際の現在日付を返します
+    if (restriction) {
+      return LocalDate.now();
+    }
+
     return propertyDateOpt.orElseGet(() -> {
       LocalDate deemedDate = CdiUtils.getBean(SystemDateDao.class).find().getSystemDate();
       return deemedDate != null ? deemedDate : LocalDate.now();
