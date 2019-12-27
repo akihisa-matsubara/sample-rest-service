@@ -18,14 +18,6 @@
         <project.tools.path>${project.basedir}/../tools</project.tools.path>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>org.eclipse.persistence.jpa</artifactId>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
-
     <build>
         <finalName>sample-rest-service-common</finalName>
         <plugins>
