@@ -4,7 +4,7 @@
     <!-- 単体テスト環境用設定 -->
     <property scope="system" name="DEFAULT_CHARSET" value="MS932" />
     <property scope="system" name="LOG_DIR" value="C:/development/log/sample-rest-service" />
-    <property scope="system" name="LOG_FILE_NAME_HEADER" value="${LOG_FILE_NAME_HEADER}" />
+    <property scope="system" name="LOG_FILE_NAME_HEADER" value="ut-" />
     <!-- ログ出力フォーマット -->
     <property scope="system" name="DETAIL_FORMAT" value="%d{yy/MM/dd HH:mm:ss.SSS} ${HOSTNAME} [%thread] %-5level %logger{36} - %msg%n" />
     <property scope="system" name="SIMPLE_FORMAT" value="%d{yy/MM/dd HH:mm:ss.SSS} ${HOSTNAME} [%thread] %.-1level - %msg%n" />
