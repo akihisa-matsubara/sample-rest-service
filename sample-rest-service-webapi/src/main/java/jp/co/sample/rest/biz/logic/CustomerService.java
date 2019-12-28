@@ -1,7 +1,7 @@
 package jp.co.sample.rest.biz.logic;
 
+import jp.co.sample.framework.core.data.condition.SearchConditionDo;
 import jp.co.sample.rest.common.dto.CustomerDto;
-import jp.co.sample.rest.framework.data.condition.SearchConditionDo;
 import java.util.List;
 
 /**

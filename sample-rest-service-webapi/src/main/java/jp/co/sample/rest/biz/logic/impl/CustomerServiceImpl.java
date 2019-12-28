@@ -1,12 +1,12 @@
 package jp.co.sample.rest.biz.logic.impl;
 
+import jp.co.sample.framework.core.data.condition.SearchConditionDo;
 import jp.co.sample.rest.biz.logic.CustomerService;
 import jp.co.sample.rest.common.data.dao.CustomerDao;
 import jp.co.sample.rest.common.data.dao.SequenceGenerateDao;
 import jp.co.sample.rest.common.data.entity.CustomerEntity;
 import jp.co.sample.rest.common.dto.CustomerDto;
 import jp.co.sample.rest.common.util.SampleBeanUtils;
-import jp.co.sample.rest.framework.data.condition.SearchConditionDo;
 import jp.co.sample.rest.integration.service.ExternalCustomerService;
 import java.util.List;
 import java.util.stream.Collectors;

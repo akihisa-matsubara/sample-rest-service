@@ -1,6 +1,6 @@
 package jp.co.sample.rest.common.data.entity;
 
-import jp.co.sample.rest.framework.data.entity.DbBaseEntity;
+import jp.co.sample.framework.core.data.entity.DbBaseEntity;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;

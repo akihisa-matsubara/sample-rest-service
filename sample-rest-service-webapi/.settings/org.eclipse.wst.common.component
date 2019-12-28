@@ -9,18 +9,21 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
                 
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-                
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/.apt_generated"/>
-        <dependent-module archiveName="sample-rest-service-common-jar-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/sample-rest-service-common-jar/sample-rest-service-common-jar">
+        <dependent-module archiveName="sample-common-util-jar-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/sample-common-util-jar/sample-common-util-jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="sample-common-util-jar-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/sample-common-util-jar/sample-common-util-jar">
+        <dependent-module archiveName="sample-framework-core-jar-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/sample-framework-core-jar/sample-framework-core-jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="sample-framework-rest-jar-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/sample-framework-rest-jar/sample-framework-rest-jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
                 
         <property name="java-output-path" value="/sample-rest-service-webapi/target/classes"/>
                 
         <property name="context-root" value="sample-rest-service-webapi"/>
+        <property name="component.exclusion.patterns" value="pom.xml"/>
             
     </wb-module>
     

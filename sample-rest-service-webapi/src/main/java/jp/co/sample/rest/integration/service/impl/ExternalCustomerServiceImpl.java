@@ -1,11 +1,11 @@
 package jp.co.sample.rest.integration.service.impl;
 
+import jp.co.sample.framework.core.code.ResultVo;
+import jp.co.sample.framework.core.config.Config;
+import jp.co.sample.framework.core.interceptor.UsageStatistics;
+import jp.co.sample.framework.rest.util.ClientWrapper;
 import jp.co.sample.rest.common.constant.StatisticsProcess;
 import jp.co.sample.rest.common.dto.CustomerDto;
-import jp.co.sample.rest.framework.code.ResultVo;
-import jp.co.sample.rest.framework.config.Config;
-import jp.co.sample.rest.framework.interceptor.UsageStatistics;
-import jp.co.sample.rest.framework.util.ClientWrapper;
 import jp.co.sample.rest.integration.dto.CustomersResponseDto;
 import jp.co.sample.rest.integration.service.ExternalCustomerService;
 import java.util.Collections;

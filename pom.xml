@@ -11,8 +11,6 @@
     </parent>
 
     <modules>
-        <module>sample-rest-service-common-jar</module>
-        <module>sample-rest-service-test-util-jar</module>
         <module>sample-rest-service-webapi</module>
     </modules>
 
@@ -20,6 +18,14 @@
         <dependency>
             <groupId>jp.co.sample</groupId>
             <artifactId>sample-common-util-jar</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jp.co.sample</groupId>
+            <artifactId>sample-framework-core-jar</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jp.co.sample</groupId>
+            <artifactId>sample-framework-rest-jar</artifactId>
         </dependency>
 
         <!-- OSS Library -->

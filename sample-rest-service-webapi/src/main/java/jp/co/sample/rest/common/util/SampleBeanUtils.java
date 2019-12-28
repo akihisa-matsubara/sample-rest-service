@@ -1,6 +1,6 @@
 package jp.co.sample.rest.common.util;
 
-import jp.co.sample.rest.framework.util.AbstractBeanUtils;
+import jp.co.sample.framework.core.util.AbstractBeanUtils;
 
 /**
  * Beanユーティリティー.

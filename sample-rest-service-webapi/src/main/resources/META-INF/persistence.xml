@@ -10,8 +10,8 @@
         <mapping-file>META-INF/mydb_orm.xml</mapping-file>
 
         <!-- converter -->
-        <class>jp.co.sample.rest.framework.data.converter.LocalDateToDateConverter</class>
-        <class>jp.co.sample.rest.framework.data.converter.LocalDateTimeToTimestampConverter</class>
+        <class>jp.co.sample.framework.core.data.converter.LocalDateToDateConverter</class>
+        <class>jp.co.sample.framework.core.data.converter.LocalDateTimeToTimestampConverter</class>
 
         <!-- L2 Cache -->
         <shared-cache-mode>NONE</shared-cache-mode>

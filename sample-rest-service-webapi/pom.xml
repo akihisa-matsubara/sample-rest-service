@@ -19,18 +19,11 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>jp.co.sample</groupId>
-            <artifactId>sample-rest-service-common-jar</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <!-- test scope -->
         <!-- Arquillian -->
         <dependency>
             <groupId>jp.co.sample</groupId>
-            <artifactId>sample-rest-service-test-util-jar</artifactId>
-            <version>${project.version}</version>
+            <artifactId>sample-web-test-util-jar</artifactId>
             <scope>test</scope>
         </dependency>
 
