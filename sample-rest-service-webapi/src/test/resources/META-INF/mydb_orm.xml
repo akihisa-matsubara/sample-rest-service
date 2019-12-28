@@ -7,7 +7,7 @@
     <persistence-unit-metadata>
         <persistence-unit-defaults>
             <entity-listeners>
-                <entity-listener class="jp.co.sample.rest.framework.data.entity.DbEntityListener" />
+                <entity-listener class="jp.co.sample.framework.core.data.entity.DbEntityListener" />
             </entity-listeners>
         </persistence-unit-defaults>
     </persistence-unit-metadata>

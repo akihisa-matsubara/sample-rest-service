@@ -1,0 +1,48 @@
+<server description="sample">
+
+    <!-- Enable features -->
+    <featureManager>
+        <feature>javaee-7.0</feature>
+        <feature>adminCenter-1.0</feature>
+        <feature>localConnector-1.0</feature>
+        <feature>apiDiscovery-1.0</feature>
+        <feature>ssl-1.0</feature>
+	</featureManager>
+
+    <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint"/>
+
+    <!-- Automatically expand WAR files and EAR files -->
+    <applicationManager autoExpand="true"/>
+
+    <dataSource connectionSharing="MatchCurrentState" id="mydb" jdbcDriverRef="db2-driver" jndiName="jdbc/mydb" type="javax.sql.XADataSource">
+        <properties.db2.jcc currentLockTimeout="30s" currentSchema="MYSCHEMA" databaseName="MYDB" password="{xor}Oz1tPjsyNjE=" portNumber="50000" serverName="localhost" user="db2admin"/>
+    </dataSource>
+    <jdbcDriver id="db2-driver" libraryRef="db2-library"/>
+    <library id="db2-library">
+        <fileset dir="${shared.resource.dir}/db2" id="db2-fileset"/>
+    </library>
+
+    <!-- EclipseLink SQL trace -->
+    <logging maxFiles="10" traceSpecification="eclipselink.sql=all"/>
+
+    <!-- Define an Administrator and non-Administrator -->
+    <basicRegistry id="basic" realm="ibm/api">
+        <user name="admin" password="{xor}bm1sa2pp"/>
+        <user name="user" password="{xor}bm1sa2pp"/>
+    </basicRegistry>
+
+    <!-- Assign 'admin' to Administrator -->
+    <administrator-role>
+        <user>admin</user>
+    </administrator-role>
+
+    <sslDefault sslRef="DefaultSSLSettings"/>
+    <ssl id="DefaultSSLSettings" keyStoreRef="defaultKeyStore" trustStoreRef="defaultTrustStore"/>
+
+    <keyStore id="defaultKeyStore" password="{xor}bm1sa2pp"/>
+    <keyStore id="defaultTrustStore" location="key.jks" password="{xor}bm1sa2pp"/>
+
+    <applicationMonitor updateTrigger="mbean"/>
+
+    <executor/>
+</server>
