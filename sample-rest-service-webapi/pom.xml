@@ -86,8 +86,8 @@
                 <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
                 <configuration>
                     <packages>
-                        <param>jp.co.sample.rest.common.data.entity</param>
                         <param>jp.co.sample.rest.common.dto</param>
+                        <param>jp.co.sample.rest.data.entity</param>
                         <param>jp.co.sample.rest.integration.dto</param>
                     </packages>
                 </configuration>

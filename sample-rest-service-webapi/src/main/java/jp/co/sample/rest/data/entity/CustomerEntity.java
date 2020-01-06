@@ -1,4 +1,4 @@
-package jp.co.sample.rest.common.data.entity;
+package jp.co.sample.rest.data.entity;
 
 import jp.co.sample.framework.core.data.entity.DbBaseEntity;
 import java.time.LocalDate;

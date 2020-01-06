@@ -1,7 +1,7 @@
-package jp.co.sample.rest.common.data.dao;
+package jp.co.sample.rest.data.dao;
 
 import jp.co.sample.framework.core.data.dao.MyDbDao;
-import jp.co.sample.rest.common.data.entity.CustomerEntity;
+import jp.co.sample.rest.data.entity.CustomerEntity;
 import javax.enterprise.context.ApplicationScoped;
 
 /**

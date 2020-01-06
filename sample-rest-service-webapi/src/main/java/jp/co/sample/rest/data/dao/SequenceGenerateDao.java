@@ -1,4 +1,4 @@
-package jp.co.sample.rest.common.data.dao;
+package jp.co.sample.rest.data.dao;
 
 import jp.co.sample.framework.core.data.dao.MyDbDao;
 import javax.enterprise.context.ApplicationScoped;
