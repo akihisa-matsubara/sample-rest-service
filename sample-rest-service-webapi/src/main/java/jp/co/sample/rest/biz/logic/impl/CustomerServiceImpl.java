@@ -1,9 +1,9 @@
 package jp.co.sample.rest.biz.logic.impl;
 
 import jp.co.sample.framework.core.data.condition.SearchConditionDo;
+import jp.co.sample.framework.core.util.BeanUtilsExt;
 import jp.co.sample.rest.biz.logic.CustomerService;
 import jp.co.sample.rest.common.dto.CustomerDto;
-import jp.co.sample.rest.common.util.SampleBeanUtils;
 import jp.co.sample.rest.data.dao.CustomerDao;
 import jp.co.sample.rest.data.dao.SequenceGenerateDao;
 import jp.co.sample.rest.data.entity.CustomerEntity;
@@ -39,7 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
   @Override
   public List<CustomerDto> getCustomers(SearchConditionDo searchCondition) {
     List<CustomerEntity> entities = dao.search(searchCondition);
-    List<CustomerDto> customers = entities.stream().map(entity -> SampleBeanUtils.copyProperties(CustomerDto.class, entity)).collect(Collectors.toList());
+    List<CustomerDto> customers = entities.stream().map(entity -> BeanUtilsExt.copyProperties(CustomerDto.class, entity)).collect(Collectors.toList());
 
     // 外部サービス呼び出し
     List<CustomerDto> externalCustomers = externalService.getCustomers();
@@ -59,7 +59,7 @@ public class CustomerServiceImpl implements CustomerService {
       return null;
     }
 
-    return SampleBeanUtils.copyProperties(CustomerDto.class, entity);
+    return BeanUtilsExt.copyProperties(CustomerDto.class, entity);
   }
 
   /**
@@ -67,7 +67,7 @@ public class CustomerServiceImpl implements CustomerService {
    */
   @Override
   public void createCustomer(CustomerDto dto) {
-    CustomerEntity customer = SampleBeanUtils.copyProperties(CustomerEntity.class, dto);
+    CustomerEntity customer = BeanUtilsExt.copyProperties(CustomerEntity.class, dto);
 
     // generate pk
     customer.setCustomerNo(generateCustomerNo());
@@ -85,7 +85,7 @@ public class CustomerServiceImpl implements CustomerService {
       return 0;
     }
 
-    SampleBeanUtils.copyProperties(customer, dto);
+    BeanUtilsExt.copyProperties(customer, dto);
     dao.update(customer);
 
     return 1;
