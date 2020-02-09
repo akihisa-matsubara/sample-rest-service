@@ -1,8 +1,8 @@
 package jp.co.sample.rest.pres.resource;
 
-import jp.co.sample.common.code.DateFormat.DateFormatVo;
 import jp.co.sample.common.code.GenderVo;
 import jp.co.sample.common.util.LocalDateFormatUtils;
+import jp.co.sample.common.util.DateFormat.DateFormatVo;
 import jp.co.sample.framework.rest.constant.CommonReqParam;
 import jp.co.sample.framework.rest.pres.dto.ResponseBaseDto;
 import jp.co.sample.framework.rest.pres.resource.ResourceBase;

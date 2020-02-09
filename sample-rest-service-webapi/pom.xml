@@ -16,6 +16,7 @@
         <!-- override -->
         <project.lib.path>${project.basedir}/../lib</project.lib.path>
         <project.tools.path>${project.basedir}/../tools</project.tools.path>
+        <project.report.config.path>${project.basedir}/../../eclipse-settings</project.report.config.path>
     </properties>
 
     <dependencies>
