@@ -15,10 +15,14 @@ public final class ReqParam {
   public static final String GENDER = "gender";
   /** 生年月日. */
   public static final String BIRTHDAY = "birthday";
+  /** 電話番号. */
+  public static final String TEL_NO = "telNo";
   /** 郵便番号. */
   public static final String ADDRESS_ZIP = "addressZip";
   /** 住所. */
   public static final String ADDRESS = "address";
+  /** Eメール. */
+  public static final String EMAIL = "email";
 
   /** -- 固有項目 ---------------------------------------------------------------------------------. */
   /** /customers. */

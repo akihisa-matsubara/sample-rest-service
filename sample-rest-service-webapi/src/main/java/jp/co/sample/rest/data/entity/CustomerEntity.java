@@ -45,6 +45,10 @@ public class CustomerEntity extends DbBaseEntity {
   @Column(name = "BIRTHDAY")
   private LocalDate birthday;
 
+  /** 電話番号. */
+  @Column(name = "TEL_NO")
+  private String telNo;
+
   /** 郵便番号. */
   @Column(name = "ADDRESS_ZIP")
   private String addressZip;
@@ -52,5 +56,9 @@ public class CustomerEntity extends DbBaseEntity {
   /** 住所. */
   @Column(name = "ADDRESS")
   private String address;
+
+  /** Eメール. */
+  @Column(name = "EMAIL")
+  private String email;
 
 }

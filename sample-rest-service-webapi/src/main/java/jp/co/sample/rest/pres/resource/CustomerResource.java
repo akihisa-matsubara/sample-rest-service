@@ -47,8 +47,10 @@ public class CustomerResource implements ResourceBase {
    * @param nameKana 氏名カナ
    * @param gender 性別
    * @param birthday 生年月日
+   * @param telNo 電話番号
    * @param addressZip 郵便番号
    * @param address 住所
+   * @param email Eメール
    * @return {@link ResponseBaseDto} Response Dto(顧客情報)
    */
   @GET
@@ -61,16 +63,20 @@ public class CustomerResource implements ResourceBase {
       @QueryParam(ReqParam.NAME_KANA) String nameKana,
       @QueryParam(ReqParam.GENDER) String gender,
       @QueryParam(ReqParam.BIRTHDAY) LocalDate birthday,
+      @QueryParam(ReqParam.TEL_NO) String telNo,
       @QueryParam(ReqParam.ADDRESS_ZIP) String addressZip,
-      @QueryParam(ReqParam.ADDRESS) String address) {
+      @QueryParam(ReqParam.ADDRESS) String address,
+      @QueryParam(ReqParam.EMAIL) String email) {
 
     SearchConditionBuilder builder = new SearchConditionBuilder(offset, limit, sort)
         .putParam(ReqParam.NAME_KANJI, nameKanji)
         .putParam(ReqParam.NAME_KANA, nameKana)
         .putParam(ReqParam.GENDER, gender)
         .putParam(ReqParam.BIRTHDAY, birthday)
+        .putParam(ReqParam.TEL_NO, telNo)
         .putParam(ReqParam.ADDRESS_ZIP, addressZip)
-        .putParam(ReqParam.ADDRESS, address);
+        .putParam(ReqParam.ADDRESS, address)
+        .putParam(ReqParam.EMAIL, email);
 
     List<CustomerDto> customers = customerService.getCustomers(builder.build());
     return ResourceBase.createResponse(customers);
