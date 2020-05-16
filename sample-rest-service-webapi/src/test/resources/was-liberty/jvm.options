@@ -1,6 +1,6 @@
 -Xmx1024m
 -Xms512m
--Dconsole.encoding=UTF-8
+#-Dconsole.encoding=UTF-8
 -Dfile.encoding=UTF-8
 -Dclient.encoding.override=UTF-8
--Dactive.profile=dev
+-Dactive.profile=uit
