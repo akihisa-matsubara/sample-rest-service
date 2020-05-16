@@ -7,12 +7,9 @@ API詳細は `sample-rest-service-webapi-doc` を確認してください。
 ## 動作確認環境
 | Platform | Version | Edition |
 | -------- | ------- | ------- |
-| ~~IBM WebSphere Application Server~~ | 9.0.0.9 | traditional |
 | IBM WebSphere Application Server | 18.0.0.3 | Liberty |
 | IBM Java | 1.8.0_181 | |
 | DB2 | 11.1.4.4 | |
-
-[issues#15](https://github.com/akihisa-matsubara/sample-rest-service/issues/15)のため現在は traditional で動きません
 
 ## 利用技術
 | FW/OSS | Version |
@@ -32,7 +29,7 @@ API詳細は `sample-rest-service-webapi-doc` を確認してください。
 DB構築手順は [sample-db](https://github.com/akihisa-matsubara/sample-db) を参照
 
 ## 環境構築
-1. WASの任意のEditionとIBM Java8をインストールします  
+1. WAS LibertyとIBM Java8をインストールします  
    ※IBM Java8はWAS関連製品(ex. WAS traditional, WAS liberty, etc...)と一緒にインストールできますがここでは割愛します  
    ※以降はWAS Liberty Profile(以降WLP)前提の手順で記載しています  
    https://developer.ibm.com/wasdev/downloads/#asset/runtimes-wlp-javaee7
