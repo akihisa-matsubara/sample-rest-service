@@ -8,6 +8,14 @@
     <property scope="system" name="DETAIL_FORMAT" value="%d{yy/MM/dd HH:mm:ss.SSS} ${HOSTNAME} [%thread] %-5level %logger{36} - %msg%n" />
     <property scope="system" name="SIMPLE_FORMAT" value="%d{yy/MM/dd HH:mm:ss.SSS} ${HOSTNAME} [%thread] %.-1level - %msg%n" />
 
+    <!-- コンソールログ -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${DETAIL_FORMAT}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
     <!-- デバッグログ -->
     <appender name="DEBUG_LOG_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_DIR}/debug.log</file>
@@ -80,30 +88,36 @@
     <!-- ロガー -->
     <logger name="jp.co.sample" additivity="false">
         <level value="DEBUG" />
-        <appender-ref ref="DEBUG_LOG_APPENDER" />
+        <!-- <appender-ref ref="DEBUG_LOG_APPENDER" /> -->
+        <appender-ref ref="STDOUT" />
     </logger>
 
     <logger name="PERFORMANCE_LOGGER" additivity="false">
         <level value="DEBUG" />
-        <appender-ref ref="PERFORMANCE_LOG_APPENDER" />
+        <!-- <appender-ref ref="PERFORMANCE_LOG_APPENDER" /> -->
+        <appender-ref ref="STDOUT" />
     </logger>
 
     <logger name="ACCESS_LOGGER" additivity="false">
         <level value="DEBUG" />
-        <appender-ref ref="ACCESS_LOG_APPENDER" />
+        <!-- <appender-ref ref="ACCESS_LOG_APPENDER" /> -->
+        <appender-ref ref="STDOUT" />
     </logger>
 
     <logger name="STATISTICS_LOGGER" additivity="false">
         <level value="DEBUG" />
-        <appender-ref ref="STATISTICS_LOG_APPENDER" />
+        <!-- <appender-ref ref="STATISTICS_LOG_APPENDER" /> -->
+        <appender-ref ref="STDOUT" />
     </logger>
 
     <logger name="ERROR_LOGGER" additivity="false">
         <level value="WARN" />
-        <appender-ref ref="ERROR_LOG_APPENDER" />
+        <!-- <appender-ref ref="ERROR_LOG_APPENDER" /> -->
+        <appender-ref ref="STDOUT" />
     </logger>
 
     <root level="DEBUG">
-        <appender-ref ref="DEBUG_LOG_APPENDER" />
+        <!-- <appender-ref ref="DEBUG_LOG_APPENDER" /> -->
+        <appender-ref ref="STDOUT" />
     </root>
 </configuration>
