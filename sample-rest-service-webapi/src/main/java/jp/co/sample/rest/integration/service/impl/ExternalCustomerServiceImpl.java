@@ -20,12 +20,12 @@ import javax.inject.Inject;
 public class ExternalCustomerServiceImpl implements ExternalCustomerService {
 
   /** 外部サービス基底URL. */
-  @Config
+  @Config("sample.rest-service.external-service-base-url")
   @Inject
   private String externalServiceBaseUrl;
 
   /** 外部サービスURL. */
-  @Config
+  @Config("sample.rest-service.customers-api")
   @Inject
   private String customersApi;
 
