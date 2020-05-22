@@ -1,2 +1,7 @@
-target
-src/test/assertions
+**/META-INF/MANIFEST.MF
+.classpath
+.factorypath
+.project
+.settings
+/src/test/assertions/
+/target/
