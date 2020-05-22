@@ -7,7 +7,7 @@
     <persistence-unit-metadata>
         <persistence-unit-defaults>
             <entity-listeners>
-                <entity-listener class="jp.co.sample.framework.core.data.entity.DbEntityListener" />
+                <entity-listener class="dev.sample.framework.core.data.entity.DbEntityListener" />
             </entity-listeners>
         </persistence-unit-defaults>
     </persistence-unit-metadata>
@@ -24,5 +24,5 @@
             SELECT NEXT VALUE FOR SEQ_CUSTOMER_NO FROM SYSIBM.DUAL
         ]]></query>
     </named-native-query>
-    <entity class="jp.co.sample.rest.data.entity.CustomerEntity" />
+    <entity class="dev.sample.rest.data.entity.CustomerEntity" />
 </entity-mappings>

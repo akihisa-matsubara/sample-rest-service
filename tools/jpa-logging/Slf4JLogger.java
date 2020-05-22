@@ -1,4 +1,4 @@
-package jp.co.sample.framework.core.log.persistence;
+package dev.sample.framework.core.log.persistence;
 
 import java.security.AccessController;
 import org.eclipse.persistence.config.PersistenceUnitProperties;

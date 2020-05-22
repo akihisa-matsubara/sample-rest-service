@@ -10,8 +10,8 @@
         <mapping-file>META-INF/mydb_orm.xml</mapping-file>
 
         <!-- converter -->
-        <class>jp.co.sample.framework.core.data.converter.LocalDateToDateConverter</class>
-        <class>jp.co.sample.framework.core.data.converter.LocalDateTimeToTimestampConverter</class>
+        <class>dev.sample.framework.core.data.converter.LocalDateToDateConverter</class>
+        <class>dev.sample.framework.core.data.converter.LocalDateTimeToTimestampConverter</class>
 
         <!-- L2 Cache -->
         <shared-cache-mode>NONE</shared-cache-mode>
@@ -22,7 +22,7 @@
             <property name="eclipselink.logging.level.sql" value="FINE" />
             <property name="eclipselink.logging.parameters" value="true" />
             <!-- for traditional -->
-            <!-- <property name="eclipselink.logging.logger" value="jp.co.sample.framework.core.log.persistence.Slf4JLogger"/> -->
+            <!-- <property name="eclipselink.logging.logger" value="dev.sample.framework.core.log.persistence.Slf4JLogger"/> -->
             <!-- for liberty -->
             <property name="eclipselink.logging.logger" value="ServerLogger" />
         </properties>

@@ -5,7 +5,7 @@
     <packaging>pom</packaging>
 
     <parent>
-        <groupId>jp.co.sample</groupId>
+        <groupId>dev.sample</groupId>
         <artifactId>sample-bom</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -16,15 +16,15 @@
 
     <dependencies>
         <dependency>
-            <groupId>jp.co.sample</groupId>
+            <groupId>dev.sample</groupId>
             <artifactId>sample-common-util-jar</artifactId>
         </dependency>
         <dependency>
-            <groupId>jp.co.sample</groupId>
+            <groupId>dev.sample</groupId>
             <artifactId>sample-framework-core-jar</artifactId>
         </dependency>
         <dependency>
-            <groupId>jp.co.sample</groupId>
+            <groupId>dev.sample</groupId>
             <artifactId>sample-framework-rest-jar</artifactId>
         </dependency>
 
@@ -101,7 +101,7 @@
 
         <!-- test scope -->
         <dependency>
-            <groupId>jp.co.sample</groupId>
+            <groupId>dev.sample</groupId>
             <artifactId>sample-test-util-jar</artifactId>
             <scope>test</scope>
         </dependency>

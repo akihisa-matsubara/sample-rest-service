@@ -1,4 +1,4 @@
-package jp.co.sample.framework.core.log.persistence;
+package dev.sample.framework.core.log.persistence;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -7,7 +7,7 @@
     <packaging>war</packaging>
 
     <parent>
-        <groupId>jp.co.sample</groupId>
+        <groupId>dev.sample</groupId>
         <artifactId>sample-rest-service-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -22,7 +22,7 @@
     <dependencies>
         <!-- test scope -->
         <dependency>
-            <groupId>jp.co.sample</groupId>
+            <groupId>dev.sample</groupId>
             <artifactId>sample-web-test-util-jar</artifactId>
             <scope>test</scope>
         </dependency>
@@ -87,9 +87,9 @@
                 <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
                 <configuration>
                     <packages>
-                        <param>jp.co.sample.rest.common.dto</param>
-                        <param>jp.co.sample.rest.data.entity</param>
-                        <param>jp.co.sample.rest.integration.dto</param>
+                        <param>dev.sample.rest.common.dto</param>
+                        <param>dev.sample.rest.data.entity</param>
+                        <param>dev.sample.rest.integration.dto</param>
                     </packages>
                 </configuration>
             </plugin>

@@ -79,7 +79,7 @@
     </appender>
 
     <!-- ロガー -->
-    <logger name="jp.co.sample" additivity="false">
+    <logger name="dev.sample" additivity="false">
         <level value="DEBUG" />
         <appender-ref ref="DEBUG_LOG_APPENDER" />
     </logger>
