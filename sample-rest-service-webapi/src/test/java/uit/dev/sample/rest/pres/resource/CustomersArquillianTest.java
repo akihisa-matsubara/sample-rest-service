@@ -2,10 +2,8 @@ package uit.dev.sample.rest.pres.resource;
 
 import static org.assertj.core.api.Assertions.*;
 import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.apache.cxf.jaxrs.provider.jsrjsonp.JsrJsonpProvider;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
@@ -14,6 +12,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import dev.sample.rest.test.util.ArquillianTestUtils;
+import dev.sample.rest.test.util.RestClientTestUtils;
 
 /**
  * Customers API テストクラス.
@@ -36,8 +35,7 @@ public class CustomersArquillianTest {
   @InSequence(1)
   public void testCustomersEndpoints() throws Exception {
     // --- setup -----
-    Client client = ClientBuilder.newClient();
-    client.register(JsrJsonpProvider.class);
+    Client client = RestClientTestUtils.newClient();
 
     // --- execute ---
     // Cutomers API [GET] /cutomers
@@ -46,6 +44,7 @@ public class CustomersArquillianTest {
     // JsonObject jsonResponse = response.readEntity(JsonObject.class);
 
     // --- verify ----
+    // TODO create custom assertion (ResponseAssert) class
     assertThat(response.getStatus()).as("HTTPステータスコードが200であること").isEqualTo(200);
   }
 
