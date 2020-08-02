@@ -16,7 +16,6 @@
         <!-- override -->
         <project.lib.path>${project.basedir}/../lib</project.lib.path>
         <project.tools.path>${project.basedir}/../tools</project.tools.path>
-        <project.report.config.path>${project.basedir}/../../eclipse-settings</project.report.config.path>
     </properties>
 
     <dependencies>
@@ -68,6 +67,10 @@
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>net.revelc.code.formatter</groupId>
+                <artifactId>formatter-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>

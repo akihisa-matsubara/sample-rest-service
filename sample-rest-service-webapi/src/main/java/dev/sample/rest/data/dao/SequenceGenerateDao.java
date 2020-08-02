@@ -1,7 +1,7 @@
 package dev.sample.rest.data.dao;
 
-import javax.enterprise.context.ApplicationScoped;
 import dev.sample.framework.core.data.dao.MyDbDao;
+import javax.enterprise.context.ApplicationScoped;
 
 /**
  * シーケンス生成Dao.

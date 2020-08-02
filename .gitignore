@@ -1,4 +1,6 @@
+.cache
 .project
 .settings/*.prefs
+.sts4-cache
 /src/test/assertions
 /target/

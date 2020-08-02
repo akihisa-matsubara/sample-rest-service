@@ -1,5 +1,7 @@
 package dev.sample.rest.data.entity;
 
+import dev.sample.common.code.GenderVo;
+import dev.sample.framework.core.data.entity.DbBaseEntity;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import dev.sample.framework.core.data.entity.DbBaseEntity;
 
 /**
  * 顧客Entity.
@@ -39,7 +40,7 @@ public class CustomerEntity extends DbBaseEntity {
 
   /** 性別. */
   @Column(name = "GENDER")
-  private String gender;
+  private GenderVo gender;
 
   /** 生年月日. */
   @Column(name = "BIRTHDAY")

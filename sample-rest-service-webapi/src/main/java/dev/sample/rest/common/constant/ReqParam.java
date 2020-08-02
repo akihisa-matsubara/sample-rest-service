@@ -6,7 +6,7 @@ package dev.sample.rest.common.constant;
  */
 public final class ReqParam {
 
-  /** -- 汎用項目 ------------------------------------------------------------------------------. */
+  // -- 汎用項目 ---------------------------------------------------------------------------------
   /** 氏名漢字. */
   public static final String NAME_KANJI = "nameKanji";
   /** 氏名カナ. */
@@ -24,8 +24,8 @@ public final class ReqParam {
   /** Eメール. */
   public static final String EMAIL = "email";
 
-  /** -- 固有項目 ---------------------------------------------------------------------------------. */
-  /** /customers. */
+  // -- 固有項目 ---------------------------------------------------------------------------------
+  // customers
   /** 顧客番号. */
   public static final String CUSTOMER_NO = "customerNo";
 

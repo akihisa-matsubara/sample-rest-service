@@ -1,5 +1,12 @@
 package dev.sample.rest.pres.resource;
 
+import dev.sample.framework.rest.constant.CommonReqParam;
+import dev.sample.framework.rest.pres.dto.ResponseBaseDto;
+import dev.sample.framework.rest.pres.resource.ResourceBase;
+import dev.sample.framework.rest.util.SearchConditionBuilder;
+import dev.sample.rest.biz.logic.CustomerService;
+import dev.sample.rest.common.constant.ReqParam;
+import dev.sample.rest.common.dto.CustomerDto;
 import java.time.LocalDate;
 import java.util.List;
 import javax.inject.Inject;
@@ -16,13 +23,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import dev.sample.framework.rest.constant.CommonReqParam;
-import dev.sample.framework.rest.pres.dto.ResponseBaseDto;
-import dev.sample.framework.rest.pres.resource.ResourceBase;
-import dev.sample.framework.rest.util.SearchConditionBuilder;
-import dev.sample.rest.biz.logic.CustomerService;
-import dev.sample.rest.common.constant.ReqParam;
-import dev.sample.rest.common.dto.CustomerDto;
 
 /**
  * 顧客リソース.
@@ -120,7 +120,9 @@ public class CustomerResource implements ResourceBase {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public ResponseBaseDto<Integer> updateCustomer(@Valid List<CustomerDto> formList) {
-    int updateCount = formList.stream().mapToInt(customerService::updateCustomer).sum();
+    int updateCount = formList.stream()
+        .mapToInt(customerService::updateCustomer)
+        .sum();
     return ResourceBase.createResponse(updateCount);
   }
 

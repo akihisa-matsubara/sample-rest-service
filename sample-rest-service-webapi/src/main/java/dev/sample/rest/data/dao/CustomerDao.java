@@ -1,8 +1,8 @@
 package dev.sample.rest.data.dao;
 
-import javax.enterprise.context.ApplicationScoped;
 import dev.sample.framework.core.data.dao.MyDbDao;
 import dev.sample.rest.data.entity.CustomerEntity;
+import javax.enterprise.context.ApplicationScoped;
 
 /**
  * 顧客Dao.
@@ -17,8 +17,8 @@ public class CustomerDao extends MyDbDao<CustomerEntity, String> {
    */
   public void deleteById(String customerNo) {
     getEntityManager().createNamedQuery(CustomerEntity.DELETE_BY_ID)
-      .setParameter("customerNo", customerNo)
-      .executeUpdate();
+        .setParameter("customerNo", customerNo)
+        .executeUpdate();
   }
 
   /**

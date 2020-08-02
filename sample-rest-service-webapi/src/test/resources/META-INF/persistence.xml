@@ -10,8 +10,9 @@
         <mapping-file>META-INF/mydb_orm.xml</mapping-file>
 
         <!-- converter -->
-        <class>dev.sample.framework.core.data.converter.LocalDateToDateConverter</class>
-        <class>dev.sample.framework.core.data.converter.LocalDateTimeToTimestampConverter</class>
+        <class>dev.sample.framework.core.data.converter.LocalDateConverter</class>
+        <class>dev.sample.framework.core.data.converter.LocalDateTimeConverter</class>
+        <class>dev.sample.framework.core.data.converter.GenderVoConverter</class>
 
         <!-- L2 Cache -->
         <shared-cache-mode>NONE</shared-cache-mode>

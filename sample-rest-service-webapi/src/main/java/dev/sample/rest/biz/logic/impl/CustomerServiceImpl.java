@@ -1,11 +1,5 @@
 package dev.sample.rest.biz.logic.impl;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-import org.apache.commons.lang3.StringUtils;
 import dev.sample.framework.core.data.condition.SearchConditionDo;
 import dev.sample.framework.core.util.BeanUtilsExt;
 import dev.sample.rest.biz.logic.CustomerService;
@@ -14,6 +8,12 @@ import dev.sample.rest.data.dao.CustomerDao;
 import dev.sample.rest.data.dao.SequenceGenerateDao;
 import dev.sample.rest.data.entity.CustomerEntity;
 import dev.sample.rest.integration.service.ExternalCustomerService;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 顧客サービス実装.
@@ -39,7 +39,9 @@ public class CustomerServiceImpl implements CustomerService {
   @Override
   public List<CustomerDto> getCustomers(SearchConditionDo searchCondition) {
     List<CustomerEntity> entities = dao.search(searchCondition);
-    List<CustomerDto> customers = entities.stream().map(entity -> BeanUtilsExt.copyProperties(CustomerDto.class, entity)).collect(Collectors.toList());
+    List<CustomerDto> customers = entities.stream()
+        .map(entity -> BeanUtilsExt.copyProperties(CustomerDto.class, entity))
+        .collect(Collectors.toList());
 
     // 外部サービス呼び出し
     List<CustomerDto> externalCustomers = externalService.getCustomers();

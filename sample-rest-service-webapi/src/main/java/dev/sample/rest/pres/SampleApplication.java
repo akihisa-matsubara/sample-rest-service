@@ -3,6 +3,7 @@ package dev.sample.rest.pres;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
+// @formatter:off
 /**
  * <PRE>
  * サンプルアプリケーション.
@@ -16,6 +17,7 @@ import javax.ws.rs.core.Application;
  * <tr><td>{@code LocalDateTime}</td><td>yyyy-MM-dd'T'HH:mm:ss.SSS</td></tr>
  * </table>
  */
+// @formatter:on
 @ApplicationPath("/api/v1/sample")
 public class SampleApplication extends Application {
   // nothing

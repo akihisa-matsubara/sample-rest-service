@@ -1,7 +1,7 @@
 package dev.sample.rest.integration.service;
 
-import java.util.List;
 import dev.sample.rest.common.dto.CustomerDto;
+import java.util.List;
 
 /**
  * 外部顧客サービス.

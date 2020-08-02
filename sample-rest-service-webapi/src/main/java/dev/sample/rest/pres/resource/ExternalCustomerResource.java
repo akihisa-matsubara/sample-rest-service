@@ -1,5 +1,13 @@
 package dev.sample.rest.pres.resource;
 
+import dev.sample.common.code.GenderVo;
+import dev.sample.common.util.DateFormat.DateFormatVo;
+import dev.sample.common.util.LocalDateFormatUtils;
+import dev.sample.framework.rest.constant.CommonReqParam;
+import dev.sample.framework.rest.pres.dto.ResponseBaseDto;
+import dev.sample.framework.rest.pres.resource.ResourceBase;
+import dev.sample.rest.common.constant.ReqParam;
+import dev.sample.rest.common.dto.CustomerDto;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +17,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import dev.sample.common.code.GenderVo;
-import dev.sample.common.util.LocalDateFormatUtils;
-import dev.sample.common.util.DateFormat.DateFormatVo;
-import dev.sample.framework.rest.constant.CommonReqParam;
-import dev.sample.framework.rest.pres.dto.ResponseBaseDto;
-import dev.sample.framework.rest.pres.resource.ResourceBase;
-import dev.sample.rest.common.constant.ReqParam;
-import dev.sample.rest.common.dto.CustomerDto;
 
 /**
  * 顧客リソース(外部システム想定).
@@ -61,7 +61,7 @@ public class ExternalCustomerResource implements ResourceBase {
     externalCustomer.setCustomerNo("E1234567");
     externalCustomer.setNameKanji("外部　顧客");
     externalCustomer.setNameKana("ガイブ　コキャク");
-    externalCustomer.setGender(GenderVo.MALE.getCode());
+    externalCustomer.setGender(GenderVo.MALE);
     externalCustomer.setBirthday(LocalDateFormatUtils.parse("2004-05-12", DateFormatVo.YYYYMMDD));
     externalCustomer.setTelNo("09012345678");
     externalCustomer.setAddressZip("1234567");

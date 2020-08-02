@@ -1,6 +1,8 @@
 package uit.dev.sample.rest.pres.resource;
 
 import static org.assertj.core.api.Assertions.*;
+import dev.sample.rest.test.util.ArquillianTestUtils;
+import dev.sample.rest.test.util.RestClientTestUtils;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -11,8 +13,6 @@ import org.jboss.arquillian.junit.InSequence;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import dev.sample.rest.test.util.ArquillianTestUtils;
-import dev.sample.rest.test.util.RestClientTestUtils;
 
 /**
  * Customers API テストクラス.

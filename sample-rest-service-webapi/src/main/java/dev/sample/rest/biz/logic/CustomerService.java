@@ -1,8 +1,8 @@
 package dev.sample.rest.biz.logic;
 
-import java.util.List;
 import dev.sample.framework.core.data.condition.SearchConditionDo;
 import dev.sample.rest.common.dto.CustomerDto;
+import java.util.List;
 
 /**
  * 顧客サービス.

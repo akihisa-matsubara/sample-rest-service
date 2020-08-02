@@ -1,5 +1,6 @@
 package dev.sample.rest.common.dto;
 
+import dev.sample.common.code.GenderVo;
 import java.io.Serializable;
 import java.time.LocalDate;
 import javax.validation.constraints.Size;
@@ -25,7 +26,7 @@ public class CustomerDto implements Serializable {
   private String nameKana;
 
   /** 性別. */
-  private String gender;
+  private GenderVo gender;
 
   /** 生年月日. */
   private LocalDate birthday;

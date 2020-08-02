@@ -2,6 +2,12 @@ package dev.sample.rest.biz.logic.impl;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import dev.sample.framework.core.constant.PersistenceUnit;
+import dev.sample.framework.core.data.condition.SearchConditionDo;
+import dev.sample.framework.core.data.entitymanager.MyDb;
+import dev.sample.framework.rest.util.SearchConditionBuilder;
+import dev.sample.rest.common.dto.CustomerDto;
+import dev.sample.rest.integration.service.impl.ExternalCustomerServiceImpl;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -18,13 +24,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import dev.sample.framework.core.constant.PersistenceUnit;
-import dev.sample.framework.core.data.condition.SearchConditionDo;
-import dev.sample.framework.core.data.entitymanager.MyDb;
-import dev.sample.framework.rest.util.SearchConditionBuilder;
-import dev.sample.rest.biz.logic.impl.CustomerServiceImpl;
-import dev.sample.rest.common.dto.CustomerDto;
-import dev.sample.rest.integration.service.impl.ExternalCustomerServiceImpl;
 
 /**
  * CustomerService 実装 テストクラス.
